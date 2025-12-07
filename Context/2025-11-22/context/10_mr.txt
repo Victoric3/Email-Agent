@@ -1,0 +1,88 @@
+# Lead Context File: Mr H Tutoring (mr) — Serial 10
+
+**First Name:** Mr H (or "Mr. H")  
+**Channel Name:** Mr H Tutoring  
+**Email:** mensatutor@gmail.com
+
+---
+
+## Special:
+Mr H is the "calm, methodical tutor next door." With 25 years of teaching experience and a Mensa-level academic background, he strips away the intimidation from high school math by teaching like he's sitting across the table from you. His signature is his **step-by-step clarity**—he doesn't rush, he doesn't skip steps, and he doesn't assume you know anything. Every problem is broken down into digestible micro-steps with a patient, almost meditative pacing. He's the anti-flashy educator: no gimmicks, no hype, just pure instructional craft. His Orange County roots give him a localized, personal feel, but his 367K subscribers prove his method scales. He's the tutor you wish you had in high school.
+
+---
+
+## Approach:
+Position EulaIQ as the tool that **upgrades his hand-drawn diagrams and static whiteboard work into dynamic, professional animations** without changing his teaching rhythm. Pitch it as: **"Your 25 years of teaching clarity meets 3Blue1Brown-level visual precision."** Emphasize that our system respects his pacing—it animates *as he speaks*, so the visuals sync perfectly with his methodical explanations. This isn't about making him flashy; it's about making his already-excellent teaching **visually unforgettable**.
+
+---
+
+## Compliment:
+Your teaching style is the gold standard of clarity—the way you break down parallel and perpendicular lines into micro-steps (defining slope, flipping to negative reciprocal, plugging in points) makes algebra feel like a conversation, not a lecture. You teach like a Mensa tutor who genuinely wants students to *get it*, not just pass the test.
+
+---
+
+## Video Title:
+**Parallel and Perpendicular Lines, Algebra 2 Lesson #3**
+
+**Video URL:** https://youtu.be/46bGG6bTZZs?si=oI65l4jcrvH8TYI5
+
+---
+
+## Reason:
+This video is a **perfect use case** for EulaIQ. Mr H verbally walks through the definition of parallel lines ("same slope"), then demonstrates with three equations (y = 2x + 3, y = 2x - 1, y = 2x - 4). Currently, he writes these equations by hand and draws the lines statically. **Our tool would animate each line appearing in real-time as he says the equation**, visually reinforcing the concept of "same slope = parallel lines." 
+
+Then, when he transitions to perpendicular lines, he explains negative reciprocals (-2/1 becomes 1/2). **Our system would animate the slope flipping and the fraction inverting on-screen** the moment he says it, making the abstract concept concrete. Finally, when he plugs in the point (-2, 5) to solve for b, **our tool would highlight the substitution step-by-step**, showing the algebra unfolding in sync with his voice.
+
+This is the kind of **visual-verbal synchronization** that turns a good explanation into an unforgettable one.
+
+---
+
+## Context for Sample:
+The sample MUST focus on the **perpendicular lines section** (timestamp ~2:30–4:30). Specifically:
+1. **Animate the slope transformation**: Show "-2/1" on screen, then visually flip it to "1/2" with a smooth rotation/inversion animation as Mr H says "negative reciprocal."
+2. **Animate the point substitution**: When he plugs in (-2, 5) into y = (1/2)x + b, show the equation on screen with the values sliding into place: "5 = (1/2)(-2) + b" → "5 = -1 + b" → "b = 6."
+3. **Animate the final equation**: Show "y = (1/2)x + 6" appearing cleanly as he states the final answer.
+
+**Technical directive for animation team:**  
+- Use clean, textbook-style typography (no handwriting fonts—this should look like a polished digital textbook).  
+- Sync animations to his voice cadence (he pauses between steps, so animations should appear in those pauses).  
+- Use subtle color coding: parallel lines in one color family (blues), perpendicular lines in another (greens), to reinforce the conceptual difference.
+
+---
+
+## DRAFT EMAIL TEMPLATE:
+
+**Subject:** I animated your Perpendicular Lines lesson (Demo inside)
+
+Hi Mr H,
+
+I've been watching your breakdown of parallel and perpendicular lines (Algebra 2 Lesson #3), and I'm genuinely impressed by how you make slope transformations feel so intuitive. The way you walk through the negative reciprocal concept—flipping -2/1 into 1/2—is the kind of step-by-step clarity that separates great tutors from good ones.
+
+I noticed that your teaching relies heavily on **verbal precision paired with static diagrams**. You explain every micro-step, but the visuals stay still while your voice does the heavy lifting.
+
+I'm Victor from **EulaIQ** (part of the NVIDIA Inception program). We built an AI that listens to your voice and **automatically animates the math you're describing**. Instead of you writing "y = (1/2)x + b" by hand, our system visualizes the equation building itself on-screen *as you say it*—the slope flips, the point substitutes, and the final answer appears in perfect sync with your explanation.
+
+I tested EulaIQ on a 2-minute clip of your Perpendicular Lines video. It captured the moment you explained the negative reciprocal and solved for b, but with **clean, textbook-quality animations** that match your teaching rhythm.
+
+I'd love to send you that sample clip so you can see what your voice looks like with high-end animation. **Reply with "Hi" if you're curious**, and I'll drop the link.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ
+
+**P.S.** There's no new software for you to learn. Our system works directly with the audio/video files you already record. You keep teaching your way—we just make it look like a 3Blue1Brown video.
+
+---
+
+**Internal Notes:**
+- **Best Video for Reference:** https://youtu.be/MnGfA2uO6C8?si=LNnn31fZsE29S9KI (check this for his highest-performing style)
+- **Engagement Level:** High (367K subs, 63M+ views, 432 videos)
+- **Localization:** Orange County-focused, but scalable appeal
+- **Sample Priority:** High—his methodical pacing is *perfect* for our animation sync tech
+- **Follow-up Strategy:** If he replies, offer a **free 5-video trial** to test the full workflow
+
+---
+
+**Date Created:** 2025-01-XX  
+**Lead Owner:** Victor Chukwujiobi  
+**Status:** Ready for Outreach

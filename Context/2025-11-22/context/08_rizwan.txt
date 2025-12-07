@@ -1,0 +1,127 @@
+# Lead Context File: Rizwan (MathandPhysicsConcepts)
+
+**First Name:** Rizwan  
+**Channel Name:** Math and Physics Concepts  
+**Email:** skypetutor65@gmail.com
+
+---
+
+## Special (Teaching Persona)
+
+Rizwan is a **patient, methodical instructor** who teaches like a live tutor conducting a one-on-one session. His signature style is **conversational scaffolding**—he doesn't just solve problems, he *walks students through the thinking process* with constant check-ins ("Are you understanding?", "Can you tell me?", "Wait, wait, wait—you are doing wrong"). 
+
+He teaches advanced math (Master's level linear algebra, systems of equations) but breaks it down into **elementary steps**, treating the viewer like a student sitting across from him. His tone is warm but firm—he corrects mistakes immediately and repeats concepts until they click. The video analyzed shows him teaching **graphical solution of linear systems**, where he guides the student through:
+- Finding x-intercepts and y-intercepts
+- Plotting points on a coordinate plane
+- Drawing lines and identifying intersection points
+
+His teaching philosophy: **"First you should understand, then you should do."** He prioritizes conceptual clarity over speed.
+
+---
+
+## Approach (The Pitch)
+
+Position EulaIQ as the tool that **upgrades his live tutoring sessions into polished, animated lessons** without losing the human warmth. Pitch it as:  
+**"The patient tutor meets 3Blue1Brown"**—where his step-by-step explanations are enhanced with clean, professional animations that appear *exactly when he describes them*, making his lessons feel like a hybrid of Khan Academy's clarity and Manim's visual power.
+
+The key insight: Rizwan already *narrates* the visuals he wants ("draw the graph", "mark this point", "this is the common point")—EulaIQ can **render those instructions automatically** so he doesn't have to manually draw or edit.
+
+---
+
+## Compliment (Opening Hook)
+
+*"Your teaching style is like having a patient tutor in the room—the way you guide students through systems of equations with constant check-ins ('Are you understanding?') makes advanced math feel genuinely accessible. You don't just solve problems; you teach students **how to think** through them."*
+
+---
+
+## Video Context for Sample
+
+**Video Title:** Solution of system of linear equation by graph or elimination method  
+**Video URL:** https://youtu.be/2KtWzHtbinc?si=sC_pFbvvq8hI9sEu
+
+**Reason (Visual Gap):**  
+This video relies entirely on **manual drawing and verbal instructions** to plot points, draw axes, and identify intersection points. Currently, Rizwan verbally guides the student to:
+- Write x-intercepts and y-intercepts
+- Plot points like (1, 0) and (0, -1)
+- Draw lines connecting those points
+- Identify the solution at the intersection (x ≈ 3, y ≈ 1.9)
+
+This is the **perfect use case** for EulaIQ: the system can listen to his narration and automatically render:
+- Coordinate axes with labeled scales
+- Points appearing as he calls them out
+- Lines drawing themselves between intercepts
+- The intersection point highlighted with coordinates displayed
+
+The sample should focus on the **moment he says "draw the line between these points"** and show the line animating into place with clean labels.
+
+---
+
+## Context for Sample (Technical Directive)
+
+**Scene to animate:**  
+The segment where Rizwan solves the system:
+- **Equation 1:** x - y = 1  
+- **Equation 2:** 2x + y = 8
+
+**Key moments to capture:**
+1. **Finding intercepts** (timestamp ~5:00–8:00):
+   - x-intercept of Equation 1: (1, 0)
+   - y-intercept of Equation 1: (0, -1)
+   - x-intercept of Equation 2: (4, 0)
+   - y-intercept of Equation 2: (0, 8)
+
+2. **Plotting and drawing** (timestamp ~8:00–10:00):
+   - Coordinate plane appears with labeled axes
+   - Points materialize as he calls them out
+   - Lines draw themselves connecting the intercepts
+
+3. **Identifying the solution** (timestamp ~10:00–11:00):
+   - The two lines intersect
+   - A highlighted point appears at the intersection
+   - Text displays: **x ≈ 3, y ≈ 1.9**
+
+**Animation style:**  
+Clean, educational (3Blue1Brown-inspired). Use **smooth transitions** for points and lines appearing. Keep Rizwan's voice as the primary guide—animations should feel like they're responding to his instructions in real-time.
+
+---
+
+## DRAFT EMAIL TEMPLATE
+
+**Subject:** I animated your linear systems lesson (Demo inside)
+
+Hi Rizwan,
+
+I've been watching your breakdown of solving systems of equations graphically, and I honestly love how you teach like a patient tutor—constantly checking in ("Are you understanding?") and guiding students through the thinking process, not just the answer.
+
+I noticed that your lessons rely heavily on verbal instructions to draw graphs, plot points, and identify intersections. You're essentially *narrating* the visuals you want students to see.
+
+I'm Victor from **EulaIQ** (part of the NVIDIA Inception program). We built an AI that listens to your voice and **automatically animates the math you're describing**. Instead of you having to manually draw axes and plot points, our system visualizes them appearing exactly when you say "mark this point" or "draw the line."
+
+I tested EulaIQ on a 20-second clip of your linear systems video. It captured the moment you identified the x-intercepts and y-intercepts, then animated the lines drawing themselves and highlighting the intersection point—all synced to your narration.
+
+I'd love to send you that sample clip so you can see what your tutoring sessions look like with high-end animation. **Reply with "Hi" if you're curious**, and I'll drop the link.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ
+
+**P.S.** There's no new software for you to learn. Our system works directly with the audio/video files you already record. You keep teaching the way you do—we just make it look like 3Blue1Brown.
+
+---
+
+**Sample Link Placeholder:** `[To be generated and inserted here]`  
+**Follow-up Loom Demo:** `[Short walkthrough of how EulaIQ works for math tutors]`
+
+---
+
+**Internal Notes:**
+- Rizwan's channel is small (754 subs) but highly engaged—his teaching style is **scalable** if paired with better visuals.
+- His Facebook presence suggests he's building a tutoring brand—position EulaIQ as a tool to **professionalize his content** without changing his teaching approach.
+- Sample should emphasize **time savings** (no more manual drawing) and **visual clarity** (students can focus on the math, not deciphering handwriting).
+- Potential objection: "I like the personal feel of hand-drawn graphs." Counter: "EulaIQ keeps your voice and pacing—it just makes the visuals cleaner so students can follow along more easily."
+
+---
+
+**Date Created:** 2025-01-20  
+**Lead Owner:** Victor Chukwujiobi  
+**Status:** Sample ready to generate, email draft finalized

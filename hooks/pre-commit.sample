@@ -1,0 +1,35 @@
+#!/bin/sh
+# Sample pre-commit hook - copy to .git/hooks/pre-commit to enable.
+# This script scans staged files for common secret patterns and blocks commit if found.
+
+echo "Running pre-commit secret scan..."
+
+STAGED_FILES=$(git diff --cached --name-only -r)
+
+if [ -z "$STAGED_FILES" ]; then
+  echo "No staged files to check."
+  exit 0
+fi
+
+FAIL=0
+PATTERNS="mongodb+srv|BEGIN RSA PRIVATE KEY|PRIVATE KEY|BEGIN PRIVATE KEY|api_key|apikey|access_key|secret_key|aws_secret|password\s*[:=]|token\s*[:=]|Authorization:\s*Bearer|smtp_password"
+
+for f in $STAGED_FILES; do
+  # Only scan text files
+  if git ls-files --error-unmatch "$f" >/dev/null 2>&1; then
+    # extract staged content
+    content=$(git show :"$f" 2>/dev/null || true)
+    if echo "$content" | egrep -iq "$PATTERNS"; then
+      echo "\n🔒 Potential secret found in staged file: $f"
+      echo "Please move secrets to .env or environment variables and ensure .env is in .gitignore."
+      FAIL=1
+    fi
+  fi
+done
+
+if [ "$FAIL" -ne 0 ]; then
+  echo "\nCommit aborted: Remove secrets from staged files before committing."
+  exit 1
+fi
+
+exit 0

@@ -1,0 +1,131 @@
+# Lead Context File: Maths Coach
+
+**First Name:** Maths Coach (or "Coach")  
+**Channel Name:** Maths Coach  
+**Email:** coachmemaths@gmail.com
+
+---
+
+## Special (Persona Analysis)
+
+Maths Coach is the **"Calm Exam Whisperer"** — an ex-Head of Maths with 18 years of teaching experience who has mastered the art of breaking down exam anxiety. His signature style is **methodical step-by-step instruction** delivered in a reassuring, almost meditative tone. 
+
+Unlike flashy math YouTubers, he doesn't rely on personality or entertainment — he relies on **structure and clarity**. Every video follows a predictable, comforting pattern: "Step number one... Step number two... Step number three..." This ritualistic approach makes intimidating GCSE and A-Level problems feel manageable.
+
+His teaching philosophy is rooted in **visual decomposition through sketching**. In the quadratic inequalities video, he doesn't just solve — he *shows* students how to **sketch the graph, decide the shape, and visually interpret the solution**. He repeatedly emphasizes: *"You decide on the shape... if you got X squared, it's going to be a positive graph... if you've got a negative X², it's going to be an upside-down graph."*
+
+This is a teacher who **trusts the power of the sketch** — but his hand-drawn graphs and labels are functional, not polished. That's where EulaIQ comes in.
+
+---
+
+## Approach (The Pitch Strategy)
+
+Position EulaIQ as the tool that **upgrades his hand-drawn sketches into professional, animated diagrams** without disrupting his teaching rhythm. 
+
+The pitch: **"Your step-by-step method is perfect. Let's make your sketches as clear as your explanations."**
+
+Frame it as: *"The Exam Prep Coach meets 3Blue1Brown"* — keeping the calm, structured delivery but elevating the visual clarity to match the precision of his logic.
+
+---
+
+## Compliment (The Hook)
+
+*"Your teaching style is the 'Calm Exam Whisperer' — the way you break down quadratic inequalities into four clear steps ('factorize, find the limits, sketch the graph, decide the shape') makes high-pressure GCSE topics feel genuinely manageable. That methodical rhythm is what students need when they're anxious about exams."*
+
+---
+
+## Video Title & URL
+
+**Video Title:** How to Solve Quadratic Inequalities - GCSE Maths Higher  
+**Video URL:** https://youtu.be/edTFSnznfoA?si=YPgib7oFZUBIx6-Q
+
+---
+
+## Reason (The Visual Gap)
+
+This video is **entirely dependent on sketching parabolas and labeling critical points** (the limits at x = -2 and x = 3). Currently, Maths Coach draws these by hand and verbally guides students through:
+- Deciding whether the parabola opens upward (positive x²) or downward (negative x²)
+- Marking the x-intercepts (limits)
+- Shading the regions where y < 0 or y > 0
+
+The problem: **His hand-drawn sketches are functional but lack the visual precision needed for students to internalize the concept**. When he says *"this part of the graph here and this part of the graph here is what I want,"* students need to *see* it with crystal clarity.
+
+This is the **perfect use case** for EulaIQ's animation layer:
+- Automatically render the parabola as he describes it
+- Animate the x-intercepts sliding into place at x = -2 and x = 3
+- Highlight the solution regions (shaded areas) in real-time as he explains them
+- Show the transition between y < 0 (below the axis) and y > 0 (above the axis) with smooth visual cues
+
+---
+
+## Context for Sample (Technical Directive for Animation Team)
+
+**Video Focus:** Quadratic Inequalities (x² - x - 6 < 0)
+
+**Key Moments to Animate:**
+
+1. **Factorization Step (00:00:00 - 00:00:07)**  
+   - Show the equation: x² - x - 6 < 0  
+   - Animate factorization: (x - 3)(x + 2) < 0
+
+2. **Finding the Limits (00:00:07 - 00:00:18)**  
+   - Solve as normal: x = 3 and x = -2  
+   - Label these as "limits" (not final answers)
+
+3. **Sketching the Graph (00:00:22 - 00:01:00)**  
+   - Draw coordinate axes  
+   - Animate the parabola opening upward (positive x²)  
+   - Mark x-intercepts at x = -2 and x = 3  
+   - Show the parabola passing through these points
+
+4. **Deciding the Shape (00:00:36 - 00:00:56)**  
+   - Visual cue: "Positive x² → U-shaped parabola"  
+   - Contrast: "Negative x² → Upside-down parabola" (show both for comparison)
+
+5. **Interpreting the Inequality (00:01:37 - 00:02:14)**  
+   - Highlight the y-axis and label y = 0  
+   - Shade the region *below* the x-axis (y < 0) in one color  
+   - Animate the solution: **-2 < x < 3** (the region between the limits)
+
+6. **Alternative Case: y > 0 (00:03:05 - 00:04:40)**  
+   - Show the same parabola  
+   - This time, shade the regions *above* the x-axis (y > 0)  
+   - Animate the solution: **x > 3 OR x < -2** (two separate regions)
+
+**Critical Animation Requirements:**
+- The parabola must render smoothly as he describes it (not all at once)
+- The x-intercepts should "slide into place" at x = -2 and x = 3 when he says "these are called the limits"
+- The shaded regions must appear dynamically as he explains "this part of the graph here"
+- Use contrasting colors for y < 0 (e.g., red shading below axis) and y > 0 (e.g., blue shading above axis)
+
+---
+
+## DRAFT EMAIL TEMPLATE
+
+**Subject:** I animated your Quadratic Inequalities lesson (Demo inside)
+
+Hi Coach,
+
+I've been watching your breakdown of quadratic inequalities (the "factorize, find the limits, sketch the graph" method), and I genuinely appreciate how you make high-pressure GCSE topics feel manageable. That step-by-step rhythm is exactly what anxious students need.
+
+I noticed that your teaching relies heavily on **sketching parabolas and visually interpreting solution regions** — deciding the shape, marking the limits, and shading the correct parts of the graph.
+
+I'm Victor from **EulaIQ** (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the graphs you're describing. Instead of you having to sketch the parabola by hand, our system renders it in real-time — marking the x-intercepts at x = -2 and x = 3, shading the solution regions, and highlighting the difference between y < 0 and y > 0.
+
+I tested EulaIQ on a 30-second clip of your Quadratic Inequalities video. It captured the moment you explained "this part of the graph here is what I want" and animated the shaded region appearing exactly as you described it.
+
+I'd love to send you that sample clip so you can see what your step-by-step method looks like with professional-grade animations. **Reply with "Hi" if you're curious**, and I'll drop the link.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ
+
+**P.S.** There's no new software for you to learn. Our system works directly with the audio/video files you already record. You keep teaching your way — we just make your sketches as clear as your explanations.
+
+---
+
+**Internal Notes:**
+- **Sample Priority:** High (strong visual dependency, clear use case)
+- **Sample Focus:** Animate the parabola sketch + shaded solution regions
+- **Follow-up Hook:** Offer to animate his "Best Video" (Pythagoras theorem) as a second sample if he engages
+- **Conversion Angle:** Position as a time-saver for exam prep content (GCSE/A-Level creators need high volume + high clarity)

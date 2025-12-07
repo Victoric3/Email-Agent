@@ -1,0 +1,53 @@
+# Lead Context File: Rob and Jeremy (Math Antics)
+
+**First Name:** Rob (and Jeremy)  
+**Channel Name:** Math Antics  
+**Email:** rob@mathantics.com  
+
+---
+
+**Special:** Rob (and Jeremy) have built one of the most iconic foundational math channels on YouTube—Math Antics is the "first stop" for millions of students learning basic algebra and geometry. Rob's teaching style is defined by extreme clarity and systematic breakdown: he uses simple whiteboard animations, bold color coding, and a conversational "let me walk you through this" tone. His signature is making intimidating topics (like graphing inequalities or the coordinate plane) feel like common sense by isolating one concept at a time. The channel's strength is in its **pedagogical pacing**—Rob never rushes, and every visual element is deliberately timed to match his explanation. Math Antics is proof that you don't need flashy effects; you need **precision and patience**.
+
+**Approach:** Position EulaIQ as the tool that **automates the tedious animation work** Rob currently does manually (or outsources), while preserving his exact teaching rhythm. Pitch it as "Your voice already teaches perfectly—let us handle the animation layer so you can focus on the next lesson." Emphasize that our system respects his pacing and can generate the clean, color-coded diagrams he's known for, but faster.
+
+**Compliment:** Math Antics is the gold standard for foundational math education on YouTube. The way you isolate concepts (like graphing y = x before introducing inequalities) and use color-coded visuals to guide students through each step is exactly the kind of systematic clarity that makes math click for beginners.
+
+**Video Title:** Algebra Basics: Graphing On The Coordinate Plane  
+**Video URL:** https://youtu.be/[VIDEO_ID]  
+
+**Reason:** This video is a perfect example of Rob's methodical visual teaching—he graphs y = x step-by-step, then transitions to y ≥ x by shading the region above the line. Currently, these animations are pre-produced (likely in After Effects or similar). Our tool could **generate these exact diagrams and shading animations directly from his audio script**, cutting production time significantly. The moment at **1:00–1:30** where he explains "if x is 0 then y is 0, if x is 1 then y is 1" and plots the points is a perfect use case—our system would auto-generate the coordinate plane, plot the points as he speaks, and draw the line in real-time sync with his voice.
+
+**Context for Sample:** The sample MUST show the coordinate plane being drawn, then the points (0,0), (1,1), (2,2) appearing as Rob narrates them, followed by the diagonal line y = x being drawn through them. Then, when he transitions to y ≥ x, the region above the line should be shaded in real-time. The animation must match his deliberate pacing—no rushing. Use his signature color scheme (blue for axes, red for the line, light shading for the inequality region).
+
+---
+
+## DRAFT EMAIL TEMPLATE:
+
+**Subject:** I automated your "y = x" animation (sample inside)
+
+Hi Rob,
+
+I've been studying Math Antics for a while now, and I have to say—your channel is the gold standard for foundational math education. The way you break down graphing on the coordinate plane (starting with y = x, then layering in inequalities) is exactly the kind of systematic clarity that makes math click for beginners.
+
+I noticed that your teaching relies heavily on **perfectly timed visual diagrams**—the coordinate plane, the plotted points, the shaded regions. Right now, those animations are pre-produced (likely frame-by-frame in After Effects or similar).
+
+I'm Victor from **EulaIQ** (part of the NVIDIA Inception program). We built an AI that listens to your voice and **automatically generates the exact diagrams you're describing**—in real-time sync with your narration. Instead of spending hours animating the coordinate plane and shading the inequality region, our system does it for you, matching your pacing perfectly.
+
+I tested EulaIQ on a 30-second clip from your "Graphing On The Coordinate Plane" video—the moment where you plot (0,0), (1,1), (2,2) and draw the line y = x. Our system captured your narration and generated the coordinate plane, plotted the points as you spoke, and drew the line through them—all in your signature color scheme.
+
+I'd love to send you that sample clip so you can see what your voice looks like with **automated, production-ready animation**. Reply with **"Show me"** if you're curious, and I'll drop the link.
+
+Best,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ  
+
+**P.S.** There's no new software for you to learn. Our system works directly with the audio/video files you already record. You keep full ownership of the content—we're just the animation layer.
+
+---
+
+**Internal Notes for Sample Generation:**
+- Use the segment from **0:49–1:30** (the y = x explanation and graphing).
+- Must include: coordinate plane setup, points (0,0), (1,1), (2,2) appearing sequentially, line y = x being drawn.
+- Color scheme: Blue axes, red line, clean sans-serif labels.
+- Timing: Match Rob's deliberate pacing—no rushing. Each point should appear exactly when he says it.
+- Optional: If time permits, include the transition to y ≥ x with shading above the line (around 1:40–2:00 in the original video).

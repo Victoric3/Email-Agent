@@ -1,0 +1,39 @@
+First Name: Susanne
+Channel Name: MathQueenSusanne
+Email: MathQueenSusanne@gmail.com
+
+Special: She creates a "safe space" for difficult math. Her signature is her incredibly warm, patient tone ("Hello my lovelies") combined with visual geometric decomposition. She takes intimidating problems (like Oxford/Cambridge admission questions) and solves them using fundamental geometry logic, proving you don't need complex calculus if you have visual intuition.
+
+Approach: Position EulaIQ as the tool that upgrades her "hand-drawn decomposition" into clean, professional animations without losing her personal voice. Pitch it as "The Bob Ross of Math meets 3Blue1Brown."
+
+Compliment: Your teaching style is the "Bob Ross of Math"—the way you greet your audience ("Hello my lovelies") and calmly deconstruct intimidating Oxford problems makes high-level geometry feel genuinely accessible.
+
+Video Title: Oxford Admission Test – Find the value of x
+Video URL: https://youtu.be/4SWEpdg81y0?si=f4f-Myy7oUDwNui-
+
+Reason: This video relies entirely on geometric decomposition (breaking shapes into right triangles inside a square). Currently, she draws and labels (1-x) by hand. This is the perfect use case for our tool to slide labels into place automatically, improving clarity.
+
+Context for Sample: The video transcript focuses on an irregular hexagon inside a square. The sample MUST show the side of the square (length 1) being visually split into 'x' and '1-x' with clean bracket animations.
+
+---
+DRAFT EMAIL TEMPLATE:
+
+Subject: I animated your Oxford Hexagon problem (Demo inside)
+
+Hi Susanne,
+
+I’ve been watching your breakdown of the Oxford Admission Test (the irregular hexagon problem), and I honestly love how you make intimidating proofs feel so welcoming. The "Hello my lovelies" intro really sets a tone that is missing in most math tech content.
+
+I noticed that your teaching relies heavily on visual decomposition—finding the right triangles inside the square.
+
+I’m Victor from EulaIQ (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the geometry you are describing. Instead of you having to write out "(1-x)²" by hand, our system visualizes the equation popping out of the side length the moment you say it.
+
+I tested EulaIQ on a 15-second clip of your Hexagon video. It captured the moment you identified the hypotenuse and applied the Pythagorean theorem, but with perfect geometric lines.
+
+I’d love to send you that sample clip so you can see what your voice looks like with high-end animation. Reply with "Hi" if you're curious, and I’ll drop the link.
+
+Warmly,
+Victor Chukwujiobi
+CEO, EulaIQ
+
+P.S. There is no new software for you to learn. Our system works directly with the audio/video files you already record.

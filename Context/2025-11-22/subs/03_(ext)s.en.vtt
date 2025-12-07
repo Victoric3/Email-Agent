@@ -1,0 +1,634 @@
+WEBVTT
+Kind: captions
+Language: en
+
+NOTE Video title: 84) Length of direct common tangent for two circles. Derive formula.
+
+00:00:01.079 --> 00:00:02.909 align:start position:0%
+ 
+today's<00:00:01.520><c> question</c><00:00:01.839><c> given</c><00:00:02.080><c> are</c><00:00:02.320><c> two</c><00:00:02.480><c> circles</c>
+
+00:00:02.909 --> 00:00:02.919 align:start position:0%
+today's question given are two circles
+ 
+
+00:00:02.919 --> 00:00:05.430 align:start position:0%
+today's question given are two circles
+touching<00:00:03.280><c> each</c><00:00:03.439><c> other</c><00:00:03.760><c> with</c><00:00:04.000><c> radius</c><00:00:04.359><c> 9</c><00:00:04.680><c> cm</c><00:00:05.240><c> and</c>
+
+00:00:05.430 --> 00:00:05.440 align:start position:0%
+touching each other with radius 9 cm and
+ 
+
+00:00:05.440 --> 00:00:08.709 align:start position:0%
+touching each other with radius 9 cm and
+4<00:00:05.919><c> cm</c><00:00:06.919><c> we</c><00:00:07.040><c> are</c><00:00:07.160><c> drawing</c><00:00:07.520><c> a</c><00:00:08.000><c> direct</c><00:00:08.360><c> common</c>
+
+00:00:08.709 --> 00:00:08.719 align:start position:0%
+4 cm we are drawing a direct common
+ 
+
+00:00:08.719 --> 00:00:11.270 align:start position:0%
+4 cm we are drawing a direct common
+tangent<00:00:09.559><c> touching</c><00:00:09.960><c> the</c><00:00:10.080><c> circles</c><00:00:10.480><c> at</c><00:00:10.719><c> Point</c><00:00:11.000><c> a</c>
+
+00:00:11.270 --> 00:00:11.280 align:start position:0%
+tangent touching the circles at Point a
+ 
+
+00:00:11.280 --> 00:00:13.910 align:start position:0%
+tangent touching the circles at Point a
+and<00:00:11.519><c> point</c><00:00:11.840><c> B</c><00:00:12.719><c> question</c><00:00:13.080><c> is</c><00:00:13.240><c> to</c><00:00:13.480><c> find</c><00:00:13.759><c> the</c>
+
+00:00:13.910 --> 00:00:13.920 align:start position:0%
+and point B question is to find the
+ 
+
+00:00:13.920 --> 00:00:17.269 align:start position:0%
+and point B question is to find the
+length<00:00:14.240><c> of</c><00:00:14.440><c> this</c><00:00:14.639><c> common</c><00:00:15.000><c> tangent</c><00:00:15.440><c> or</c><00:00:16.080><c> AB</c><00:00:17.080><c> so</c>
+
+00:00:17.269 --> 00:00:17.279 align:start position:0%
+length of this common tangent or AB so
+ 
+
+00:00:17.279 --> 00:00:19.910 align:start position:0%
+length of this common tangent or AB so
+instead<00:00:17.600><c> of</c><00:00:17.760><c> solving</c><00:00:18.119><c> for</c><00:00:18.359><c> 9</c><00:00:18.640><c> and</c><00:00:18.840><c> 4</c><00:00:19.119><c> cm</c><00:00:19.680><c> we'll</c>
+
+00:00:19.910 --> 00:00:19.920 align:start position:0%
+instead of solving for 9 and 4 cm we'll
+ 
+
+00:00:19.920 --> 00:00:23.029 align:start position:0%
+instead of solving for 9 and 4 cm we'll
+solve<00:00:20.240><c> it</c><00:00:20.400><c> for</c><00:00:21.359><c> radius</c><00:00:22.000><c> capital</c><00:00:22.320><c> r</c><00:00:22.560><c> and</c><00:00:22.720><c> small</c>
+
+00:00:23.029 --> 00:00:23.039 align:start position:0%
+solve it for radius capital r and small
+ 
+
+00:00:23.039 --> 00:00:25.550 align:start position:0%
+solve it for radius capital r and small
+R<00:00:23.560><c> and</c><00:00:23.680><c> we'll</c><00:00:24.000><c> drive</c><00:00:24.240><c> our</c><00:00:24.439><c> formula</c><00:00:25.240><c> and</c><00:00:25.400><c> then</c>
+
+00:00:25.550 --> 00:00:25.560 align:start position:0%
+R and we'll drive our formula and then
+ 
+
+00:00:25.560 --> 00:00:28.710 align:start position:0%
+R and we'll drive our formula and then
+we'll<00:00:25.840><c> put</c><00:00:26.039><c> the</c><00:00:26.439><c> values</c><00:00:26.800><c> in</c>
+
+00:00:28.710 --> 00:00:28.720 align:start position:0%
+we'll put the values in
+ 
+
+00:00:28.720 --> 00:00:31.549 align:start position:0%
+we'll put the values in
+it<00:00:29.720><c> to</c><00:00:30.000><c> to</c><00:00:30.119><c> solve</c><00:00:30.439><c> it</c><00:00:30.599><c> we'll</c><00:00:30.800><c> start</c><00:00:31.080><c> with</c><00:00:31.240><c> some</c>
+
+00:00:31.549 --> 00:00:31.559 align:start position:0%
+it to to solve it we'll start with some
+ 
+
+00:00:31.559 --> 00:00:33.750 align:start position:0%
+it to to solve it we'll start with some
+construction<00:00:32.559><c> we</c><00:00:32.680><c> know</c><00:00:32.960><c> that</c><00:00:33.120><c> the</c><00:00:33.320><c> Circle</c>
+
+00:00:33.750 --> 00:00:33.760 align:start position:0%
+construction we know that the Circle
+ 
+
+00:00:33.760 --> 00:00:35.990 align:start position:0%
+construction we know that the Circle
+Center<00:00:34.440><c> the</c><00:00:34.600><c> point</c><00:00:34.840><c> of</c><00:00:35.040><c> contact</c><00:00:35.480><c> they</c><00:00:35.640><c> all</c><00:00:35.800><c> are</c>
+
+00:00:35.990 --> 00:00:36.000 align:start position:0%
+Center the point of contact they all are
+ 
+
+00:00:36.000 --> 00:00:40.229 align:start position:0%
+Center the point of contact they all are
+in<00:00:36.399><c> same</c><00:00:36.719><c> line</c><00:00:37.520><c> so</c><00:00:37.719><c> let's</c><00:00:38.120><c> join</c><00:00:38.520><c> o</c><00:00:38.800><c> and</c><00:00:39.000><c> o</c><00:00:39.280><c> dash</c>
+
+00:00:40.229 --> 00:00:40.239 align:start position:0%
+in same line so let's join o and o dash
+ 
+
+00:00:40.239 --> 00:00:42.430 align:start position:0%
+in same line so let's join o and o dash
+now<00:00:40.480><c> this</c><00:00:40.680><c> length</c><00:00:40.960><c> will</c><00:00:41.120><c> be</c><00:00:41.320><c> R</c><00:00:42.079><c> and</c><00:00:42.280><c> this</c>
+
+00:00:42.430 --> 00:00:42.440 align:start position:0%
+now this length will be R and this
+ 
+
+00:00:42.440 --> 00:00:46.830 align:start position:0%
+now this length will be R and this
+length<00:00:42.719><c> is</c><00:00:42.879><c> small</c><00:00:43.600><c> R</c><00:00:44.600><c> now</c><00:00:45.239><c> AB</c><00:00:45.640><c> is</c><00:00:45.719><c> a</c><00:00:45.960><c> tangent</c><00:00:46.600><c> so</c>
+
+00:00:46.830 --> 00:00:46.840 align:start position:0%
+length is small R now AB is a tangent so
+ 
+
+00:00:46.840 --> 00:00:50.869 align:start position:0%
+length is small R now AB is a tangent so
+let's<00:00:47.280><c> draw</c><00:00:47.960><c> O</c><00:00:48.280><c> A</c><00:00:49.000><c> so</c><00:00:49.199><c> this</c><00:00:49.320><c> is</c><00:00:49.600><c> capital</c><00:00:49.920><c> r</c><00:00:50.719><c> and</c>
+
+00:00:50.869 --> 00:00:50.879 align:start position:0%
+let's draw O A so this is capital r and
+ 
+
+00:00:50.879 --> 00:00:52.229 align:start position:0%
+let's draw O A so this is capital r and
+let's<00:00:51.120><c> draw</c><00:00:51.440><c> o</c>
+
+00:00:52.229 --> 00:00:52.239 align:start position:0%
+let's draw o
+ 
+
+00:00:52.239 --> 00:00:54.910 align:start position:0%
+let's draw o
+dasb<00:00:53.239><c> now</c><00:00:53.640><c> we</c><00:00:53.800><c> know</c><00:00:54.079><c> that</c><00:00:54.320><c> radius</c><00:00:54.719><c> is</c>
+
+00:00:54.910 --> 00:00:54.920 align:start position:0%
+dasb now we know that radius is
+ 
+
+00:00:54.920 --> 00:00:57.549 align:start position:0%
+dasb now we know that radius is
+perpendicular<00:00:55.559><c> to</c><00:00:55.800><c> tangent</c><00:00:56.359><c> so</c><00:00:56.600><c> this</c><00:00:56.719><c> is</c><00:00:56.920><c> 90°</c>
+
+00:00:57.549 --> 00:00:57.559 align:start position:0%
+perpendicular to tangent so this is 90°
+ 
+
+00:00:57.559 --> 00:01:00.590 align:start position:0%
+perpendicular to tangent so this is 90°
+angle<00:00:57.920><c> here</c><00:00:58.160><c> and</c><00:00:58.320><c> this</c><00:00:58.399><c> is</c><00:00:58.920><c> 90°</c><00:01:00.039><c> now</c><00:01:00.239><c> if</c><00:01:00.399><c> you'll</c>
+
+00:01:00.590 --> 00:01:00.600 align:start position:0%
+angle here and this is 90° now if you'll
+ 
+
+00:01:00.600 --> 00:01:04.670 align:start position:0%
+angle here and this is 90° now if you'll
+see<00:01:00.920><c> for</c><00:01:01.280><c> o</c><00:01:01.600><c> a</c><00:01:02.320><c> and</c><00:01:02.559><c> o</c><00:01:02.840><c> Das</c><00:01:03.079><c> B</c><00:01:04.000><c> these</c><00:01:04.199><c> two</c><00:01:04.400><c> angles</c>
+
+00:01:04.670 --> 00:01:04.680 align:start position:0%
+see for o a and o Das B these two angles
+ 
+
+00:01:04.680 --> 00:01:07.070 align:start position:0%
+see for o a and o Das B these two angles
+are<00:01:04.920><c> Co</c><00:01:05.159><c> interior</c><00:01:05.640><c> whose</c><00:01:05.880><c> sum</c><00:01:06.159><c> is</c>
+
+00:01:07.070 --> 00:01:07.080 align:start position:0%
+are Co interior whose sum is
+ 
+
+00:01:07.080 --> 00:01:10.510 align:start position:0%
+are Co interior whose sum is
+180°<00:01:08.080><c> so</c><00:01:08.280><c> o</c><00:01:08.560><c> a</c><00:01:08.840><c> and</c><00:01:09.040><c> o</c><00:01:09.360><c> Das</c><00:01:09.560><c> B</c><00:01:09.799><c> are</c><00:01:10.000><c> parallel</c><00:01:10.360><c> to</c>
+
+00:01:10.510 --> 00:01:10.520 align:start position:0%
+180° so o a and o Das B are parallel to
+ 
+
+00:01:10.520 --> 00:01:11.710 align:start position:0%
+180° so o a and o Das B are parallel to
+each
+
+00:01:11.710 --> 00:01:11.720 align:start position:0%
+each
+ 
+
+00:01:11.720 --> 00:01:14.149 align:start position:0%
+each
+other<00:01:12.720><c> now</c><00:01:12.880><c> we</c><00:01:12.960><c> are</c><00:01:13.119><c> drawing</c><00:01:13.680><c> one</c><00:01:13.880><c> more</c>
+
+00:01:14.149 --> 00:01:14.159 align:start position:0%
+other now we are drawing one more
+ 
+
+00:01:14.159 --> 00:01:16.990 align:start position:0%
+other now we are drawing one more
+construction<00:01:14.920><c> that</c><00:01:15.080><c> is</c><00:01:15.880><c> we</c><00:01:16.000><c> are</c><00:01:16.119><c> drawing</c><00:01:16.479><c> line</c>
+
+00:01:16.990 --> 00:01:17.000 align:start position:0%
+construction that is we are drawing line
+ 
+
+00:01:17.000 --> 00:01:20.310 align:start position:0%
+construction that is we are drawing line
+parallel<00:01:17.479><c> to</c><00:01:17.799><c> o</c><00:01:18.119><c> o</c><00:01:18.439><c> Das</c><00:01:19.200><c> from</c><00:01:19.560><c> B</c><00:01:19.960><c> so</c><00:01:20.119><c> we</c><00:01:20.200><c> are</c>
+
+00:01:20.310 --> 00:01:20.320 align:start position:0%
+parallel to o o Das from B so we are
+ 
+
+00:01:20.320 --> 00:01:23.270 align:start position:0%
+parallel to o o Das from B so we are
+drawing<00:01:20.720><c> BM</c><00:01:21.720><c> parallel</c><00:01:22.079><c> to</c><00:01:22.320><c> o</c><00:01:22.520><c> o</c>
+
+00:01:23.270 --> 00:01:23.280 align:start position:0%
+drawing BM parallel to o o
+ 
+
+00:01:23.280 --> 00:01:26.270 align:start position:0%
+drawing BM parallel to o o
+dash<00:01:24.280><c> now</c><00:01:25.119><c> these</c><00:01:25.320><c> two</c><00:01:25.520><c> lines</c><00:01:25.759><c> are</c><00:01:26.000><c> also</c>
+
+00:01:26.270 --> 00:01:26.280 align:start position:0%
+dash now these two lines are also
+ 
+
+00:01:26.280 --> 00:01:28.550 align:start position:0%
+dash now these two lines are also
+parallel<00:01:26.920><c> so</c><00:01:27.200><c> this</c><00:01:27.400><c> figure</c><00:01:27.880><c> which</c><00:01:28.000><c> is</c><00:01:28.119><c> forming</c>
+
+00:01:28.550 --> 00:01:28.560 align:start position:0%
+parallel so this figure which is forming
+ 
+
+00:01:28.560 --> 00:01:30.429 align:start position:0%
+parallel so this figure which is forming
+here<00:01:28.799><c> opposite</c><00:01:29.200><c> sides</c><00:01:29.400><c> are</c><00:01:29.560><c> parallel</c>
+
+00:01:30.429 --> 00:01:30.439 align:start position:0%
+here opposite sides are parallel
+ 
+
+00:01:30.439 --> 00:01:33.670 align:start position:0%
+here opposite sides are parallel
+so<00:01:30.600><c> it's</c><00:01:30.759><c> a</c><00:01:31.240><c> parallelogram</c><00:01:32.240><c> so</c><00:01:32.520><c> if</c><00:01:32.759><c> B</c><00:01:33.040><c> O</c><00:01:33.320><c> Das</c><00:01:33.560><c> is</c>
+
+00:01:33.670 --> 00:01:33.680 align:start position:0%
+so it's a parallelogram so if B O Das is
+ 
+
+00:01:33.680 --> 00:01:38.350 align:start position:0%
+so it's a parallelogram so if B O Das is
+R<00:01:34.360><c> small</c><00:01:34.680><c> R</c><00:01:35.240><c> then</c><00:01:35.479><c> this</c><00:01:35.680><c> o</c><00:01:35.880><c> m</c><00:01:36.159><c> will</c><00:01:36.320><c> be</c><00:01:36.799><c> small</c><00:01:37.360><c> R</c>
+
+00:01:38.350 --> 00:01:38.360 align:start position:0%
+R small R then this o m will be small R
+ 
+
+00:01:38.360 --> 00:01:42.389 align:start position:0%
+R small R then this o m will be small R
+and<00:01:39.159><c> A</c><00:01:39.439><c> M</c><00:01:39.720><c> will</c><00:01:39.920><c> become</c><00:01:40.280><c> your</c><00:01:40.880><c> capital</c><00:01:41.320><c> r</c><00:01:41.960><c> minus</c>
+
+00:01:42.389 --> 00:01:42.399 align:start position:0%
+and A M will become your capital r minus
+ 
+
+00:01:42.399 --> 00:01:46.789 align:start position:0%
+and A M will become your capital r minus
+small<00:01:42.759><c> R</c><00:01:43.759><c> now</c><00:01:44.000><c> o</c><00:01:44.200><c> o</c><00:01:44.479><c> dash</c><00:01:45.119><c> that's</c><00:01:45.640><c> capital</c><00:01:46.079><c> r+</c>
+
+00:01:46.789 --> 00:01:46.799 align:start position:0%
+small R now o o dash that's capital r+
+ 
+
+00:01:46.799 --> 00:01:53.310 align:start position:0%
+small R now o o dash that's capital r+
+small<00:01:47.079><c> R</c><00:01:48.000><c> so</c><00:01:48.320><c> MB</c><00:01:48.759><c> will</c><00:01:48.920><c> be</c><00:01:49.200><c> same</c><00:01:49.759><c> that</c><00:01:49.880><c> is</c><00:01:50.079><c> r</c><00:01:50.399><c> +</c>
+
+00:01:53.310 --> 00:01:53.320 align:start position:0%
+ 
+ 
+
+00:01:53.320 --> 00:01:57.590 align:start position:0%
+ 
+r<00:01:54.320><c> now</c><00:01:54.520><c> look</c><00:01:54.719><c> at</c><00:01:54.880><c> the</c><00:01:55.040><c> triangle</c><00:01:55.759><c> a</c><00:01:56.079><c> m</c><00:01:56.399><c> b</c><00:01:57.240><c> it's</c><00:01:57.399><c> a</c>
+
+00:01:57.590 --> 00:01:57.600 align:start position:0%
+r now look at the triangle a m b it's a
+ 
+
+00:01:57.600 --> 00:02:00.510 align:start position:0%
+r now look at the triangle a m b it's a
+right<00:01:57.799><c> angle</c><00:01:58.119><c> triangle</c><00:01:58.479><c> at</c><00:01:58.680><c> A</c><00:01:59.320><c> and</c><00:01:59.560><c> M</c><00:01:59.840><c> m</c><00:01:59.960><c> b</c><00:02:00.159><c> is</c>
+
+00:02:00.510 --> 00:02:00.520 align:start position:0%
+right angle triangle at A and M m b is
+ 
+
+00:02:00.520 --> 00:02:02.749 align:start position:0%
+right angle triangle at A and M m b is
+hypotenuse<00:02:01.520><c> so</c><00:02:01.719><c> applying</c><00:02:02.159><c> Pythagoras</c>
+
+00:02:02.749 --> 00:02:02.759 align:start position:0%
+hypotenuse so applying Pythagoras
+ 
+
+00:02:02.759 --> 00:02:06.029 align:start position:0%
+hypotenuse so applying Pythagoras
+Theorem<00:02:03.759><c> now</c><00:02:03.960><c> putting</c><00:02:04.280><c> the</c><00:02:04.439><c> value</c><00:02:04.799><c> of</c><00:02:05.520><c> ab</c><00:02:05.920><c> we</c>
+
+00:02:06.029 --> 00:02:06.039 align:start position:0%
+Theorem now putting the value of ab we
+ 
+
+00:02:06.039 --> 00:02:11.350 align:start position:0%
+Theorem now putting the value of ab we
+have<00:02:06.200><c> to</c><00:02:06.399><c> find</c><00:02:06.880><c> am</c><00:02:07.399><c> is</c><00:02:07.640><c> Rus</c><00:02:08.319><c> R</c><00:02:09.039><c> and</c><00:02:09.280><c> BM</c><00:02:09.720><c> is</c><00:02:09.920><c> r</c><00:02:10.200><c> +</c><00:02:10.520><c> r</c>
+
+00:02:11.350 --> 00:02:11.360 align:start position:0%
+have to find am is Rus R and BM is r + r
+ 
+
+00:02:11.360 --> 00:02:14.030 align:start position:0%
+have to find am is Rus R and BM is r + r
+so<00:02:11.599><c> solving</c><00:02:12.040><c> it</c><00:02:12.239><c> by</c><00:02:12.400><c> opening</c><00:02:12.720><c> the</c><00:02:13.040><c> brackets</c>
+
+00:02:14.030 --> 00:02:14.040 align:start position:0%
+so solving it by opening the brackets
+ 
+
+00:02:14.040 --> 00:02:18.030 align:start position:0%
+so solving it by opening the brackets
+now<00:02:14.319><c> both</c><00:02:14.560><c> the</c><00:02:14.760><c> side</c><00:02:15.400><c> R</c><00:02:16.040><c> square</c><00:02:17.040><c> and</c><00:02:17.239><c> R</c><00:02:17.480><c> square</c>
+
+00:02:18.030 --> 00:02:18.040 align:start position:0%
+now both the side R square and R square
+ 
+
+00:02:18.040 --> 00:02:20.110 align:start position:0%
+now both the side R square and R square
+will<00:02:18.239><c> get</c><00:02:18.440><c> cancelled</c><00:02:19.040><c> small</c><00:02:19.360><c> R</c><00:02:19.599><c> square</c><00:02:19.920><c> and</c>
+
+00:02:20.110 --> 00:02:20.120 align:start position:0%
+will get cancelled small R square and
+ 
+
+00:02:20.120 --> 00:02:22.309 align:start position:0%
+will get cancelled small R square and
+small<00:02:20.400><c> R</c><00:02:20.560><c> square</c><00:02:20.840><c> will</c><00:02:21.040><c> get</c><00:02:21.200><c> cancelled</c><00:02:22.160><c> so</c>
+
+00:02:22.309 --> 00:02:22.319 align:start position:0%
+small R square will get cancelled so
+ 
+
+00:02:22.319 --> 00:02:26.990 align:start position:0%
+small R square will get cancelled so
+we'll<00:02:22.640><c> get</c><00:02:22.879><c> AB</c><00:02:23.319><c> square</c><00:02:23.680><c> is</c><00:02:24.040><c> 4</c><00:02:24.360><c> *</c><00:02:24.760><c> of</c><00:02:24.959><c> RR</c><00:02:25.959><c> or</c><00:02:26.440><c> AB</c>
+
+00:02:26.990 --> 00:02:27.000 align:start position:0%
+we'll get AB square is 4 * of RR or AB
+ 
+
+00:02:27.000 --> 00:02:29.390 align:start position:0%
+we'll get AB square is 4 * of RR or AB
+the<00:02:27.160><c> length</c><00:02:27.480><c> of</c><00:02:27.879><c> direct</c><00:02:28.200><c> common</c><00:02:28.560><c> tangent</c>
+
+00:02:29.390 --> 00:02:29.400 align:start position:0%
+the length of direct common tangent
+ 
+
+00:02:29.400 --> 00:02:32.869 align:start position:0%
+the length of direct common tangent
+that's<00:02:29.840><c> 2</c><00:02:30.000><c> *</c><00:02:30.400><c> of</c><00:02:30.800><c> root</c><00:02:31.480><c> capital</c><00:02:31.879><c> r</c><00:02:32.280><c> into</c><00:02:32.599><c> small</c>
+
+00:02:32.869 --> 00:02:32.879 align:start position:0%
+that's 2 * of root capital r into small
+ 
+
+00:02:32.879 --> 00:02:35.670 align:start position:0%
+that's 2 * of root capital r into small
+R<00:02:33.800><c> this</c><00:02:34.000><c> formula</c><00:02:34.400><c> is</c><00:02:34.640><c> very</c><00:02:34.920><c> helpful</c><00:02:35.360><c> and</c><00:02:35.480><c> we'll</c>
+
+00:02:35.670 --> 00:02:35.680 align:start position:0%
+R this formula is very helpful and we'll
+ 
+
+00:02:35.680 --> 00:02:40.990 align:start position:0%
+R this formula is very helpful and we'll
+be<00:02:35.840><c> using</c><00:02:36.239><c> in</c><00:02:36.879><c> lot</c><00:02:37.080><c> of</c><00:02:37.280><c> question</c><00:02:37.680><c> in</c><00:02:37.920><c> future</c>
+
+00:02:40.990 --> 00:02:41.000 align:start position:0%
+ 
+ 
+
+00:02:41.000 --> 00:02:44.070 align:start position:0%
+ 
+videos<00:02:42.000><c> ended</c><00:02:42.400><c> formula</c><00:02:42.720><c> for</c><00:02:42.920><c> the</c><00:02:43.080><c> same</c><00:02:43.680><c> so</c><00:02:43.879><c> if</c>
+
+00:02:44.070 --> 00:02:44.080 align:start position:0%
+videos ended formula for the same so if
+ 
+
+00:02:44.080 --> 00:02:45.990 align:start position:0%
+videos ended formula for the same so if
+the<00:02:44.239><c> circles</c><00:02:44.920><c> they</c><00:02:45.040><c> are</c><00:02:45.200><c> not</c><00:02:45.400><c> touching</c><00:02:45.840><c> each</c>
+
+00:02:45.990 --> 00:02:46.000 align:start position:0%
+the circles they are not touching each
+ 
+
+00:02:46.000 --> 00:02:48.149 align:start position:0%
+the circles they are not touching each
+other<00:02:46.680><c> but</c><00:02:46.920><c> they</c><00:02:47.040><c> are</c><00:02:47.239><c> separated</c><00:02:47.800><c> by</c><00:02:47.959><c> a</c>
+
+00:02:48.149 --> 00:02:48.159 align:start position:0%
+other but they are separated by a
+ 
+
+00:02:48.159 --> 00:02:51.910 align:start position:0%
+other but they are separated by a
+distance<00:02:48.560><c> of</c><00:02:48.920><c> capital</c><00:02:49.360><c> D</c><00:02:50.200><c> from</c><00:02:50.480><c> each</c><00:02:50.640><c> other</c><00:02:51.519><c> so</c>
+
+00:02:51.910 --> 00:02:51.920 align:start position:0%
+distance of capital D from each other so
+ 
+
+00:02:51.920 --> 00:02:54.430 align:start position:0%
+distance of capital D from each other so
+instead<00:02:52.239><c> of</c><00:02:52.400><c> r</c><00:02:52.720><c> +</c><00:02:53.000><c> r</c><00:02:53.280><c> we'll</c><00:02:53.560><c> have</c><00:02:53.920><c> in</c><00:02:54.040><c> the</c><00:02:54.200><c> same</c>
+
+00:02:54.430 --> 00:02:54.440 align:start position:0%
+instead of r + r we'll have in the same
+ 
+
+00:02:54.440 --> 00:02:56.949 align:start position:0%
+instead of r + r we'll have in the same
+formula<00:02:54.840><c> we'll</c><00:02:55.080><c> have</c><00:02:55.239><c> D</c><00:02:55.599><c> here</c><00:02:56.280><c> so</c><00:02:56.560><c> again</c>
+
+00:02:56.949 --> 00:02:56.959 align:start position:0%
+formula we'll have D here so again
+ 
+
+00:02:56.959 --> 00:02:58.990 align:start position:0%
+formula we'll have D here so again
+taking<00:02:57.319><c> the</c><00:02:57.440><c> same</c><00:02:57.680><c> triangle</c><00:02:58.080><c> A</c><00:02:58.280><c> and</c><00:02:58.480><c> B</c>
+
+00:02:58.990 --> 00:02:59.000 align:start position:0%
+taking the same triangle A and B
+ 
+
+00:02:59.000 --> 00:03:02.110 align:start position:0%
+taking the same triangle A and B
+applying<00:02:59.400><c> pyth</c><00:03:00.080><c> theorem</c><00:03:00.920><c> so</c><00:03:01.159><c> instead</c><00:03:01.680><c> of</c>
+
+00:03:02.110 --> 00:03:02.120 align:start position:0%
+applying pyth theorem so instead of
+ 
+
+00:03:02.120 --> 00:03:05.070 align:start position:0%
+applying pyth theorem so instead of
+putting<00:03:02.560><c> your</c><00:03:02.879><c> BM</c><00:03:03.440><c> as</c><00:03:03.640><c> r+</c><00:03:04.120><c> R</c><00:03:04.319><c> we</c><00:03:04.400><c> will</c><00:03:04.680><c> just</c><00:03:04.879><c> put</c>
+
+00:03:05.070 --> 00:03:05.080 align:start position:0%
+putting your BM as r+ R we will just put
+ 
+
+00:03:05.080 --> 00:03:09.750 align:start position:0%
+putting your BM as r+ R we will just put
+D<00:03:05.879><c> here</c><00:03:06.879><c> and</c><00:03:07.120><c> solving</c><00:03:07.560><c> it</c><00:03:07.799><c> we'll</c><00:03:08.080><c> get</c><00:03:08.400><c> AB</c><00:03:08.959><c> as</c>
+
+00:03:09.750 --> 00:03:09.760 align:start position:0%
+D here and solving it we'll get AB as
+ 
+
+00:03:09.760 --> 00:03:14.110 align:start position:0%
+D here and solving it we'll get AB as
+Square<00:03:10.080><c> &lt;</c><00:03:10.200><c> TK</c><00:03:10.360><c> of</c><00:03:10.560><c> d</c><00:03:10.879><c> s</c><00:03:11.319><c> -</c><00:03:11.799><c> r</c><00:03:12.080><c> -</c><00:03:12.680><c> r²</c><00:03:13.680><c> so</c><00:03:13.920><c> this</c>
+
+00:03:14.110 --> 00:03:14.120 align:start position:0%
+Square &lt; TK of d s - r - r² so this
+ 
+
+00:03:14.120 --> 00:03:16.229 align:start position:0%
+Square &lt; TK of d s - r - r² so this
+formula<00:03:14.599><c> is</c><00:03:14.840><c> for</c><00:03:15.080><c> direct</c><00:03:15.360><c> common</c><00:03:15.720><c> tangent</c><00:03:16.040><c> if</c>
+
+00:03:16.229 --> 00:03:16.239 align:start position:0%
+formula is for direct common tangent if
+ 
+
+00:03:16.239 --> 00:03:19.030 align:start position:0%
+formula is for direct common tangent if
+circles<00:03:16.640><c> are</c><00:03:17.400><c> separated</c><00:03:18.000><c> from</c><00:03:18.200><c> each</c><00:03:18.360><c> other</c>
+
+00:03:19.030 --> 00:03:19.040 align:start position:0%
+circles are separated from each other
+ 
+
+00:03:19.040 --> 00:03:20.990 align:start position:0%
+circles are separated from each other
+and<00:03:19.200><c> if</c><00:03:19.360><c> they</c><00:03:19.440><c> are</c><00:03:19.640><c> touching</c><00:03:20.040><c> each</c><00:03:20.159><c> other</c><00:03:20.760><c> then</c>
+
+00:03:20.990 --> 00:03:21.000 align:start position:0%
+and if they are touching each other then
+ 
+
+00:03:21.000 --> 00:03:23.710 align:start position:0%
+and if they are touching each other then
+this<00:03:21.239><c> capital</c><00:03:21.599><c> D</c><00:03:21.799><c> will</c><00:03:22.000><c> become</c><00:03:22.239><c> r</c><00:03:22.480><c> +</c><00:03:22.720><c> r</c><00:03:23.400><c> and</c><00:03:23.560><c> the</c>
+
+00:03:23.710 --> 00:03:23.720 align:start position:0%
+this capital D will become r + r and the
+ 
+
+00:03:23.720 --> 00:03:26.630 align:start position:0%
+this capital D will become r + r and the
+formula<00:03:24.040><c> will</c><00:03:24.239><c> reduce</c><00:03:24.560><c> to</c><00:03:24.760><c> AB</c><00:03:25.159><c> is</c><00:03:25.519><c> 2</c><00:03:25.760><c> *</c><00:03:26.159><c> of</c><00:03:26.360><c> root</c>
+
+00:03:26.630 --> 00:03:26.640 align:start position:0%
+formula will reduce to AB is 2 * of root
+ 
+
+00:03:26.640 --> 00:03:28.670 align:start position:0%
+formula will reduce to AB is 2 * of root
+r
+
+00:03:28.670 --> 00:03:28.680 align:start position:0%
+r
+ 
+
+00:03:28.680 --> 00:03:31.309 align:start position:0%
+r
+r<00:03:29.959><c> let's</c><00:03:30.239><c> come</c><00:03:30.439><c> back</c><00:03:30.560><c> to</c><00:03:30.680><c> our</c><00:03:30.879><c> original</c>
+
+00:03:31.309 --> 00:03:31.319 align:start position:0%
+r let's come back to our original
+ 
+
+00:03:31.319 --> 00:03:34.509 align:start position:0%
+r let's come back to our original
+question<00:03:32.159><c> so</c><00:03:32.439><c> here</c><00:03:33.280><c> the</c><00:03:33.799><c> formula</c><00:03:34.200><c> we'll</c><00:03:34.400><c> be</c>
+
+00:03:34.509 --> 00:03:34.519 align:start position:0%
+question so here the formula we'll be
+ 
+
+00:03:34.519 --> 00:03:38.429 align:start position:0%
+question so here the formula we'll be
+using<00:03:34.959><c> AB</c><00:03:35.400><c> is</c><00:03:35.560><c> 2</c><00:03:35.799><c> *</c><00:03:36.239><c> of</c><00:03:36.560><c> root</c><00:03:36.840><c> RR</c><00:03:37.799><c> and</c><00:03:37.920><c> we'll</c><00:03:38.200><c> put</c>
+
+00:03:38.429 --> 00:03:38.439 align:start position:0%
+using AB is 2 * of root RR and we'll put
+ 
+
+00:03:38.439 --> 00:03:42.429 align:start position:0%
+using AB is 2 * of root RR and we'll put
+capital<00:03:38.799><c> r</c><00:03:39.200><c> as</c><00:03:39.400><c> 9</c><00:03:39.760><c> cm</c><00:03:40.680><c> small</c><00:03:41.000><c> r</c><00:03:41.239><c> as</c><00:03:41.400><c> 4</c><00:03:41.720><c> cm</c><00:03:42.280><c> so</c>
+
+00:03:42.429 --> 00:03:42.439 align:start position:0%
+capital r as 9 cm small r as 4 cm so
+ 
+
+00:03:42.439 --> 00:03:45.869 align:start position:0%
+capital r as 9 cm small r as 4 cm so
+length<00:03:42.720><c> of</c><00:03:42.920><c> common</c><00:03:43.239><c> tangent</c><00:03:43.720><c> is</c><00:03:44.360><c> coming</c><00:03:44.799><c> as</c><00:03:45.120><c> 12</c>
+
+00:03:45.869 --> 00:03:45.879 align:start position:0%
+length of common tangent is coming as 12
+ 
+
+00:03:45.879 --> 00:03:49.030 align:start position:0%
+length of common tangent is coming as 12
+CM<00:03:46.879><c> I</c><00:03:47.040><c> hope</c><00:03:47.200><c> you</c><00:03:47.319><c> enjoyed</c><00:03:47.680><c> the</c><00:03:47.840><c> solution</c><00:03:48.840><c> and</c>
+
+00:03:49.030 --> 00:03:49.040 align:start position:0%
+CM I hope you enjoyed the solution and
+ 
+
+00:03:49.040 --> 00:03:54.810 align:start position:0%
+CM I hope you enjoyed the solution and
+I'll<00:03:49.200><c> see</c><00:03:49.360><c> you</c><00:03:49.519><c> in</c><00:03:50.040><c> next</c><00:03:50.360><c> video</c><00:03:50.920><c> till</c><00:03:51.239><c> then</c><00:03:51.640><c> T</c>
+
+00:03:54.810 --> 00:03:54.820 align:start position:0%
+ 
+ 
+
+00:03:54.820 --> 00:03:58.670 align:start position:0%
+ 
+[Music]
+
+00:03:58.670 --> 00:03:58.680 align:start position:0%
+[Music]
+ 
+
+00:03:58.680 --> 00:04:00.420 align:start position:0%
+[Music]
+bye-bye
+
+00:04:00.420 --> 00:04:00.430 align:start position:0%
+bye-bye
+ 
+
+00:04:00.430 --> 00:04:08.830 align:start position:0%
+bye-bye
+[Music]
+
+00:04:08.830 --> 00:04:08.840 align:start position:0%
+[Music]
+ 
+
+00:04:08.840 --> 00:04:11.840 align:start position:0%
+[Music]
+w
+

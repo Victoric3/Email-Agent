@@ -1,0 +1,130 @@
+# Lead Context File: Anil Kumar (@MathematicsTutor)
+
+**First Name:** Anil  
+**Channel Name:** MathematicsTutor  
+**Email:** anil.anilkhandelwal@gmail.com
+
+---
+
+## Special (Teaching Persona)
+
+Anil Kumar is the **marathon runner of math education**—he's published over 18,000 videos (83M+ views), making him one of the most prolific math educators on YouTube. His teaching style is **methodical, patient, and process-driven**. He doesn't rush through concepts; instead, he walks students through problems step-by-step, building tables, filling grids, and systematically exploring all cases.
+
+His signature approach is **visual decomposition through structured tables**. In his probability videos, he doesn't just explain—he *constructs* understanding by drawing grids (like the 6×6 dice outcome table) and methodically filling every cell. He speaks directly to the student ("Do you see that?", "Make sense?", "Clear?"), creating a conversational, reassuring tone that makes complex topics feel manageable.
+
+Anil is a **volume creator**—his 18K+ video library suggests he values efficiency and scalability. However, his engagement metrics are low relative to his subscriber count (404K subs, but "Low" engagement), indicating his content may benefit from higher production quality to match his teaching depth.
+
+---
+
+## Approach (The Pitch)
+
+Position EulaIQ as **the production accelerator for high-volume educators**. Anil's strength is his teaching clarity and work ethic, but manually drawing tables, grids, and diagrams for 18,000+ videos is time-intensive and limits visual polish.
+
+Pitch it as: **"Your teaching method is perfect—let's make it look as professional as it sounds."**
+
+Frame EulaIQ as the tool that takes his audio explanations (like "So we got 1, 2, 3, 4, 5, 6 on one of them and the other could be 1, 2, 3, 4, 5, 6") and automatically generates clean, animated tables, grids, and step-by-step visual builds—without him needing to draw or edit anything.
+
+**High-concept analogy:** "You're the Henry Ford of math education—you've mastered the assembly line of teaching. EulaIQ is the automation layer that scales your production without sacrificing quality."
+
+---
+
+## Compliment (Personalized Hook)
+
+*"Anil, your 18,000+ video library is a testament to your dedication—you've built one of the most comprehensive math resources on YouTube. What stands out most is your methodical, table-driven teaching style. The way you construct the 6×6 dice grid in your probability video and systematically fill every cell makes abstract concepts tangible. You don't just teach math—you build understanding, one step at a time."*
+
+---
+
+## Video Title & URL
+
+**Video Title:** Probability working with Two Dice Different Events SAT Practice  
+**Video URL:** https://youtu.be/n-DUKAXq3tg?si=ovbYdgpx0qfNCpZ3
+
+---
+
+## Reason (Why This Video Needs EulaIQ)
+
+This video is a **perfect use case** for EulaIQ's animation layer. Anil's teaching relies entirely on **constructing and filling a 6×6 grid** to visualize all possible dice outcomes. Currently, he draws this by hand (or uses static overlays), which limits clarity and visual polish.
+
+**Specific moments where EulaIQ adds value:**
+
+1. **Grid Construction (00:01:15 - 00:02:30):** Anil says, "So the numbers could be 1, 2, 3, 4, 5, 6 on one of them and the other could be 1, 2, 3, 4, 5, 6." EulaIQ can auto-generate a clean 6×6 table with labeled axes (Red Dice / Blue Dice) as he speaks.
+
+2. **Cell-by-Cell Filling (00:01:46 - 00:02:25):** As Anil adds sums ("1 + 1 is 2, 1 + 2 is 3..."), EulaIQ can animate each cell filling in real-time, synced to his voice.
+
+3. **Highlighting Conditions (00:02:38 - 00:03:05):** When Anil says, "Both dice are three—there's only one position," EulaIQ can highlight the (3,3) cell with a colored border or glow effect.
+
+4. **Conditional Filtering (00:03:08 - 00:03:50):** For "One dice is three," EulaIQ can highlight the entire row and column for "3," then exclude the (3,3) cell to show the 12 valid cases.
+
+5. **Sum-Based Highlighting (00:04:41 - 00:05:02):** For "Total of two dice is seven," EulaIQ can highlight all cells where the sum equals 7 (diagonal pattern), making the pattern visually obvious.
+
+**Current limitation:** Anil's hand-drawn grids work, but they lack the **visual precision and animation fluidity** that would make his explanations even clearer—especially for visual learners.
+
+---
+
+## Context for Sample (Technical Directive for Animation Team)
+
+**Sample Focus:** The 6×6 dice probability grid (timestamp 00:01:15 - 00:05:02).
+
+**Animation Requirements:**
+
+1. **Grid Setup:**
+   - Generate a 6×6 table with:
+     - **Top row labels:** 1, 2, 3, 4, 5, 6 (Blue Dice)
+     - **Left column labels:** 1, 2, 3, 4, 5, 6 (Red Dice)
+   - Clean, professional styling (thin borders, readable font).
+
+2. **Cell Filling Animation:**
+   - As Anil says each sum ("1 + 1 is 2, 1 + 2 is 3..."), animate the corresponding cell filling with the sum value.
+   - Use a **fade-in or slide-in effect** for each number.
+
+3. **Conditional Highlighting:**
+   - **"Both dice are three":** Highlight cell (3,3) with a **green glow**.
+   - **"One dice is three":** Highlight the entire row 3 and column 3, then **dim** the (3,3) cell to show exclusion.
+   - **"Total is seven":** Highlight all cells where the sum = 7 (diagonal pattern) with a **yellow highlight**.
+   - **"At least 10":** Highlight cells in the top-right corner (sums ≥ 10) with a **blue highlight**.
+
+4. **Probability Calculation Overlay:**
+   - When Anil says "1 out of 36," display the fraction **1/36** next to the highlighted cell(s).
+   - For "12 out of 36," show **12/36 = 1/3** with a simplification animation.
+
+5. **Camera Integration:**
+   - Keep Anil's **talking head visible** in a corner (picture-in-picture) while the grid animation plays.
+   - Sync grid animations precisely to his voice timestamps.
+
+**Sample Length:** 60-90 seconds (covering grid construction + one probability scenario, e.g., "Both dice are three").
+
+**Deliverable Format:** MP4 (1080p), with a side-by-side comparison (original vs. EulaIQ-enhanced).
+
+---
+
+## DRAFT EMAIL TEMPLATE
+
+**Subject:** I animated your dice probability grid (Demo inside)
+
+Hi Anil,
+
+I've been watching your SAT probability video (the two-dice grid problem), and I'm genuinely impressed by your methodical teaching style. The way you construct the 6×6 table and systematically fill every cell makes abstract probability concepts tangible. Your step-by-step approach is exactly what students need—but I think the visuals could match the clarity of your explanations.
+
+I'm Victor from **EulaIQ** (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the math you're describing. Instead of you manually drawing grids or overlaying static images, our system generates clean, animated tables that fill in real-time as you speak.
+
+I tested EulaIQ on a 60-second clip of your dice probability video. It captured the moment you built the 6×6 grid and highlighted the "both dice are three" case—but with professional animation quality and perfect timing.
+
+**Here's what it looks like:** [Sample Link Placeholder]
+
+I'd love to send you the full sample so you can see how your teaching style translates with high-end visuals. With 18,000+ videos, I imagine production efficiency is critical—EulaIQ could help you scale your output without sacrificing quality.
+
+Reply with **"Show me"** if you're curious, and I'll drop the link.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ
+
+**P.S.** There's no new software for you to learn. Our system works directly with the audio/video files you already record. You keep full ownership of all content—we're just the animation layer.
+
+---
+
+**Internal Notes:**
+- **Volume creator:** Emphasize efficiency and scalability (18K+ videos = time is valuable).
+- **Low engagement:** Position EulaIQ as a way to boost visual quality → higher retention/engagement.
+- **Sample priority:** Focus on the dice grid (most visually dense moment in the transcript).
+- **Follow-up angle:** Offer to animate a full video for free if he's interested in testing the workflow.

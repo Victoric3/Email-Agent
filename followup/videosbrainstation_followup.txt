@@ -1,0 +1,20 @@
+Subject: Apologies for the delay — your sample is ready
+
+Hi —
+
+Apologies for the slow follow-up; we paused outreach while stabilising EulaIQ so any demo we sent would be genuinely useful. I created a short sample from your video "No One Taught Eigenvalues & Eigen Vectors Like This" so you can see how we’d animate the core examples: <VIDEOSBS_SAMPLE_LINK>
+
+Key notes:
+Sample details (timestamps/segments): <VIDEOSBS_SAMPLE_TIMESTAMPS>
+- Segment-only vs whole: We can animate segments only (e.g., worked examples and diagrams), or the full video — your choice. Camera-integration in a single frame isn’t automatic yet; we recommend recombining camera footage in your editor for now.
+- Ownership & license: You retain full ownership; EulaIQ provides generated assets under a production license and we won’t publish anything without your explicit sign-off.
+- Where we’re based and the name: EulaIQ is based in Canada. The name is a playful nod to Leonhard Euler — the 18th-century mathematician — and the Euler number (e); we chose it to reflect our focus on clear mathematical visuals and rigor.
+- Incentives: Early-access creators receive a 50% discount at launch and lifetime priority support during beta.
+
+If you’d like a short 10–15 minute demo to walk through the sample and the options for mixed camera+animation segments, reply with a couple of times that work for you (your timezone), or reply "Hi" and I’ll share the unlisted sample immediately.
+
+Best,
+Godreigns Anyachebelu
+EulaIQ
+
+P.S. If you prefer a private folder with a Loom walkthrough of the sample & notes, I can attach that to the reply.

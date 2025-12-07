@@ -1,0 +1,50 @@
+Physics visual explanation
+Calculus animation
+Linear Algebra visual
+Chemistry molecular visualization
+Organic chemistry mechanism
+Economics visual
+Game theory explainer
+Manim tutorial
+Science animation
+Math art
+Topology explainer
+Quantum physics visual
+Relativity animation
+Fluid dynamics explainer
+Engineering mechanics visual
+Circuit analysis tutorial
+Biochemistry animation
+Complex analysis visual
+Number theory explainer
+Statistics visual explanation
+Data science concepts
+Machine learning visual
+Neural network animation
+Algorithm visualization
+Sorting algorithm visual
+Cryptography explainer
+Astrophysics visual
+Cosmology animation
+Genetics visual explanation
+Cell biology animation
+Pharmacology mechanism
+Control systems engineering
+Thermodynamics visual
+Electromagnetism animation
+Optics visual explanation
+Signal processing tutorial
+Discrete math visual
+Graph theory explainer
+Category theory visual
+Abstract algebra animation
+Differential equations visual
+Tensor calculus explainer
+Riemann hypothesis visual
+Chaos theory animation
+Fractal geometry explainer
+Game development math
+Computer graphics math
+Physics engine tutorial
+Simulation coding
+Scientific computing python

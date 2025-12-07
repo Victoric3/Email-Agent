@@ -1,0 +1,20 @@
+Subject: Apologies for the delay — a short sample is ready
+
+Hi Paul,
+
+Hope you’ve been well — sorry we were slow to follow up. We paused for a short while to make sure the demos we send are useful. I made a short, unlisted sample from your video "Kepler’s Three Laws Explained" so you can see the feel: <PAUL_SAMPLE_LINK>
+
+Quick answers to the questions you raised:
+- Sample details (timestamps/segments): <PAUL_SAMPLE_TIMESTAMPS>
+- Segments-only animation: Yes — we can animate only the part(s) you want. Clip the segment you want animated and upload it to us; we’ll return the polished animation ready to drop into your edit. (If you want the camera in-frame, for now we recommend recombining camera footage in an editor like Canva or Premiere; native camera-integration is planned for a future release.)
+- Note: we cannot yet preserve on-camera person highlights within the same animated frame; creators typically recombine camera footage and the EulaIQ animation in their editor.
+- Where we’re based and the name: EulaIQ is based in Canada. The name is a playful nod to Leonhard Euler — the 18th-century mathematician — and the Euler number (e); we chose it to reflect our focus on clear mathematical visuals and rigor.
+- Ownership & licensing: You retain full ownership of your content; EulaIQ provides the generated assets under a production license for your usage. We will not publish anything without your explicit approval.
+
+Early-access offer: As a thanks for being an early partner, you’ll receive a 50% discount on the subscription rate at full release and lifetime priority support while we’re in beta.
+
+Would you like an update to the sample or a short 10–15 minute walkthrough? Reply “Hi” and I’ll share the unlisted link or propose times for a call.
+
+Warmly,
+Godreigns Anyachebelu
+EulaIQ

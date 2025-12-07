@@ -1,0 +1,83 @@
+# Lead Context File: Mathematics Initiatives in Nepal-MIN
+
+**First Name:** Mathematics Initiatives in Nepal (MIN Team)  
+**Channel Name:** Mathematics Initiatives in Nepal-MIN  
+**Email:** maths.initiatives@gmail.com
+
+---
+
+## Special:
+MIN is a **mission-driven non-profit** creating open educational resources for underserved students across Nepal. Their tone is **humble, community-focused, and pedagogically rigorous**—they don't chase views, they chase impact. The channel features clean blackboard-style instruction with handwritten equations and step-by-step breakdowns. Their "Calculus Made EZ" series is designed to make advanced topics accessible to students who may not have access to expensive tutors or textbooks. The teaching style is **methodical and patient**, with a focus on **real-world applications** (geometry, physics, economics) to show students *why* calculus matters beyond exams.
+
+---
+
+## Approach:
+Position EulaIQ as the **equity multiplier** for their mission. Frame our tool as a way to **scale their impact without scaling their workload**—turning their blackboard explanations into polished, animated lessons that can reach 10x more students across Nepal and beyond. Emphasize that we're **NVIDIA Inception-backed** (credibility for a non-profit evaluating tech partners) and that **creators retain full ownership** of content (critical for a mission-driven org). Pitch it as: *"Your voice and pedagogy, elevated with 3Blue1Brown-level visuals—so every student in Nepal can learn calculus like they have a personal tutor."*
+
+---
+
+## Compliment:
+Your "Calculus Made EZ" series is a masterclass in **accessible rigor**—the way you connect derivatives to real-world physics problems and then walk through Newton's Method shows students that calculus isn't just abstract symbols, it's a tool for solving actual problems. The care you take to explain *why* each step matters (not just *how* to do it) is exactly what underserved students need.
+
+---
+
+## Video Title:
+**Calculus | EP 4 | Made EZ | MIN**
+
+**Video URL:** https://youtu.be/a7vTTbREb3A?si=4MzZmJFFrx8yK5k3
+
+---
+
+## Reason:
+This video covers **four major calculus applications** (geometry, physics, economics, numerical methods) in under 5 minutes—but it relies entirely on static blackboard diagrams and handwritten equations. The **Lorenz curve economics section** (2:12–3:14) is particularly dense: you're explaining income distribution, differential equations, and graphical interpretation simultaneously, but the static diagram makes it hard for students to track which variable corresponds to which curve segment. 
+
+**This is the perfect use case for EulaIQ:** We can animate the Lorenz curve **building in real-time** as you explain it—showing the baseline diagonal, then the curve bending away as you describe inequality, then highlighting the shaded area as you derive the Gini coefficient formula. The **Newton's Method section** (3:17–4:29) is another goldmine: we can animate the tangent line sliding along the curve, the x-intercept jumping to X2, X3, etc., so students *see* the convergence happening as you narrate it.
+
+---
+
+## Context for Sample:
+The sample **MUST** focus on the **Newton's Method explanation** (3:17–4:29 in the transcript). Show:
+1. The function curve `f(x)` plotted.
+2. Initial guess `X1` marked on the x-axis.
+3. Tangent line drawn at `(X1, f(X1))` with the slope `f'(X1)` visually labeled.
+4. The tangent intersecting the x-axis at `X2`—animate this intersection with a smooth transition.
+5. Repeat the process for `X2 → X3`, showing the approximation converging toward the true root.
+6. Display the Newton's Method formula: `X(n+1) = Xn - f(Xn)/f'(Xn)` synced to your voiceover.
+
+**Style note:** Keep the aesthetic **clean and educational** (like 3Blue1Brown), not flashy. Use soft colors (blues/greens) and clear labels. The goal is to make the iterative process **visually intuitive** for students who are seeing this method for the first time.
+
+---
+
+## DRAFT EMAIL TEMPLATE:
+
+**Subject:** I animated your Newton's Method explanation (Sample inside)
+
+Hi MIN Team,
+
+I've been watching your "Calculus Made EZ" series, and I'm genuinely impressed by how you make advanced topics accessible to students across Nepal. The way you connect calculus to real-world applications (physics, economics, numerical methods) in Episode 4 shows a level of pedagogical care that's rare—especially for a non-profit focused on equity, not views.
+
+I noticed that your Newton's Method explanation (around 3:17) is incredibly clear conceptually, but the static blackboard diagram makes it hard for students to *see* the iterative convergence happening. That's a missed opportunity, because the visual intuition is what makes Newton's Method click.
+
+I'm Victor from **EulaIQ** (we're part of the **NVIDIA Inception program**). We built an AI that listens to your audio and automatically animates the math you're describing. Instead of students staring at a static curve and trying to imagine the tangent line moving, our system visualizes the approximation converging in real-time—synced perfectly to your voice.
+
+I tested EulaIQ on a 60-second clip of your Newton's Method segment. It captured the function curve, the tangent line sliding to find X2, then X3, and the formula appearing exactly when you explain it. The result is a **3Blue1Brown-style animation**—but generated automatically from your existing audio.
+
+**Here's why this matters for MIN:**
+- You can **scale your impact** without re-recording or hiring animators. Your blackboard explanations become polished, animated lessons that can reach 10x more students.
+- **You retain full ownership** of all content. EulaIQ is a tool, not a content partner.
+- **No new software to learn.** You record the same way you always do—we handle the animation layer.
+
+I'd love to send you that sample clip so you can see what your teaching looks like with high-end visuals. If this could help MIN reach more students across Nepal (and beyond), reply with **"Interested"** and I'll drop the link.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ  
+NVIDIA Inception Program
+
+**P.S.** We're offering **free early access** to mission-driven educators like MIN. If the sample resonates, we can discuss how to integrate EulaIQ into your full "Made EZ" series—no upfront cost, just a shared goal of making calculus accessible to every student who needs it.
+
+---
+
+**Sample Link Placeholder:** `[SAMPLE_LINK_MIN_NEWTONS_METHOD]`  
+**Sample Status:** Ready to generate (Newton's Method segment, 60 seconds, 3Blue1Brown style)  
+**Follow-up Strategy:** If no reply in 5 days, send Loom walkthrough showing before/after comparison of static vs. animated Newton's Method explanation.

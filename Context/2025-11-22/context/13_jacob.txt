@@ -1,0 +1,85 @@
+# Lead Context File: Jacob Sichamba
+
+**First Name:** Jacob  
+**Channel Name:** Jacob Sichamba Online Math  
+**Email:** sichamba.jacob@yahoo.com
+
+---
+
+## Special:
+Jacob is the "Exam Prep Coach" of African math education. He teaches with a physical whiteboard/blackboard setup, walking students through GCE-level problems (mensuration, geometry, algebra) with a methodical, step-by-step approach. His signature is his calm, reassuring voice ("All right. So, here we've got this question...") combined with clear handwritten work that mirrors exactly what students will write in exams. He doesn't skip steps—he shows the formula, plugs in values, and narrates every calculation. His audience (503K subscribers, 40M+ views) trusts him because he teaches *exam technique*, not just theory. He's from South Africa, serving students across the African continent preparing for standardized exams.
+
+---
+
+## Approach:
+Position EulaIQ as the tool that **upgrades his blackboard teaching into broadcast-quality animated diagrams** without changing his teaching style. Pitch it as "Your voice + 3Blue1Brown visuals = Exam prep that students can replay frame-by-frame." Emphasize that he keeps his camera presence and narration—we just animate the geometric constructions and formula derivations in real-time as he speaks.
+
+---
+
+## Compliment:
+Your teaching style is the gold standard for exam prep—the way you calmly walk through "Question 11B" and show every step (from formula to final answer) makes complex mensuration problems feel manageable. Your 503K subscribers trust you because you teach exactly what they'll write on test day.
+
+---
+
+## Video Title:
+Volume of the Frustum | 2025 GCE Mensuration
+
+**Video URL:** https://youtu.be/T6WEBTp8Hk0?si=gFS9cRmm6ajPEAM_
+
+---
+
+## Reason:
+This video is a perfect use case for EulaIQ. Jacob derives the frustum volume formula step-by-step, writing out:  
+**V = (1/3)(A₁ + A₂ + √(A₁ × A₂)) × h**  
+
+He then calculates:
+- A₁ = 15 × 5 = 75 cm²
+- A₂ = 6 × 2 = 12 cm²
+- √(75 × 12) = √900 = 30
+- Final: V = (1/3)(117)(10) = 390 cm³
+
+Currently, he writes all of this by hand on a blackboard. **Our tool would animate the frustum diagram in 3D**, highlight the top rectangle (2×6) and bottom rectangle (5×15), and show the formula terms populating in sync with his voice—making the spatial reasoning crystal clear for visual learners.
+
+---
+
+## Context for Sample:
+The sample MUST show:
+1. **3D frustum diagram** (rectangular pyramid with top cut off) with labeled dimensions (top: 2×6, bottom: 5×15, height: 10 cm).
+2. **Formula animation**: Each term (A₁, A₂, √(A₁×A₂)) appears and gets substituted as Jacob narrates.
+3. **Step-by-step calculation overlay**: Show "75 + 12 + 30 = 117" → "117 × 10 = 1170" → "1170 ÷ 3 = 390 cm³" with smooth transitions.
+4. **Keep Jacob's voice and pacing**—the animation should feel like a visual assistant, not a replacement.
+
+Technical note: Use the transcript timestamp `00:00:38.399 → 00:03:32.560` (the full problem walkthrough). Focus on the moment he writes the formula (00:00:46) and the final calculation (00:03:20).
+
+---
+
+## DRAFT EMAIL TEMPLATE:
+
+**Subject:** I animated your Frustum problem (3D diagram + formula breakdown)
+
+Hi Jacob,
+
+I've been watching your GCE prep videos (especially the Frustum volume walkthrough), and I'm genuinely impressed by how you make exam-level mensuration accessible. The way you narrate every step—from writing the formula to plugging in A₁ and A₂—is exactly what students need to see before test day.
+
+I'm Victor from **EulaIQ** (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the geometry and formulas you're teaching. Instead of students squinting at handwritten work on a blackboard, they'd see a clean 3D frustum diagram with labeled dimensions, and the formula terms populating in real-time as you explain them.
+
+I tested EulaIQ on a 30-second clip from your Frustum video. It captured the moment you derived **V = (1/3)(A₁ + A₂ + √(A₁×A₂)) × h** and animated the rectangular pyramid with the top/bottom rectangles highlighted—all synced to your narration.
+
+I'd love to send you that sample clip so you can see what your teaching looks like with broadcast-quality visuals. **Reply with "Hi"** if you're curious, and I'll drop the link.
+
+Your students will still hear your voice and see your step-by-step logic—but now with diagrams that make the spatial reasoning impossible to miss.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ  
+sichamba.jacob@yahoo.com
+
+**P.S.** You don't need to learn new software. Our system works directly with the video files you already record. You keep teaching your way—we just add the visuals.
+
+---
+
+**Internal Notes:**
+- **Sample priority:** HIGH (503K subs, strong engagement, clear visual gap in blackboard teaching).
+- **Sample asset focus:** 3D frustum diagram + formula animation (00:00:46 → 00:03:20 timestamp).
+- **Follow-up strategy:** If he replies, offer a full video sample (5-10 min) and a Loom walkthrough of the mixed camera + animation workflow.
+- **Conversion angle:** Position as "exam prep upgrade"—his teaching + our visuals = content students can study frame-by-frame before GCE exams.

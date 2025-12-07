@@ -1,0 +1,37 @@
+**INTERNAL DOSSIER**
+**Lead:** Brian McLogan
+**Status:** Reply Received ("Interested to learn more") -> Sample Created.
+**Goal:** Book a "Founder Onboarding" call to close the $500 partnership live.
+**Strategy:** Use the sample as the proof of quality, then pivot to a call to discuss his specific workflow/volume given his dual career (Math/Real Estate).
+
+**EMAIL DRAFT**
+
+**Subject:** Re: I animated your Unit Circle Mistakes video (The Sample)
+
+Hi Brian,
+
+Great to hear from you.
+
+I went ahead and processed that segment of your "Unit Circle Mistakes" video. I specifically focused on the **5π/4 reference angle explanation** (06:34 - 07:40) because it’s a perfect example of where your teaching is flawless, but the hand-drawn diagram gets a bit crowded.
+
+Here is the 60-second animated version we generated:
+**[Watch the Sample Video Here](https://youtu.be/DJsfFysZJns)**
+
+**What you’ll see:**
+* **0:45:** The angle $\theta = 5\pi/4$ sweeps cleanly from the x-axis (no shaky marker lines).
+* **0:59:** The reference angle ($\pi/4$) highlights in red exactly when you define it.
+* **1:02:** The coordinate point $(-\sqrt{2}/2, -\sqrt{2}/2)$ reveals automatically synced to your voice.
+
+**Next Steps:**
+Given the volume of content you produce (and your busy schedule with the Real Estate Gallery), I’d prefer to walk you through the platform personally rather than sending a generic link. I want to show you exactly how this fits into your current recording workflow without adding extra editing time.
+
+Are you free for a brief **15-minute onboarding call** later this week?
+
+I can answer your questions, show you the dashboard, and if it makes sense, we can get your next batch of videos queued up.
+
+Warmly,
+
+Victor Chukwujiobi
+CEO, EulaIQ
+
+P.S. I noticed you balance this channel with your real estate business—impressive. The goal of this walkthrough is to show you how we can take the visual production off your plate entirely.

@@ -1,0 +1,47 @@
+# Lead Context File: Krista (krista) — Serial 15
+
+**First Name:** Krista  
+**Channel Name:** krista  
+**Email:** krista@[domain].com
+
+**Special:** Krista is the "anti-textbook" math teacher. Her signature is cutting through the noise of memorization and revealing the *one conceptual shift* that makes everything click. She uses everyday analogies (like taking a picture of your dog) to demystify abstract transformations. Her teaching philosophy is built on exposing "the thing no one explains"—the hidden mental model that textbooks skip. She's direct, conversational, and focused on that lightbulb moment.
+
+**Approach:** Position EulaIQ as the visual layer that *shows* the mindset shift she's describing. Pitch it as "Your voice already creates the 'aha' moment—we make sure the visuals land at the exact same second." Frame it as upgrading her dog photo analogy into a live, animated transformation sequence that moves *as she speaks*.
+
+**Compliment:** Your "dog photo" analogy for graph transformations is genius—you don't just teach the mechanics, you teach the *mindset shift* that makes students actually understand why transformations work the way they do.
+
+**Video Title:** Graphing Transformations — The One Thing No One Explains  
+**Video URL:** [Insert URL if available]
+
+**Reason:** This video is built entirely on a visual metaphor (stretching/flipping a dog photo). Currently, students have to *imagine* the transformation. This is a perfect use case for our animation layer to show the photo stretching wide, flipping sideways, and sliding over in real-time sync with her narration—turning her analogy into a visual proof.
+
+**Context for Sample:** The video opens with the dog photo analogy (stretch wide, flip sideways, slide over). The sample MUST animate a simple photo/rectangle undergoing these exact transformations in sync with her voice. Show the stretch (horizontal scale), the flip (reflection), and the slide (translation) as clean, timed animations that happen *as she says them*.
+
+---
+
+## DRAFT EMAIL TEMPLATE:
+
+**Subject:** I animated your "dog photo" transformation (Demo inside)
+
+Hi Krista,
+
+I just watched your breakdown of graph transformations (the "dog photo" analogy), and honestly—this is the kind of teaching that actually sticks. You don't just explain *what* happens, you explain the *mindset shift* that makes it all make sense.
+
+I noticed your teaching relies heavily on visual metaphors that students have to imagine in their heads (stretching the photo wide, flipping it sideways, sliding it over).
+
+I'm Victor from EulaIQ (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the concepts you're describing. Instead of students imagining the dog photo stretching, our system shows it happening in real-time—synced perfectly to your narration.
+
+I tested EulaIQ on a 15-second clip of your transformation video. It captured the exact moment you described "stretch it wide, flip it sideways, slide it over" and animated each transformation as you said it.
+
+I'd love to send you that sample clip so you can see what your analogies look like with synchronized animation. Reply with "Hi" if you're curious, and I'll drop the link.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ
+
+**P.S.** There's no new software for you to learn. Our system works directly with the audio/video files you already record.
+
+---
+
+**Sample Link Placeholder:** `[SAMPLE_LINK_KRISTA_15]`  
+**Internal Notes:** Focus sample on the opening 15-20 seconds. Animate a simple rectangle/photo object with clean transformations (horizontal stretch, vertical flip, horizontal translation). Timing is critical—each transformation must trigger exactly when she says "stretch it wide," "flip it sideways," "slide it over."

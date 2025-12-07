@@ -1,0 +1,38 @@
+## Company Context: EulaIQ (Updated 2025-11-20)
+
+### Identity & Mission
+* **Company:** EulaIQ
+* **Mission:** Build the "camera" for ideas. We create personalized AI instructors that teach with visuals, animations, and live explanations.
+* **Current State:** NVIDIA Inception Member. $450k+ in cloud credits (AWS/GCP).
+* **Founders:** Victor (CEO), Canon (CTO), Godreigns (CMO). Based in Enugu, Nigeria; targeting Bay Area/YC.
+
+### The Product (Current)
+* **Core Tech:** Audio-to-Animation AI. Converts educational voiceovers/scripts into high-fidelity, 3Blue1Brown-style animations.
+* **Speed:** Renders full videos in ~10 minutes (not real-time, but near-instant batch processing).
+* **Workflow:** Creator uploads audio/script -> System generates full animated video -> Creator receives finished asset.
+* **Differentiation:** Handles complex diagrams, math equations, and mixed-media (integrating creator's face-cam with animation) better than generic stock footage AI.
+
+### Outreach Strategy (The "Power Move" Pivot)
+* **Philosophy:** "Don't ask for permission. Deliver value instantly."
+* **Tone:** Peer-to-peer, professional, high-signal, confident. No "fanboy" praise. No apologizing.
+* **The Offer:** We do not send snippets. We send **FULL** animated versions of their existing content to prove the tech works at scale.
+* **Key Value Prop:** "We automate the heavy lifting of animation. You record, we render."
+* **Call to Action (CTA):** Binary choice (Call vs. Async).
+
+### Target Audience
+* **Primary:** YouTube Educational Creators (Math, Science, Coding, Engineering).
+* **Pain Point:** Animation is tedious, expensive, and takes weeks. EulaIQ makes it take minutes.
+
+### The "Don't Mention" List (For Initial Outreach)
+* **Do NOT mention:** That it creates a "base" animation or requires Canva for polishing (unless asked).
+* **Do NOT mention:** The upcoming "Natural Language Editing UI" (sell what exists now).
+* **Do NOT mention:** How long you've been watching them (avoid parasocial framing).
+
+### Metrics & Goals
+* **Primary Goal:** Conversion to Paid Pilot / Subscription.
+* **Success Metric:** "1" or "2" replies to the email.
+* **Pricing:** SaaS model (Premium $50/mo, Pro $100/mo).
+
+### Internal Assets
+* **Tech Stack:** Flutter, Next.js, Node.js, Python (Rendering), Gemini 2.5 Pro, AWS ECS/Fargate.
+* **Internal Owner:** Victor Chukwujiobi.

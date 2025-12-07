@@ -1,0 +1,44 @@
+# Lead Context File: Brian (brian) — Serial 16
+
+**First Name:** Brian  
+**Channel Name:** brian  
+**Email:** brian@[domain].com
+
+**Special:** Brian is a "calculus gladiator"—he throws down gauntlets ("I'm challenging you to make it through this video") and tackles integrals that most educators would avoid. His style is direct, confident, and unapologetically technical. He doesn't hold your hand; he respects his audience's ability to handle complexity. His signature is the "compilation" format—rapid-fire problem solving that showcases technique mastery rather than conceptual hand-holding. He's the anti-Khan Academy: less "let me walk you through this gently" and more "here's the arsenal of functions we need—let's go."
+
+**Approach:** Position EulaIQ as the visual engine that matches his technical intensity. Pitch it as "Your calculus deserves 3Blue1Brown-level animation without slowing down your pace." Emphasize that our system can keep up with his rapid problem-solving style—automatically rendering the gamma functions, substitutions, and algebraic manipulations as he narrates them, so his audience can follow the technical firepower without getting lost.
+
+**Compliment:** Your "no joke" approach to integrals is exactly what advanced learners need—you don't dumb down the math, you arm viewers with the full technical toolkit (gamma functions, substitutions, the works) and trust them to keep up. That respect for your audience's capability is rare.
+
+**Video Title:** Amazing Integrals Compilation  
+**Video URL:** [URL from source data]
+
+**Reason:** This compilation format is *perfect* for our animation layer because it's dense with technical transformations that happen quickly. When Brian says "we're going to have to draw upon a couple of pretty powerful functions," viewers need to *see* those functions materialize—the gamma function definition, the substitution steps, the algebraic simplification—in real-time. Currently, these moments rely on static overlays or manual editing. Our system can auto-generate those mathematical visualizations synchronized to his voice, maintaining his rapid pace while improving comprehension.
+
+**Context for Sample:** The sample MUST capture a moment where Brian introduces a "powerful function" (likely gamma function or a substitution). Show the function definition appearing cleanly on screen as he names it, then animate the substitution or transformation steps as he narrates them. The visual should feel like a technical schematic unfolding—precise, fast, and matching his "no-nonsense" energy.
+
+---
+
+## DRAFT EMAIL TEMPLATE:
+
+**Subject:** I animated your Gamma Function moment (Demo inside)
+
+Hi Brian,
+
+I watched your "Amazing Integrals Compilation," and I have to say—your "I'm challenging you to make it through this video" opener is perfect. You don't apologize for the difficulty; you lean into it. That confidence is exactly what separates advanced math content from the beginner stuff.
+
+What stood out to me is how quickly you move through technical machinery—gamma functions, substitutions, algebraic manipulations. Your audience clearly has the chops to follow, but I imagine the challenge is keeping the visual layer moving at the same speed as your narration.
+
+I'm Victor from EulaIQ (we're part of the NVIDIA Inception program). We built an AI that listens to your audio and automatically generates the mathematical visualizations you're describing—function definitions, substitution steps, algebraic transformations—all synced to your voice in real-time.
+
+I ran a 20-second clip from your compilation through our system. It captured the moment you introduced "a couple of pretty powerful functions" and animated the gamma function definition appearing on screen as you named it, then visualized the substitution steps as you narrated them.
+
+The result feels like 3Blue1Brown-level animation, but at *your* pace—no slowdown, no hand-holding, just clean technical visuals that match your intensity.
+
+I'd love to send you that sample clip so you can see what your rapid-fire calculus looks like with automated animation. Reply with "Show me" and I'll drop the link.
+
+Best,  
+Victor Chukwujiobi  
+CEO, EulaIQ
+
+**P.S.** You don't need to learn new software or change your workflow. Our system works directly with the audio/video files you already record. You keep doing what you do best—we handle the visual firepower.

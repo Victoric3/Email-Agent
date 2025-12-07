@@ -1,0 +1,23 @@
+Subject: The Basel Problem - Animation Draft (Replace with their actual video title)
+
+Body:
+
+Hi [Name],
+
+We built an animation engine specifically for [Math/Physics] creators that handles the complex diagrams and equations generic AI tools usually mess up.
+
+To prove it works, I ran your audio from "[Video Title]" through the system. Here is the full video:
+
+👉 [Link to EulaIQ Render]
+
+The Difference:
+
+Manual Animation: Takes you days of editing or coding.
+
+This System: Generated this in ~10 minutes.
+
+I’m looking for a few creators to test this out. Would you prefer I send over a login to try it yourself, or are you open to a 10-minute demo to see the workflow?
+
+Best,
+
+Victor Founder, EulaIQ

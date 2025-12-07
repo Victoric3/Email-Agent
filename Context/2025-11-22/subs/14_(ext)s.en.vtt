@@ -1,0 +1,767 @@
+WEBVTT
+Kind: captions
+Language: en
+
+NOTE Video title: Algebra Basics: Graphing On The Coordinate Plane - Math Antics
+
+00:00:06.665 --> 00:00:08.960
+Hi, I’m Rob. Welcome to Math Antics!
+
+00:00:08.960 --> 00:00:11.250
+If you been watching our Algebra Basics series,
+
+00:00:11.250 --> 00:00:13.900
+you’ve learned a lot about equations so far.
+
+00:00:13.900 --> 00:00:17.500
+But remember, equations aren’t the only
+type of comparison in math.
+
+00:00:17.500 --> 00:00:22.686
+There are also Inequalities like the ones
+you’ve learned about in our video “Basic Inequalities”.
+
+00:00:22.686 --> 00:00:26.312
+Those sorts of comparisons use the greater-than and less-than signs,
+
+00:00:26.312 --> 00:00:29.537
+along with the versions of those that include the equal sign.
+
+00:00:29.537 --> 00:00:31.320
+And in this video, I’m going to show you
+
+00:00:31.320 --> 00:00:35.460
+what happens when we use those signs in algebraic
+equations,
+
+00:00:35.460 --> 00:00:39.640
+like the equation of a line: y = mx + b.
+
+00:00:39.640 --> 00:00:44.429
+What would it mean to have something like y &gt; mx + b instead?
+
+00:00:44.429 --> 00:00:49.760
+To answer that question, let’s first start with the very simple equation: y = x.
+
+00:00:49.760 --> 00:00:54.239
+If you watched our video called “Basic Linear Functions” 
+(and I highly recommend that you do)
+
+00:00:54.239 --> 00:01:00.390
+you’ll remember that y = x is just a special
+case of the Slope-Intercept Form of a line
+
+00:01:00.390 --> 00:01:06.220
+where m (the slope) equals 1 and b (the y-intercept)
+equals 0.
+
+00:01:06.220 --> 00:01:11.350
+This equation tells us that whatever value
+x is, y must be the same:
+
+00:01:11.350 --> 00:01:13.694
+if x is 0 then y is 0,
+
+00:01:13.694 --> 00:01:15.850
+if x is 1 then y is 1,
+
+00:01:15.850 --> 00:01:18.154
+if x is 2 then y is 2.
+
+00:01:18.154 --> 00:01:21.605
+Every ordered pair that’s a solutions for this equation
+
+00:01:21.605 --> 00:01:24.838
+will have the same number for y that it does for x.
+
+00:01:24.838 --> 00:01:27.735
+And if we graph some of those points on the coordinate plane
+
+00:01:27.735 --> 00:01:30.907
+(connecting the dots to show that there are infinite possibilities)
+
+00:01:30.907 --> 00:01:36.223
+we get a diagonal line that goes right through 
+the middle of the quadrants I and III.
+
+00:01:36.223 --> 00:01:40.365
+Now, what if we change this from the equation y equals x,
+
+00:01:40.365 --> 00:01:44.000
+to the inequality y is greater-than-or-equal-to x?
+
+00:01:44.000 --> 00:01:45.974
+How would that effect our graph?
+
+00:01:45.974 --> 00:01:49.670
+To figure that out, we need to determine 
+all the combinations of x and y 
+
+00:01:49.670 --> 00:01:52.133
+that would make this inequality true.
+
+00:01:52.133 --> 00:01:57.560
+Well fortunately, all of the solutions we
+found for y = x will still work for this inequality
+
+00:01:57.560 --> 00:01:59.815
+because it also contains the equal sign.
+
+00:01:59.815 --> 00:02:03.164
+That means that the diagonal line can stay on our graph.
+
+00:02:03.164 --> 00:02:08.394
+But the greater-than sign opens up a lot of new possibilities that would also make this statement true.
+
+00:02:08.394 --> 00:02:12.200
+For example, if we let x be 1, y could still be 1,
+
+00:02:12.200 --> 00:02:14.519
+but it could also be any number that’s greater than 1…
+
+00:02:14.519 --> 00:02:19.159
+…like y could be 2, or 3, or 4 just to name
+a few possibilities.
+
+00:02:19.159 --> 00:02:23.620
+Let’s make ordered pairs out of those solutions
+and set them aside for a second.
+
+00:02:23.620 --> 00:02:28.609
+Then let’s ask, "what solutions are possible
+if we let x be 0 instead?"
+
+00:02:28.609 --> 00:02:34.100
+Again, y could still be the same as x (0)
+but it could also be any value greater than 0…
+
+00:02:34.100 --> 00:02:36.980
+y could be 1 or 2 or 3 and so on.
+
+00:02:36.980 --> 00:02:39.532
+Let’s make order pairs from those also.
+
+00:02:39.532 --> 00:02:43.872
+And then let's ask, "what are some possibilities if we let x be -1?"
+
+00:02:43.872 --> 00:02:47.567
+In that case, y could be -1 or anything greater-than -1,
+
+00:02:47.567 --> 00:02:50.822
+like 0 or 1 or 2 and so on.
+
+00:02:50.822 --> 00:02:54.918
+Now let’s take these new solutions we’ve found 
+and graph them on the coordinate plane.
+
+00:02:54.918 --> 00:02:58.229
+Do you notice that all of these new points are above the diagonal line
+
+00:02:58.229 --> 00:02:59.719
+and none of them are below?
+
+00:02:59.719 --> 00:03:01.531
+…any guess as to why?
+
+00:03:01.531 --> 00:03:03.725
+Yep, it’s because on the coordinate plane,
+
+00:03:03.725 --> 00:03:07.606
+y-values increase as you go up and decrease
+as you go down.
+
+00:03:07.606 --> 00:03:10.915
+This diagonal is the y = x line, right?
+
+00:03:10.915 --> 00:03:16.170
+Every point on the line has a ‘y value’ 
+that’s exactly the same as its ‘x value'.
+
+00:03:16.170 --> 00:03:21.281
+That means, that every point above the line has a ‘y value’ 
+that’s greater-than its ‘x value’,
+
+00:03:21.281 --> 00:03:25.817
+while every point below the line has a ‘y
+value’ that’s less-than its ‘x value’.
+
+00:03:25.817 --> 00:03:29.077
+In other words, the solutions to this inequality aren’t limited
+
+00:03:29.077 --> 00:03:32.464
+to just the handful of ordered pairs we identified so far.
+
+00:03:32.464 --> 00:03:36.506
+ANY point above the y = x line would make the inequality true,
+
+00:03:36.506 --> 00:03:38.930
+but NONE of the points below it will.
+
+00:03:38.930 --> 00:03:43.219
+To show that fact on our graph, since we can’t
+draw an infinite number of points,
+
+00:03:43.219 --> 00:03:47.180
+the convention is to just shade in that area
+to cover all of them.
+
+00:03:47.180 --> 00:03:50.379
+Now, that’s pretty easy to do with computer graphics,
+
+00:03:50.379 --> 00:03:53.969
+but there are also ways to do it on paper
+with a pen or pencil.
+
+00:03:53.969 --> 00:03:59.392
+With a pencil you can shade in large areas
+lightly by rubbing with the side of the pencil like this.
+
+00:03:59.392 --> 00:04:02.432
+With a pen, you can use a series of lines or hatch marks
+
+00:04:02.432 --> 00:04:05.727
+to suggest that the whole area is included in the graph.
+
+00:04:05.727 --> 00:04:08.534
+Getting back to our digital graph, as you might expect,
+
+00:04:08.534 --> 00:04:12.279
+if our inequality had used the 
+less-than-or-equal-to sign instead,
+
+00:04:12.279 --> 00:04:17.568
+then all of the solutions would be on or below
+the diagonal line like this.
+
+00:04:17.568 --> 00:04:20.739
+Because both of these inequalities include
+the equal sign,
+
+00:04:20.739 --> 00:04:26.610
+any point occurring directly on the y = x
+line is included in the set of valid answers.
+
+00:04:26.610 --> 00:04:30.669
+In fact, you can think of these inequalities
+like combinations
+
+00:04:30.669 --> 00:04:37.740
+of the equation y = x and the inequalities
+y &gt; x and y &lt; x.
+
+00:04:37.740 --> 00:04:39.878
+So what if we got rid of those equal signs
+
+00:04:39.878 --> 00:04:43.880
+and just used the pure greater-than and less-than signs instead?
+
+00:04:43.880 --> 00:04:47.899
+In those cases, none of the points exactly on the y=x line
+
+00:04:47.899 --> 00:04:50.195
+would be a solution to the inequality,
+
+00:04:50.195 --> 00:04:52.733
+but how can we show that on our graph?
+
+00:04:52.733 --> 00:04:57.844
+Well, the convention is to draw a solid line when the points exactly on the line are included,
+
+00:04:57.844 --> 00:05:01.308
+but draw a dashed line when they are not included.
+
+00:05:01.308 --> 00:05:04.242
+Basically, the line serves as a boundary.
+
+00:05:04.242 --> 00:05:08.226
+On one side of it,  all the points are definitely in the solution set,
+
+00:05:08.226 --> 00:05:12.631
+and on the other side, 
+all of the points are definitely outside the solutions set.
+
+00:05:12.631 --> 00:05:15.590
+As for the boundary itself, the question becomes,
+
+00:05:15.590 --> 00:05:18.000
+“Is the line in or out?”
+
+00:05:21.195 --> 00:05:24.664
+Yes! Lines are out. My point.
+
+00:05:24.664 --> 00:05:27.778
+What are you talking about?! Lines are in!
+That’s my point!
+
+00:05:27.778 --> 00:05:29.853
+Lines are out! Everyone knows that.
+
+00:05:29.853 --> 00:05:30.701
+Nuh Uh!
+
+00:05:30.701 --> 00:05:33.789
+Well if you’re so sure, just look it up online.
+
+00:05:33.789 --> 00:05:35.534
+Alright, I will!
+
+00:05:37.504 --> 00:05:39.407
+See… lines are in. 
+
+00:05:39.407 --> 00:05:42.000
+I suppose you believe everything on the internet.
+
+00:05:42.000 --> 00:05:45.375
+Fortunately, the rules for inequalities are easy to remember:
+
+00:05:45.375 --> 00:05:47.883
+If the inequality includes the equal sign,
+
+00:05:47.883 --> 00:05:52.437
+then the boundary line is in the solution set
+and and you graph it with a solid line. 
+
+00:05:52.437 --> 00:05:54.531
+But if it does not include the equal sign,
+
+00:05:54.531 --> 00:05:59.552
+then you draw a dashed line to show that the boundary line 
+is not in the solution set.
+
+00:05:59.552 --> 00:06:02.746
+Okay, so these four graphs should give you a pretty good idea
+
+00:06:02.746 --> 00:06:05.479
+of how graphing inequalities works in general.
+
+00:06:05.479 --> 00:06:09.134
+But now we need to go beyond the simple 
+y = x equation
+
+00:06:09.134 --> 00:06:11.426
+to the general equation of a line.
+
+00:06:11.426 --> 00:06:13.389
+To do that, I’ll walk you through the process
+
+00:06:13.389 --> 00:06:18.880
+of graphing the linear inequality: 
+y &lt; 2x - 3
+
+00:06:18.880 --> 00:06:21.277
+That will involve 3 main steps:
+
+00:06:21.277 --> 00:06:22.778
+Graphing the boundary line.
+
+00:06:22.778 --> 00:06:24.301
+Picking a test point.
+
+00:06:24.301 --> 00:06:26.823
+And shading the proper side of the line.
+
+00:06:26.823 --> 00:06:29.107
+Let’s start with graphing the boundary line.
+
+00:06:29.107 --> 00:06:34.064
+To do that, first pretend that the inequality you have 
+is actually an equation
+
+00:06:34.064 --> 00:06:37.675
+so that you can graph it exactly the same way you’d graph a line.
+
+00:06:37.675 --> 00:06:42.410
+That means re-writing it as y = 2x - 3.
+
+00:06:42.410 --> 00:06:46.530
+To graph that line, we just need to plot any
+two points along it and connect the dots.
+
+00:06:46.530 --> 00:06:48.911
+It’s kinda like making a function table,
+
+00:06:48.911 --> 00:06:53.610
+but we only need to find the ‘y output’ values 
+for two different ‘x input’ values.
+
+00:06:53.610 --> 00:06:59.691
+Any two points will do so I’m going to pick 
+x = 2 and x = -2 to keep things simple.
+
+00:06:59.691 --> 00:07:02.366
+If x is 2, then y will be 1.
+
+00:07:02.366 --> 00:07:05.867
+And if x is -2 then y will be -7.
+
+00:07:05.867 --> 00:07:10.719
+Plotting those two points on the graph 
+and then connecting the dots gives us this line,
+
+00:07:10.719 --> 00:07:13.310
+which is the boundary line of the inequality.
+
+00:07:13.310 --> 00:07:18.112
+But, are the points exactly along that line
+included in the solution set?
+
+00:07:18.112 --> 00:07:22.509
+To answer that we need to check the inequality
+sign of the original problem.
+
+00:07:22.509 --> 00:07:27.169
+In this case, since we have the less-than
+sign that does NOT include the equal sign,
+
+00:07:27.169 --> 00:07:30.379
+the line itself won’t be included in the
+set of valid answers
+
+00:07:30.379 --> 00:07:34.020
+so we’ll draw it with a dashed line 
+instead of a solid line.
+
+00:07:34.020 --> 00:07:36.710
+Great! Now that we have our boundary line
+correct,
+
+00:07:36.710 --> 00:07:40.560
+we need to figure out which side of the line
+is in the answer set.
+
+00:07:40.560 --> 00:07:43.199
+To do that we need to pick a “test point”.
+
+00:07:43.199 --> 00:07:47.820
+Because we know that all the points on one
+side of the line are in the answer set,
+
+00:07:47.820 --> 00:07:50.370
+and all the points on the other side are not,
+
+00:07:50.370 --> 00:07:54.883
+we only need to know the status of one point
+to tell which side is which.
+
+00:07:54.883 --> 00:07:58.729
+In other words, if we can determine whether
+the test point is in or out,
+
+00:07:58.729 --> 00:08:02.219
+we’ll know if that entire side is in or out.
+
+00:08:02.219 --> 00:08:06.678
+It doesn’t matter where the test point is
+so feel free to pick something really easy to work with.
+
+00:08:06.678 --> 00:08:12.137
+I mean… why pick something like (-2.17, 3.59)
+
+00:08:12.137 --> 00:08:15.930
+when you could just pick (0, 0) or (1, 1).
+
+00:08:15.930 --> 00:08:20.807
+The only real restriction is that the test
+point can’t be on the boundary line itself.
+
+00:08:20.807 --> 00:08:23.344
+Once you’ve decided which test point to try,
+
+00:08:23.344 --> 00:08:27.749
+plug its x and y values into the inequality
+and then simplify it.
+
+00:08:27.749 --> 00:08:33.918
+For example, if we pick the point (0, 0)
+we’d plug those x and y values into the inequality
+
+00:08:33.918 --> 00:08:41.134
+to get 0 &lt; (2 times 0 minus 3),
+which simplifies to 0 &lt; -3
+
+00:08:41.134 --> 00:08:46.545
+But hold on a second… that’s not true!
+0 is NOT less than -3.
+
+00:08:46.545 --> 00:08:49.779
+Ah! …that’s why it’s called a “test point”.
+
+00:08:49.779 --> 00:08:53.550
+The point that you choose can either pass or fail the test.
+
+00:08:53.550 --> 00:08:59.182
+In this case, since plugging the point’s x and y values
+into the inequality gave us a false result,
+
+00:08:59.182 --> 00:09:03.217
+that means that the point is NOT a valid answer for the inequality.
+
+00:09:03.217 --> 00:09:07.558
+Therefore, (0, 0) must be on the side of the boundary line
+
+00:09:07.558 --> 00:09:10.468
+where NONE of the points are included in the solution set,
+
+00:09:10.468 --> 00:09:14.660
+which means ALL of the points on the other
+side WILL be included.
+
+00:09:14.660 --> 00:09:16.601
+So that brings us to the last step.
+
+00:09:16.601 --> 00:09:20.373
+We just need to shade correct side of the line, like so.
+
+00:09:20.373 --> 00:09:24.342
+To summarize, if the test point you pick makes the inequality true,
+
+00:09:24.342 --> 00:09:26.686
+then you’ve picked a point that’s in the answer set
+
+00:09:26.686 --> 00:09:31.090
+which means that you’ll shade the same side 
+of the graph that the test point is on.
+
+00:09:31.090 --> 00:09:33.533
+But if the test point gives you a false statement,
+
+00:09:33.533 --> 00:09:35.834
+then you know that it’s not in the answer set
+
+00:09:35.834 --> 00:09:39.426
+which means that you’ll leave that side
+blank and shade the other side.
+
+00:09:39.426 --> 00:09:42.701
+So, that’s the basics of graphing inequalities,
+
+00:09:42.701 --> 00:09:46.264
+but there’s a couple more things that you’ll 
+need to know to be successful at it.
+
+00:09:46.264 --> 00:09:48.949
+After-all, not every inequality that you encounter
+
+00:09:48.949 --> 00:09:54.369
+will be in a nice, easy to work with 
+form like: y &gt; mx + b.
+
+00:09:54.369 --> 00:09:57.153
+You may get things that need to be simplified.
+
+00:09:57.153 --> 00:10:00.290
+Fortunately, you can solve or simplify inequalities
+
+00:10:00.290 --> 00:10:03.087
+almost the same way that you do with equations.
+
+00:10:03.087 --> 00:10:05.087
+All of the same principles apply, like combining
+
+00:10:05.087 --> 00:10:06.571
+like combining 'like' terms'
+
+00:10:06.571 --> 00:10:09.143
+and the idea that anything you do to one side
+
+00:10:09.143 --> 00:10:11.683
+needs to be done to the other side too.
+
+00:10:11.683 --> 00:10:16.628
+However, there are couple situations 
+where you need to flip the inequality sign.
+
+00:10:16.628 --> 00:10:19.050
+You never had to worry about that with equations
+
+00:10:19.050 --> 00:10:23.130
+because order doesn’t matter when both sides
+have the exact same value.
+
+00:10:23.130 --> 00:10:27.170
+But inequalities tell us that one side has
+a greater value than the other
+
+00:10:27.170 --> 00:10:31.918
+and the open end of the inequality sign always
+faces that greater side.
+
+00:10:31.918 --> 00:10:35.570
+That means that if you need to switch the
+left and right sides of an inequality,
+
+00:10:35.570 --> 00:10:38.070
+you also need to switch the inequality sign.
+
+00:10:38.070 --> 00:10:42.437
+For example, if you have the inequality 2x &lt; y
+
+00:10:42.437 --> 00:10:45.602
+and you wanted to rearrange so that y comes first,
+
+00:10:45.602 --> 00:10:48.700
+you’d need to flip the inequality sign when you do that.
+
+00:10:48.700 --> 00:10:53.679
+So just remember; If you switch the sides,
+switch the inequality sign.
+
+00:10:53.679 --> 00:10:56.710
+Another case where you need to switch the
+inequality sign is
+
+00:10:56.710 --> 00:11:01.509
+whenever you multiply or divide both sides
+by a negative number or term.
+
+00:11:01.509 --> 00:11:03.874
+You don’t need to do this for any other operations.
+
+00:11:03.874 --> 00:11:07.870
+You can add or subtract positive or negative
+terms from both sides,
+
+00:11:07.870 --> 00:11:13.445
+and you can multiply or divide both sides by a POSITIVE term without needing to switch the inequality sign.
+
+00:11:13.445 --> 00:11:18.800
+It’s only when you multiply or divide both sides by a NEGATIVE that you need to flip it.
+
+00:11:18.800 --> 00:11:24.470
+To understand why that’s necessary, 
+have a look at the simple inequality 2 &lt; 4
+
+00:11:24.470 --> 00:11:29.206
+and imagine what would happen if you multiplied both sides by -1.
+
+00:11:29.206 --> 00:11:33.839
+In a previous video about integers, you learned that multiplying by -1
+
+00:11:33.839 --> 00:11:37.700
+switches a number to the opposite side of the number line and vice verse.
+
+00:11:37.700 --> 00:11:41.400
+Doing that to two different numbers actually changes their order.
+
+00:11:41.400 --> 00:11:46.647
+Positive 2 is less than 4, but -2 is greater than -4.
+
+00:11:46.647 --> 00:11:51.509
+That's why every time you multiply or divide
+both sides of an inequality by a negative,
+
+00:11:51.509 --> 00:11:54.143
+you need to switch the inequality sign.
+
+00:11:54.143 --> 00:12:01.147
+For example, suppose you’re given the inequality, 
+-2y + 1 &gt; x + 5,
+
+00:12:01.147 --> 00:12:03.981
+and you need to solve it for y before you graph it.
+
+00:12:03.981 --> 00:12:05.556
+How would you do that?
+
+00:12:05.556 --> 00:12:10.772
+Well, we want to get y all by itself, but two things are currently being done to it.
+
+00:12:10.772 --> 00:12:15.224
+It’s being multiplied by -2 and 1 is being added to that term.
+
+00:12:15.224 --> 00:12:19.661
+Let’s undo those operations using order of operations in reverse.
+
+00:12:19.661 --> 00:12:22.180
+First, we’ll subtract 1 from both sides.
+
+00:12:22.180 --> 00:12:27.585
+On the left side, the +1 and the -1 
+cancel out leaving just -2y,
+
+00:12:27.585 --> 00:12:33.217
+and on the right side the x + 5 - 1 
+simplifies to x + 4.
+
+00:12:33.217 --> 00:12:37.019
+Notice we DIDN’T switch the inequality sign
+when we did that operation.
+
+00:12:37.019 --> 00:12:39.293
+It’s still the greater than sign.
+
+00:12:39.293 --> 00:12:43.370
+But now, we need to get rid of the -2 that’s being multiplied by y.
+
+00:12:43.370 --> 00:12:46.729
+That can be done by dividing both sides by -2.
+
+00:12:46.729 --> 00:12:52.463
+Because that will change the sign of both sides,
+we DO need to flip the inequality sign for this operation.
+
+00:12:52.463 --> 00:12:56.815
+It was the greater-than sign originally, 
+but now it will become the less-than sign.
+
+00:12:56.815 --> 00:13:02.337
+On the left, the -2 over -2 cancel 
+leaving positive y all by itself.
+
+00:13:02.337 --> 00:13:06.830
+And on the right, 
+we divide the entire (x + 4) term by -2 
+
+00:13:06.830 --> 00:13:10.812
+which simplifies to -x/2 - 2.
+
+00:13:10.812 --> 00:13:16.714
+So the final result is y &lt; -x/2 - 2
+
+00:13:16.714 --> 00:13:20.970
+Alright… so now you know the basics of inequalities in algebra.
+
+00:13:20.970 --> 00:13:25.825
+You know how to graph an inequality using the three step process 
+we learned in the first part of the video,
+
+00:13:25.825 --> 00:13:30.600
+and you also know that there are a couple situations 
+where you need to flip the inequality sign
+
+00:13:30.600 --> 00:13:33.477
+when solving or simplifying inequalities.
+
+00:13:33.477 --> 00:13:37.354
+You may have noticed that we only worked with linear inequalities in this video,
+
+00:13:37.354 --> 00:13:40.937
+but the concepts we learned can all be extended to other algebraic functions
+
+00:13:40.937 --> 00:13:43.052
+that you may learn about in the future.
+
+00:13:43.052 --> 00:13:46.870
+All you really need to do is change step one of the graphing procedure
+
+00:13:46.870 --> 00:13:51.399
+from “graph the boundary line” 
+to “graph the boundary function”.
+
+00:13:51.399 --> 00:13:56.330
+We covered a lot in their video, 
+so it may help to re-watch it if you’re still a little confused.
+
+00:13:56.330 --> 00:14:00.000
+And the best way to make sure you really understand inequalities in algebra
+
+00:14:00.000 --> 00:14:02.671
+is to try some practice problems on your own.
+
+00:14:02.671 --> 00:14:06.501
+As always, thanks for watching Math Antics,
+and I’ll see ya next time.
+
+00:14:07.199 --> 00:14:10.108
+Learn more at www.mathantics.com
+

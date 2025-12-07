@@ -1,0 +1,127 @@
+# Brian McLogan — Context File
+
+**First Name:** Brian  
+**Channel Name:** Brian McLogan  
+**Email:** brianmclogan@yahoo.com
+
+---
+
+## Special (Persona Decode)
+
+Brian is the **veteran math educator** of YouTube—a teacher who built his empire one problem at a time. With **13,280 videos** and **337M+ views**, he's the go-to resource for students stuck on Algebra, Precalculus, and Calculus homework. His teaching style is **methodical, patient, and conversational**—he talks *to* you, not *at* you.
+
+His signature is the **"Let's go and..."** opener—a warm, inviting phrase that makes even the most intimidating math feel approachable. He doesn't rush. He doesn't skip steps. He walks you through the logic, checks your understanding, and makes sure you *get it* before moving on.
+
+But here's the challenge: **Brian's content is camera-forward and whiteboard-heavy.** He writes, explains, circles mistakes, and guides you through the problem in real-time. His students love the personal touch—but the visual clarity could be sharper. When he's explaining the unit circle or breaking down reference angles, the hand-drawn diagrams can get cluttered. Labels overlap. Lines blur. The geometry that should *pop* gets lost in the marker strokes.
+
+**The opportunity:** Brian doesn't need to change his teaching style. He needs to **upgrade the visuals** without losing the warmth. Imagine his voice guiding you through the same problem—but now the unit circle animates cleanly, the reference angles slide into place, and the coordinate points highlight exactly when he mentions them. The teaching stays personal. The visuals become professional.
+
+---
+
+## Approach (The Pitch)
+
+Position EulaIQ as the tool that **amplifies Brian's teaching without replacing him.** He's already the trusted voice for millions of students—we just make the math *clearer*.
+
+**High-concept analogy:**  
+*"You're the Bob Ross of math—calm, patient, and reassuring. But imagine if your whiteboard could animate itself while you teach. That's what we built."*
+
+The pitch isn't about replacing his camera-forward style. It's about **mixing camera + animation**—keeping Brian on screen for the warm, conversational moments, and letting the animation handle the technical diagrams. The unit circle doesn't need to be hand-drawn. The reference angles don't need to be labeled by hand. The math can be *beautiful* while Brian stays *human*.
+
+---
+
+## Compliment (The Hook)
+
+*"Brian, your teaching style is what YouTube math should be—patient, methodical, and genuinely helpful. The way you open with 'Let's go and...' and walk students through every step is why you have 337 million views. But I noticed something in your Unit Circle Mistakes video: the hand-drawn diagrams are clear enough to follow, but they could be sharper. What if the unit circle animated itself while you explained it? What if the reference angles slid into place exactly when you said them? You'd keep the warmth—but the visuals would be flawless."*
+
+---
+
+## Video Title & URL
+
+**Video Title:** Unit Circle Mistakes  
+**Video URL:** https://youtu.be/4SWEpdg81y0?si=f4f-Myy7oUDwNui-
+
+---
+
+## Reason (The Visual Gap)
+
+This video is a **perfect use case** for EulaIQ. Brian is teaching three common unit circle mistakes:
+
+1. **Switching up points** (√3/2, 1/2 vs. 1/2, √3/2)
+2. **Confusing angles** (30° = π/6, not π/3)
+3. **Misunderstanding reference angles and co-terminal angles**
+
+The entire lesson relies on **geometric visualization**—the unit circle, coordinate points, angle labels, and reference angle diagrams. Brian draws these by hand, and while his explanations are crystal clear, the visuals could be **cleaner, sharper, and more dynamic.**
+
+**Specific moments where animation would elevate the teaching:**
+
+- **0:36–1:10** — Brian introduces the two commonly confused points: (√3/2, 1/2) and (1/2, √3/2). He writes them out by hand. **Animation opportunity:** These points could appear on a clean unit circle, labeled and color-coded, so students can *see* the difference instantly.
+
+- **1:30–2:30** — Brian explains the angle confusion: 30° = π/6, not π/3. He writes "30°, 45°, 60°" and their radian equivalents. **Animation opportunity:** A side-by-side comparison of degrees and radians, with visual markers showing which angle is smaller/larger.
+
+- **2:45–5:30** — Brian teaches the "1, 2, 3" trick for memorizing the first quadrant points. He writes √1/2, √2/2, √3/2 going up, and √3/2, √2/2, √1/2 going down. **Animation opportunity:** The fractions could animate into place as he says them, building the pattern visually so students can *see* the symmetry.
+
+- **6:00–8:30** — Brian introduces **reference angles** and graphs 5π/4. He draws the unit circle, marks the angle, and identifies the reference angle as π/4. **Animation opportunity:** The angle could sweep into place, the reference angle could highlight in a different color, and the coordinate point could appear automatically.
+
+- **12:00–14:30** — Brian explains **co-terminal angles** and shows how -5π/2 is equivalent to 3π/2 by subtracting full rotations (4π/2). He writes out the math step-by-step. **Animation opportunity:** The rotations could animate visually—showing the angle wrapping around the circle and landing on the same point.
+
+**The core insight:** Brian's teaching is already excellent. The visuals just need to keep up. With EulaIQ, the unit circle doesn't need to be redrawn every time. The angles don't need to be labeled by hand. The math can be *beautiful* while Brian stays *present*.
+
+---
+
+## Context for Sample (Technical Directive)
+
+**Sample video:** Unit Circle Mistakes (focus on the reference angle explanation, 6:00–8:30)
+
+**What the sample MUST show:**
+
+1. **Clean unit circle** — A professionally rendered unit circle with labeled axes, quadrants, and key angles (π/4, π/2, 3π/4, etc.).
+
+2. **Angle animation** — The angle 5π/4 sweeps into place from the positive x-axis, rotating counterclockwise into the third quadrant.
+
+3. **Reference angle highlight** — The reference angle (π/4) is highlighted in a contrasting color, with a bracket or arc showing the acute angle between the terminal side and the x-axis.
+
+4. **Coordinate point** — The point (-√2/2, -√2/2) appears at the terminal side of the angle, labeled clearly.
+
+5. **Step-by-step reveal** — The animation should sync with Brian's voice. When he says "5π/4," the angle appears. When he says "reference angle," the π/4 arc highlights. When he says "negative √2/2," the coordinate point appears.
+
+**Technical notes:**
+
+- Use **Manim-style geometry** (clean lines, smooth arcs, professional labels).
+- Keep the color palette **simple and high-contrast** (black/white background, blue for angles, red for reference angles, green for coordinate points).
+- The animation should feel **calm and methodical**—matching Brian's teaching pace, not rushing ahead.
+
+**Loom demo suggestion:**  
+Record a 60-second Loom showing the before (Brian's hand-drawn diagram) and after (EulaIQ's animated version), with a voiceover explaining: *"Same teaching. Sharper visuals. No extra work for you."*
+
+---
+
+## DRAFT EMAIL TEMPLATE
+
+**Subject:** I animated your Unit Circle Mistakes video (Demo inside)
+
+Hi Brian,
+
+I've been watching your Unit Circle Mistakes breakdown, and I honestly love how you make intimidating trig concepts feel genuinely approachable. The "Let's go and..." opener really sets a tone that's missing in most math content—it's patient, methodical, and human.
+
+I noticed that your teaching relies heavily on hand-drawn diagrams—the unit circle, the reference angles, the coordinate points. Your explanations are crystal clear, but the visuals could be sharper.
+
+I'm Victor from EulaIQ (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the geometry you're describing. Instead of you having to draw the unit circle by hand, our system renders it cleanly and syncs the labels, angles, and points to your narration.
+
+I tested EulaIQ on a 60-second clip of your Unit Circle video—the moment you explain reference angles and graph 5π/4. It captured the angle sweep, the reference angle highlight, and the coordinate point reveal, all synced to your voice.
+
+I'd love to send you that sample clip so you can see what your teaching looks like with high-end animation. Reply with "Hi" if you're curious, and I'll drop the link.
+
+Warmly,  
+Victor Chukwujiobi  
+CEO, EulaIQ
+
+P.S. There's no new software for you to learn. Our system works directly with the audio/video files you already record. You keep teaching. We handle the visuals.
+
+---
+
+**Internal Notes:**
+
+- **Sample priority:** High (veteran creator, large archive, stable authority)
+- **Sample turnaround:** <48 hours
+- **Follow-up strategy:** If no reply in 5 days, send a short Loom demo showing the before/after comparison
+- **Conversion pathway:** Free sample → Early access invite → Premium tier ($50/mo for unlimited animations)

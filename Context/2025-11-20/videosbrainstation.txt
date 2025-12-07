@@ -1,0 +1,47 @@
+Name: VideosBrainStation
+Channel: Maths/Calculus educational channel
+Initial outreach: Email praising their "BASIC Math Calculus" video and offering an EulaIQ sample of "No One Taught Eigenvalues & Eigen Vectors Like This".
+Response Summary: Positive — creator expressed interest in seeing the sample and testing the result.
+Status: Interested — follow-up required.
+Delay explanation:
+- We made initial contact with a proof-of-concept but the product was unstable. To make sure we deliver a high-quality sample, we paused follow-up while stabilizing our platform.
+Recent progress & updates:
+- The pipeline is now stable and supports mixed camera + animation segments, improved diagram rendering, and quicker sample turnaround.
+- Achievements: Accepted into NVIDIA Inception; awarded $100k+ in AWS credits and $350k+ in GCP credits.
+- Sample created for "No One Taught Eigenvalues & Eigen Vectors Like This" — sample link placeholder: <VIDEOSBS_SAMPLE_LINK>
+
+Suggested follow-up (apologetic + update):
+---
+Subject: Apologies for the delay — your sample is ready
+
+Apologies for the slow follow-up. We wanted to stabilise EulaIQ so any demos we sent would be useful — I made a short sample from your video so you can see how we’d animate the core example: <VIDEOSBS_SAMPLE_LINK>
+
+Here’s a short sample we created from your video "No One Taught Eigenvalues & Eigen Vectors Like This": <VIDEOSBS_SAMPLE_LINK>
+
+Quick notes:
+- We can animate only the parts you want (worked examples, diagrams) while keeping your camera segments intact — or animate the whole video if you prefer. For camera-integration we currently recommend recombining your camera footage in your editor; native integration is planned for release.
+- You keep full ownership; EulaIQ provides the generated assets and a production license for your usage — we won’t publish without your approval.
+- If you want adjustments to the timing, visual style, or which sections remain on-camera, we can make that quickly.
+
+Would you like a short 10–15 minute demo to walk through the sample? If so, reply with a couple times that work for you and we’ll book it — otherwise reply "Hi" to see the unlisted sample.
+
+Best,
+Godreigns
+---
+
+Creator-specific clarifying questions for Victor (so I can tailor the reply precisely):
+1) Confirm the `VIDEOSBS_SAMPLE_LINK` and the exact video segments used.
+2) Do we have a pre-approved summary/one-line treatment of our licensing policy (short version to include in the reply)?
+3) Any early-access offer we should highlight (e.g., discount, co-marketing, priority support)?
+4) Do we want to ask whether they’d be comfortable with a public mention or a testimonial if the sample works for them?
+Next Steps:
+- Send sample and collect creator feedback.
+- Offer to show how EulaIQ can be used for short segments to complement camera presence.
+- Provide clear step for early access onboarding and offer to test a current script.
+Notes for personalization: Reference which older video was used for the sample and highlight how the animation supports quick conceptual understanding.
+
+Interaction history: Initiated 2025-10-10 by godreigns@eulaiq.com
+Internal owner: Godreigns Anyachebelu
+
+---
+Keywords: calculus, conceptual clarity, mixed camera, tutorial videos, early access

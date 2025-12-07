@@ -1,0 +1,77 @@
+# Lead Context File: Presh Talwalkar (MindYourDecisions)
+
+**First Name:** Presh  
+**Channel Name:** MindYourDecisions  
+**Email:** presh@mindyourdecisions.com
+
+---
+
+## Special:
+Presh is the "Stanford Math Storyteller"—he transforms intimidating competition-level problems into accessible puzzles that feel like brain teasers rather than exams. His signature is the calm, methodical walkthrough ("Hey, this is Presh Talwalkar") combined with elegant geometric insight. He doesn't just solve problems; he reveals the *surprising* solution hidden in plain sight. His audience (3.2M subscribers, 678M+ views) trusts him to make Olympiad-level math feel achievable. He's award-nominated, Stanford-trained, and has built one of the most reputable math education brands on YouTube—but he's selective about sponsorships, which means he values quality partnerships over volume.
+
+---
+
+## Approach:
+Position EulaIQ as the tool that upgrades his hand-drawn diagrams and static slides into fluid, professional animations—without losing his signature calm delivery. Pitch it as **"The Stanford Storyteller meets 3Blue1Brown's Animation Engine."** Emphasize that our system preserves his voice and pacing while automating the visual heavy lifting (rotating shapes, labeling segments, animating equations). This is not about changing his style—it's about amplifying the "aha moment" with cleaner visuals.
+
+---
+
+## Compliment:
+Your teaching style is the "Stanford Math Storyteller"—the way you greet your audience ("Hey, this is Presh Talwalkar") and calmly reveal the surprising solution to competition-level problems makes Olympiad geometry feel like a satisfying puzzle rather than an intimidating exam.
+
+---
+
+## Video Title:
+**You won't believe the surprising solution**
+
+**Video URL:** https://youtu.be/ouc6iX4dlMw?si=dvQJagmyG_W872I5
+
+---
+
+## Reason:
+This video relies entirely on geometric rotation and area decomposition (rotating quarter circles, forming squares from green regions). Currently, Presh uses static slides with manual labels. This is the *perfect* use case for our tool to animate the rotation in real-time, automatically shade regions as he describes them, and visually demonstrate the "green area = 1 + 1 square cm" insight. The moment at **1:07** where he rotates the quarter circle 90° clockwise is begging for smooth animation.
+
+---
+
+## Context for Sample:
+The video transcript focuses on a quarter circle subdivided into regions (two red, four green). The sample MUST show:
+1. The quarter circle rotating 90° clockwise (timestamp ~1:07) with smooth motion.
+2. The green regions automatically shading and forming a square as Presh describes it.
+3. The equation "π × 2² / 4 = π square cm" appearing cleanly on-screen as he calculates the total area.
+4. The final answer "π - 2 ≈ 1.14 square cm" animating into place.
+
+**Key technical directive:** Capture the rotation moment and the area decomposition logic. The animation should feel like a visual proof unfolding in sync with his voice.
+
+---
+
+---
+
+# DRAFT EMAIL TEMPLATE:
+
+**Subject:** I animated your "Surprising Solution" problem (Demo inside)
+
+Hi Presh,
+
+I've been watching your breakdown of the quarter circle area problem (the one with the surprising π - 2 solution), and I honestly love how you make competition-level geometry feel like a satisfying puzzle. The "Hey, this is Presh Talwalkar" intro really sets a tone that's missing in most math content—it's calm, methodical, and builds trust.
+
+I noticed that your teaching relies heavily on geometric insight—rotating shapes, decomposing areas, revealing the hidden structure. The moment at 1:07 where you rotate the quarter circle 90° clockwise is brilliant, but it's currently static slides.
+
+I'm Victor from **EulaIQ** (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the geometry you're describing. Instead of you having to manually rotate shapes or label regions, our system visualizes the rotation and area decomposition in real-time as you explain it.
+
+I tested EulaIQ on a 30-second clip of your "Surprising Solution" video. It captured the quarter circle rotation, the green regions forming a square, and the final equation (π - 2) appearing cleanly on-screen—all synced to your voice.
+
+I'd love to send you that sample clip so you can see what your explanations look like with high-end animation. **Reply with "Hi" if you're curious**, and I'll drop the link.
+
+Warmly,  
+**Victor Chukwujiobi**  
+CEO, EulaIQ
+
+**P.S.** There's no new software for you to learn. Our system works directly with the audio/video files you already record. And you retain full ownership of all content generated—we're just the animation layer.
+
+---
+
+**Internal Notes:**
+- **Sample priority:** HIGH (3.2M subs, award-nominated, Stanford credibility)
+- **Sample focus:** Rotation animation at 1:07, area decomposition, equation rendering
+- **Follow-up strategy:** If no reply in 5 days, send Loom demo of sample + case study from similar creator
+- **Conversion potential:** Medium-High (selective about sponsorships, but values quality tools; likely to convert if sample impresses)

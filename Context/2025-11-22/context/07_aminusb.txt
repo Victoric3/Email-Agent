@@ -1,0 +1,56 @@
+# Context File: AminusB (aminusb) — Serial 7
+
+```
+First Name: AminusB
+Channel Name: AminusB
+Email: [to be collected]
+
+Special: AminusB creates clean, methodical math problem walkthroughs with a focus on exponential equations, algebra, and competition-style problems. The channel has a minimalist aesthetic—black background, white handwriting, no face cam—letting the math speak for itself. The teaching style is direct and efficient: "Hello everyone, welcome to my YouTube channel" followed immediately by problem-solving. The channel appeals to students preparing for exams or competitions who want clear, distraction-free solutions.
+
+Approach: Position EulaIQ as the tool that transforms their handwritten work into polished, professional animations while preserving the minimalist aesthetic they've built. Pitch it as "Your clean math style, but with 3Blue1Brown-level animation quality—automatically." Emphasize that we can maintain the black background and white text aesthetic while adding smooth transitions, equation morphing, and visual emphasis on key algebraic steps.
+
+Compliment: Your minimalist approach to math problems is incredibly effective—the black background and methodical step-by-step breakdown lets students focus purely on the logic without distraction. It's math teaching at its most elegant.
+
+Video Title: A Nice Exponential Problem | 5^m + 5^m = 90
+Video URL: [from transcript file 07_(ext)s.en.vtt]
+
+Reason: This video is a perfect use case because it involves algebraic manipulation of exponential equations (factoring out 5^m, simplifying to 2 × 5^m = 90, then solving for m). Currently done with handwriting, this is exactly the type of content where our tool can animate the factoring process, show the equation transformations smoothly, and highlight the logical steps (taking common factors, dividing both sides, applying logarithms) with professional motion graphics—all while keeping the minimalist black-and-white aesthetic.
+
+Context for Sample: The video shows the equation 5^m + 5^m = 90 being solved by factoring out 5^m to get 2 × 5^m = 90, then 5^m = 45, and finally solving for m. The sample MUST show:
+1. The initial equation appearing cleanly
+2. The factoring step with 5^m being pulled out visually
+3. The simplification to 5^m = 45 with smooth equation morphing
+4. The final step showing m = log₅(45) or m ≈ 2.365
+All in the minimalist black background, white text style that matches their brand.
+
+---
+DRAFT EMAIL TEMPLATE:
+
+Subject: I animated your exponential equation problem (5^m + 5^m = 90)
+
+Hi AminusB,
+
+I've been watching your exponential problem walkthrough (5^m + 5^m = 90), and I really appreciate the minimalist approach you take. The black background and clean, methodical steps let the math speak for itself—no distractions, just pure problem-solving.
+
+I noticed your teaching relies on clear algebraic transformations—factoring out 5^m, simplifying, and solving step by step.
+
+I'm Victor from EulaIQ (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the algebra you're describing. Instead of handwriting each step, our system can show equations morphing smoothly, factors being pulled out visually, and solutions appearing exactly when you explain them—all while keeping your signature black-and-white minimalist aesthetic.
+
+I tested EulaIQ on a 20-second clip of your exponential problem video. It captured the factoring step (pulling out 5^m) and the simplification to 5^m = 45, but with smooth equation animations that match your clean style.
+
+I'd love to send you that sample clip so you can see what your teaching looks like with professional animation. Reply with "Hi" if you're curious, and I'll drop the link.
+
+Warmly,
+Victor Chukwujiobi
+CEO, EulaIQ
+
+P.S. There's no new software for you to learn. Our system works directly with the audio/video files you already record—and we can match your exact visual style (black background, white text, minimalist).
+```
+
+---
+
+**Key Differentiators for AminusB:**
+- Emphasize **aesthetic preservation** (black background, minimalist style)
+- Focus on **algebraic transformation animations** (factoring, equation morphing)
+- Highlight **efficiency** (no face cam, pure math focus = perfect for automated animation)
+- Position as upgrade from handwriting to professional motion graphics **without losing their brand identity**

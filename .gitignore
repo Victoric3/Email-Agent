@@ -1,0 +1,56 @@
+.env
+env
+# Python
+.venv/
+venv/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+
+# Encryption keys
+*.pem
+*.key
+*.crt
+id_rsa
+id_rsa.pub
+
+# Secret files
+secrets.json
+credentials.json
+*.secret
+*.token
+
+# Databases
+*.db
+*.sqlite3
+
+# npm / node
+node_modules/
+
+# Email schedule & manual queues (contain personal info)
+data/email_schedule.json
+manual_queue/
+manual_queue/*.json
+
+# Generated assets and large files
+assets/
+assets/**
+
+# Backup and temp files
+*~
+*.bak
+*.swp

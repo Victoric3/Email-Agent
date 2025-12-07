@@ -1,0 +1,128 @@
+# OUTREACH DOSSIER: Relish Math
+
+---
+
+## ANALYSIS PHASE
+
+### 1. PERSONA DECODE ("Special")
+
+**Vocal Style & Pacing:**
+Relish Math speaks with a calm, methodical cadence—almost meditative. The pacing is deliberate: "today's question... given are two circles... touching each other..." There's no rush, no filler words. This is a creator who trusts silence and precision over entertainment value.
+
+**Teaching Philosophy:**
+Pure geometric proof. No personality overlay, no "hey guys," no intro music. The video title itself is a formula derivation ("Derive formula"). This is a creator serving students who need the *exact steps* for exam prep—likely targeting Indian CBSE/ICSE or competitive exam students (JEE/NEET) based on the formal problem structure.
+
+**Unique Signature:**
+The "silent precision" approach. Relish doesn't explain *why* geometry is beautiful—they show you *how* to solve it, step by step, with the assumption that you're here to learn the method, not be entertained.
+
+---
+
+### 2. VISUAL GAP IDENTIFICATION ("Reason")
+
+**Critical Moment in Transcript:**
+The video discusses two circles with radii 9 cm and 4 cm, touching each other, with a direct common tangent drawn between them. The creator is deriving the formula for the length of this tangent.
+
+**The Visual Problem:**
+This is a *classic construction problem* that requires:
+- Two circles of different sizes positioned tangentially
+- A direct common tangent line touching both at points A and B
+- Auxiliary construction lines (radii to tangent points, perpendiculars, the line joining centers)
+- A right triangle formed by the radii difference and the distance between centers
+
+Currently, Relish likely draws this by hand or uses static diagrams. But the *derivation* requires showing:
+1. The tangent appearing
+2. Radii being drawn to the points of tangency (perpendicular to the tangent)
+3. The formation of a right triangle
+4. The Pythagorean theorem being applied with labeled sides
+
+**Why EulaIQ Fits:**
+Our animation layer can *build the diagram as Relish speaks*. When they say "touching each other," the circles appear tangent. When they say "drawing a direct common tangent," the line animates into place. When they derive the formula, the right triangle highlights, and the equation appears synchronized with their voice.
+
+---
+
+### 3. THE APPROACH (High-Concept Pitch)
+
+**Positioning:**
+"The Formula Whisperer meets 3Blue1Brown"
+
+Relish Math is the anti-entertainment educator—no fluff, just pure geometric proof. But their silent precision *deserves* visual precision to match. EulaIQ gives them broadcast-quality geometric construction without requiring them to learn animation software or change their teaching style.
+
+**The Compliment:**
+Your teaching style is refreshingly focused—no unnecessary commentary, just pure geometric derivation. That methodical pacing ("today's question... given are two circles...") creates a meditative clarity that's rare in math YouTube.
+
+---
+
+### 4. CONTEXT FOR SAMPLE (Technical Directive)
+
+**Video Title:** "84) Length of direct common tangent for two circles. Derive formula."  
+**Video URL:** [To be provided by team]
+
+**Sample Requirements:**
+The sample MUST show the two-circle tangent construction:
+1. Two circles (radii 9 cm and 4 cm) appearing tangent to each other
+2. The direct common tangent line AB animating into place
+3. Radii drawn to points A and B (perpendicular to the tangent)
+4. The auxiliary line connecting the two centers
+5. The right triangle formed by the radii difference (9 - 4 = 5) and the tangent length
+6. The Pythagorean theorem equation appearing as Relish derives it
+
+**Timing Sync:**
+- "touching each other" → circles appear tangent
+- "drawing a direct common tangent" → tangent line animates
+- "touching the circles at Point a and point B" → points A and B highlight
+- Formula derivation → equation builds step-by-step
+
+---
+
+## CONTEXT FILE (COPY-READY)
+
+```
+First Name: Relish
+Channel Name: Relish Math
+Email: relish@[to_be_provided]
+
+Special: Relish Math teaches with silent precision—no personality overlay, no entertainment layer, just pure geometric proof delivered in a calm, methodical cadence. The pacing is deliberate and meditative ("today's question... given are two circles... touching each other..."). This is a creator serving exam-focused students (likely CBSE/ICSE/JEE) who need exact derivation steps, not motivation. The signature is "formula-first clarity"—trust in silence and geometric logic over verbal explanation.
+
+Approach: Position EulaIQ as the tool that matches their visual precision with their vocal precision. Pitch it as "Your derivations deserve broadcast-quality construction diagrams that build as you speak—no animation software required."
+
+Compliment: Your teaching style is refreshingly focused—no unnecessary commentary, just pure geometric derivation. That methodical pacing ("today's question... given are two circles...") creates a meditative clarity that's rare in math YouTube.
+
+Video Title: 84) Length of direct common tangent for two circles. Derive formula.
+Video URL: [To be provided]
+
+Reason: This video derives the formula for the length of a direct common tangent between two circles (radii 9 cm and 4 cm). The proof requires constructing auxiliary lines (radii to tangent points, line joining centers) and forming a right triangle to apply the Pythagorean theorem. Currently, this is likely drawn by hand or shown as a static diagram. EulaIQ can animate the construction step-by-step as Relish speaks—circles appearing tangent, the tangent line animating into place, radii being drawn perpendicular, and the formula building in sync with the derivation.
+
+Context for Sample: The sample MUST show the two-circle tangent construction: two circles (radii 9 cm and 4 cm) appearing tangent, the direct common tangent AB animating into place, radii drawn to points A and B (perpendicular), the line joining centers, and the right triangle formed by the radii difference (5 cm) and the tangent length. The Pythagorean theorem equation must appear synchronized with Relish's derivation.
+
+---
+DRAFT EMAIL TEMPLATE:
+
+Subject: I animated your two-circle tangent derivation (Demo inside)
+
+Hi Relish,
+
+I've been watching your derivation of the direct common tangent formula (the two-circle problem with radii 9 cm and 4 cm), and I really respect the clarity of your approach. The way you pace through the construction—"today's question... given are two circles... touching each other..."—creates a meditative focus that's rare in math content.
+
+I noticed that your teaching relies on precise geometric construction, and the derivation requires students to visualize auxiliary lines, perpendiculars, and the right triangle formed by the radii difference.
+
+I'm Victor from EulaIQ (part of the NVIDIA Inception program). We built an AI that listens to your voice and automatically animates the geometry you're describing. Instead of drawing the tangent and radii by hand, our system constructs the diagram step-by-step as you speak—circles appearing tangent, the tangent line animating into place, and the Pythagorean equation building in sync with your derivation.
+
+I tested EulaIQ on a 20-second clip of your tangent formula video. It captured the moment you constructed the auxiliary triangle and applied the theorem, but with broadcast-quality geometric precision.
+
+I'd love to send you that sample clip so you can see what your derivations look like with high-end animation. Reply with "Hi" if you're curious, and I'll drop the link.
+
+Warmly,
+Victor Chukwujiobi
+CEO, EulaIQ
+
+P.S. There is no new software for you to learn. Our system works directly with the audio/video files you already record.
+```
+
+---
+
+**INTERNAL NOTES FOR SAMPLE GENERATION TEAM:**
+- Priority: High (geometric construction is a perfect use case)
+- Complexity: Medium (requires accurate circle tangency, perpendicular radii, and triangle formation)
+- Timing: Sync equation appearance with vocal derivation
+- Style: Clean, exam-prep aesthetic (not playful—this is serious geometry)
+- Estimated sample length: 20-30 seconds (construction + formula derivation)

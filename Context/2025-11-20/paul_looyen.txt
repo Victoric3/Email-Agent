@@ -1,0 +1,43 @@
+Name: Paul Looyen
+Channel: (Physics/Math) - Paul Looyen
+Initial outreach: Personalized email praising his educational style; offered early access and tested an older video in EulaIQ.
+Response Summary: Paul responded positively and wanted to see the result. He asked whether the tool can mix camera segments and animation and requested details about ownership and the early-access program.
+Request from Paul: Confirmed interest; asked if the tool can be used for segments only and about the service terms and rights.
+Status: Interested — sample created; follow-up required to send ownership details and confirm sample acceptance.
+Delay explanation:
+- We previously reached out with a lightweight demo and requested samples, but the product was unstable at the time. We chose to pause outreach for a short period to make the product stable before sending samples or onboarding creators.
+Recent progress & updates:
+- Product stability: EulaIQ's pipeline is now stable and handles timing, diagrams and mixed camera workflows consistently.
+- Achievements: Accepted into NVIDIA Inception; awarded $100k+ AWS credits and $350k+ GCP credits.
+- Sample created for one of Paul's older videos — sample link placeholder: <PAUL_SAMPLE_LINK>
+ - Sample created for one of Paul's older videos — sample link placeholder: <PAUL_SAMPLE_LINK>
+ - Original video: https://youtu.be/uW7Zn24fAM4
+
+Suggested follow-up (apologetic + update):
+---
+Subject: Apologies for the delay — a short sample is ready
+
+Hi Paul,
+
+
+Hope you’ve been well — sorry we were slow to follow up. We paused for a short while to make sure the demos we send are useful. I made a short, unlisted sample from your video "Kepler’s Three Laws Explained" — it animates a small segment so you can see the feel: <PAUL_SAMPLE_LINK>
+
+Quick answers to what you asked:
+- Can we animate segments only? Yes — clip the segment you want animated and upload it; we’ll return a polished animation you can drop in. (Camera-integration in the same frame is planned; for now you can recombine with your camera footage in Canva or any editor.)
+- Where are we based and where did the name come from? We’re based in Canada. The name EulaIQ is a nod to Leonhard Euler — chosen as a playful reference to math and clarity.
+- Ownership: You keep full ownership. We provide the generated assets and a production license; we won’t publish without your sign-off.
+
+Offer: We’ll give you 50% off on full launch and lifetime priority support as an early-access creator.
+
+If you’d like the sample updated or prefer a quick 10–15 minute walkthrough, reply "Hi" or propose a few times and we’ll set something up.
+
+Warmly,
+Godreigns
+---
+
+Date of last contact: 2025-10-08
+
+Internal owner: Godreigns Anyachebelu
+
+---
+Keywords: physics, tutorials, camera-forward content, mixing camera + animation, ownership, early-access

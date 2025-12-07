@@ -1,0 +1,13 @@
+Hi Jacob,
+
+Thanks for the interest. As promised, I have attached the animated sample of your Frustum volume walkthrough directly to this email.
+
+In this clip, you will see how EulaIQ kept your original voice and pacing but replaced the static blackboard view with a dynamic 3D animation. Specifically, notice how:
+
+The Diagram is Active: The frustum rotates to show the depth, and we highlighted the top (2×6) and bottom (5×15) rectangles exactly when you referenced them.
+
+The Math flows with you: As you derived the formula V = (1/3)(A₁ + A₂ + √(A₁ × A₂)) × h, we made the terms appear in sync with your narration, building up to the final 390 cm³ result.
+
+The goal is to give your students a "visual cheat sheet" that runs alongside your expert explanation, making the spatial concepts easier to grasp without you needing to draw complex 3D shapes by hand.
+
+I would love to get your feedback on the timing and the visual style. Do you have 15 minutes later this week to chat about how this workflow could fit into your next GCE exam prep series?

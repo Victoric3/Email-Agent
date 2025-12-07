@@ -1,0 +1,84 @@
+Overview: These are the clarifying items I need from you to finalize each follow-up. Answer all that apply, and I’ll craft tailored replies.
+
+Global Questions (applies to all follow-ups)
+1) Sample URLs: Please provide the final `sample_link` for each creator (Paul, Shanilka, VideosBrainStation). If you prefer Loom, give the Loom link; if cloud storage, give a public or password-protected link.
+[the urls will be attached manually by me, simply add a blank space]
+2) Video & Timestamp: For each sample, confirm which video (exact title or URL) and the precise timestamps/segments animated.
+also make this a placeholder so i can update myself
+3) Sample Type: Did we animate the whole video or only specific segments? If segments: provide timestamps and short reason why (diagrams/equations/visuals).
+i animated a small part of the video, just so he checks it out quickly
+4) Ownership + Licensing: Provide the exact short message you want in the email about ownership (short recommended wording below). If you want legal wording, attach the formal copy.
+   - Recommended: "You retain full ownership. EulaIQ provides the generated assets and a production license for your usage — we won't publish anything without your explicit approval."
+   yes i approve of this
+5) Early-Access Incentives: What incentive(s) do we want to offer? (Choose at least one)
+   - Free or discounted subscription months (e.g., 2 months free) we give 50% discount on our actual subscription
+   - Discounted long-term rate (e.g., 25% off for 6 months) he can purchase as much as he wants now before we leave beta
+   - Credits or co-marketing (e.g., a joint PR or YouTube mention) we don't want to discuss this now, but i intend to build a relationship with big educators, ask for an investment or credits or pr later on
+   - Priority access & onboarding yes he will get dedicated support, i will always be one email away
+   - None — for now we only send samples no he can get access to the platform
+6) Demonstration Offerings: Do you want us to offer a free 10–15 minute demo? If yes: please list your availability (time zone + 2-3 windows) so I can include scheduling options. i want to over the demo, priority support, and i'm willing to fit into his own availability for now
+7) Milestones & Plaudits: Do you want to include the recent milestones in each follow-up (NVIDIA Inception; $100k+ AWS credits; $350k+ GCP credits)? If yes, do you want it in every mail or only a subset? (Default: include in all short follow-ups.) no i want it only when it makes sense to mention it 
+8) Case Study / Testimonial ask: Should we ask whether the creator would be open to giving a short quote or a public case study if the sample works? (Yes/No)
+    no yet, i will do that on the call
+9) Privacy policy: Do we require written approval before publishing any sample or can it be published unless the creator objects? (Must confirm asked preference.)
+    yes we won't publish anything unless the creator approves that
+10) CTA granularity: Do you prefer the CTA to be "Reply Hi" or something else (e.g. "Reply ‘Sample’" or a booking link)?
+    Reply Hi, sounds good to me
+11) Tone & Apology: We’ll use an apologetic, short tone: “We paused because we were stabilizing the product; sorry for the delay.” Confirm if you’d like to alter the phrasing or mention the timeline ("about a month and a half").
+    the appologetic tone is okay
+12) Contact details: Who is the contact for direct replies? (Example: victor@eulaiq.com and godreigns@eulaiq.com) Would you like a phone number to be included in the follow-up?
+    no, the contact is actually appended automatically, but the name for paul, Shanilka, and VideosBrainStation is godreigns, btu for the remaining email i will continue
+13) Additional internal notes we should add to the email: (E.g., ask permission to use their sample for promotional assets if they consent.)
+    not yet, i will suually send it differently
+Creator-specific Questions
+
+Paul Looyen:
+- Which video did we make the sample from (exact title or link)? Please confirm the `PAUL_SAMPLE_LINK`.
+Kepler’s Three Laws Explained — original video link: https://youtu.be/uW7Zn24fAM4
+`PAUL_SAMPLE_LINK` will be added by Victor when the unlisted animation is uploaded (placeholder: <PAUL_SAMPLE_LINK>)
+- Did we animate the whole video, or only certain timestamps? If segments, list timestamps.
+We animated a short segment only — it’s meant as a quick sample so he can preview the animation quality (no timestamps in the email).
+- Did we keep any on-camera (real person) parts? If yes, which timestamps show the person on-screen?
+No we cannot keep any real person highlights yet, this is an expected feature, for now we expect the creator to add themselves to the side of the video using canva(and we are ready to assist him in doing that!), but based on demand for this we intend to implement it before we leave beta 
+- Paul asked: (1) whether segments-only animation is possible — confirm "Yes" and provide a sentence describing how that process works in one or two lines.
+    Yes, but he has to cut out the segment he wants and upload it to us, them download that single video
+- Paul also asked where EulaIQ is based and origin of the name — do you want to include that in the email? Provide a short answer for inclusion.
+EulaIQ is based in canada, and the name is a word play from Leonhard Paul Euler, 18th-century Swiss mathematician, one of the greatest in history, The Euler number 
+𝑒 and tons of other things
+- Do you want to offer Paul a specific incentive or priority (e.g., early-bird discount) given his interest?
+Yes — Paul will get a 50% discount applied starting from full release. He also receives lifetime priority support and direct help from Godreigns during beta.
+
+Shanilka Ariyarathne (Prof MAD):(this is a man)
+- Confirm the `SHANILKA_SAMPLE_LINK` and exact parts of the video used.
+    The video: "The Hidden Power of Inductors — Why Coils Resist Change!" — sample link placeholder: <SHANILKA_SAMPLE_LINK>
+- She asked: How much of the generation is AI-driven, and can creators tweak visuals or timing manually? Provide your short answer (2–3 sentences).
+    The generation pipeline is fully automated. Creators can guide generation using natural language prompts; editing controls will be available before launch.
+- She asked: Are any other creators currently using it or can she see other examples? Do we want to provide 1-2 creator sample links or keep their examples private? If we have a trusted creator reference, provide the link.
+    He’s one of the earliest creators we’re reaching out to. We do have internal test samples and can share private example links — placeholder: <PRIVATE_EXAMPLE_LINK>
+- Ownership & early-access specifics: what do we provide (same as global questions)? Provide default wording. its already in the global questions so answer from there
+- For technical diagrams/equations: confirm if we manually tuned them or relied on AI rendering and whether any manual review is included as part of the sample.
+    Our renderer is built to handle technical diagrams precisely; the sample is fully automated and did not include manual edits, though we may add optional manual review later if creators request it.
+- Would you like to offer Shanilka any special support (e.g., a 15-minute walkthrough with a technical person to adapt diagrams)?
+    yes, just the support i'm offering paul
+
+VideosBrainStation:
+- Confirm `VIDEOSBS_SAMPLE_LINK` and the exact video segments used.
+    The video: "Eigenvalues & Eigenvectors" — sample link placeholder: <VIDEOSBS_SAMPLE_LINK> (link on its way).
+- Do we plan to offer mixed camera + animation or full animation? Confirm the preference to include in the email.
+    Same flow as Paul: segment-only animation is supported; camera-integration is not yet automatic — creators can upload clips to animate and recompose camera parts offline.
+- Would you like to include a CTA to test a current script they are working on? (e.g., "If you have a script for your next video, we can pull that in for a sample.")
+    no just push him towards a call
+- Do we want to propose a short case-study or co-marketing offer if the sample does well?
+    No not yet, we will build relationship first
+
+Small details for each creator that will help craft the message:
+- Did we add the creator to a spreadsheet or tracking DB? If yes, specify `last_contacted`, `sample_status`, and `priority` so we can coordinate the follow-ups. yes it is in the data folder
+- Would you like each email to include a direct link to the sample or a link to a private folder with the Loom + sample + brief documentation? nope just the unlisted youtube video
+- Also confirm: Should we copy `godreigns@eulaiq.com` or keep replies only between Victor and the creator? the first three replies will be from godreigns as he initiated it, and the rest is from victor
+
+"Quick answers" & suggested language for us to include:
+- Ownership boilerplate (short): "You retain full ownership of your content; EulaIQ provides the generated assets and a limited production license for the rendered outputs. We won't publish anything without your approval."
+- AI-vs-manual wording suggestion: "EulaIQ uses LLMs and an automation pipeline to create most of the visuals, and for technical diagrams we apply a quick human check to ensure accuracy and clarity. Creators can tweak styles and timing manually during review."
+- Example incentive message: "As an early-access creator you’ll receive free/discounted usage for the first X months and priority feature support."
+
+Answer these questions and I’ll write polished, personalized follow-up emails and place them in the creators' context files (and optionally create CSV export + schedule reminders for outreach).
