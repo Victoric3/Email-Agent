@@ -24,3 +24,6 @@ Machine learning visual
 Neural network animation
 Algorithm visualization
 Sorting algorithm visual
+Cryptography explainer
+Astrophysics visual
+Cosmology animation

@@ -33,9 +33,15 @@ FOLLOWUP_PATTERN = [3, 7, 10, 15]
 
 class LeadStatus:
     """Enum-like class for lead statuses."""
-    QUALIFIED = "qualified"           # Just qualified, no asset yet
+    HARVESTED = "harvested"           # Just found, needs refinement
+    QUALIFIED = "qualified"           # Passed LLM check, needs manual review
+    PENDING_REVIEW = "pending_review" # Waiting for manual email + qualification
+    APPROVED = "approved"             # Manually approved, ready for video gen
+    DISQUALIFIED = "disqualified"     # Manually rejected
     ASSET_GENERATING = "asset_generating"
-    ASSET_GENERATED = "asset_generated"
+    ASSET_PENDING_REVIEW = "asset_pending_review"  # 2 videos ready, awaiting selection
+    ASSET_APPROVED = "asset_approved"  # Video selected, ready for YouTube upload
+    UPLOADED = "uploaded"             # Uploaded to YouTube, ready for email draft
     DRAFTED = "drafted"               # Email drafted, pending review
     READY_TO_SEND = "ready_to_send"   # Approved for sending
     SENT = "sent"                     # Initial outreach sent
@@ -97,7 +103,29 @@ class OutreachDB:
             # Pipeline Status
             "status": LeadStatus.QUALIFIED,
             
-            # Generated Asset
+            # Generated Asset - Dual Video System
+            "video_a": {
+                "eulaiq_video_id": None,
+                "s3_url": None,
+                "branded_player_url": None,
+                "generated_at": None
+            },
+            "video_b": {
+                "eulaiq_video_id": None,
+                "s3_url": None,
+                "branded_player_url": None,
+                "generated_at": None
+            },
+            "selected_video": None,  # "a" or "b" after selection
+            "audio_path": None,  # Path to trimmed 5-min audio
+            
+            # YouTube Upload
+            "youtube_video_id": None,
+            "youtube_url": None,
+            "youtube_channel_used": None,
+            "uploaded_at": None,
+            
+            # Legacy fields (for backwards compatibility)
             "branded_player_url": None,
             "s3_video_url": None,
             "eulaiq_video_id": None,
@@ -376,6 +404,99 @@ class OutreachDB:
     def get_total_leads(self) -> int:
         """Get total number of leads."""
         return self.leads.count_documents({})
+    
+    # ==================== NEW PIPELINE METHODS ====================
+    
+    def set_pending_review(self, channel_id: str):
+        """Move lead to pending_review status after LLM qualification."""
+        self.update_lead_by_channel(channel_id, {"status": LeadStatus.PENDING_REVIEW})
+    
+    def approve_for_video(self, channel_id: str, email: str = None):
+        """Approve lead for video generation (after manual review)."""
+        updates = {"status": LeadStatus.APPROVED}
+        if email:
+            updates["email"] = email
+        self.update_lead_by_channel(channel_id, updates)
+    
+    def disqualify_lead(self, channel_id: str, reason: str = ""):
+        """Disqualify a lead during manual review."""
+        updates = {
+            "status": LeadStatus.DISQUALIFIED,
+            "disqualification_reason": reason
+        }
+        self.update_lead_by_channel(channel_id, updates)
+    
+    def set_dual_videos_generated(self, channel_id: str, video_a: dict, video_b: dict, audio_path: str):
+        """
+        Store both generated video options for manual selection.
+        video_a and video_b should have: eulaiq_video_id, s3_url, branded_player_url
+        """
+        now = datetime.utcnow()
+        video_a["generated_at"] = now
+        video_b["generated_at"] = now
+        
+        self.update_lead_by_channel(channel_id, {
+            "status": LeadStatus.ASSET_PENDING_REVIEW,
+            "video_a": video_a,
+            "video_b": video_b,
+            "audio_path": audio_path,
+            "selected_video": None
+        })
+    
+    def select_video(self, channel_id: str, selection: str):
+        """
+        Select which video (a or b) to use for this lead.
+        selection should be 'a' or 'b'
+        """
+        if selection not in ('a', 'b'):
+            raise ValueError("Selection must be 'a' or 'b'")
+        
+        lead = self.get_lead_by_channel(channel_id)
+        if not lead:
+            return False
+        
+        selected = lead[f"video_{selection}"]
+        
+        self.update_lead_by_channel(channel_id, {
+            "status": LeadStatus.ASSET_APPROVED,
+            "selected_video": selection,
+            # Also set legacy fields for compatibility
+            "branded_player_url": selected.get("branded_player_url"),
+            "s3_video_url": selected.get("s3_url"),
+            "eulaiq_video_id": selected.get("eulaiq_video_id")
+        })
+        return True
+    
+    def set_custom_video_url(self, channel_id: str, branded_url: str, s3_url: str = None):
+        """Set a custom video URL (when neither a nor b was acceptable)."""
+        self.update_lead_by_channel(channel_id, {
+            "status": LeadStatus.ASSET_APPROVED,
+            "selected_video": "custom",
+            "branded_player_url": branded_url,
+            "s3_video_url": s3_url or branded_url
+        })
+    
+    def set_youtube_uploaded(self, channel_id: str, youtube_video_id: str, youtube_url: str, channel_used: str):
+        """Record YouTube upload details."""
+        self.update_lead_by_channel(channel_id, {
+            "status": LeadStatus.UPLOADED,
+            "youtube_video_id": youtube_video_id,
+            "youtube_url": youtube_url,
+            "youtube_channel_used": channel_used,
+            "uploaded_at": datetime.utcnow()
+        })
+    
+    def get_leads_for_video_review(self) -> List[Dict]:
+        """Get leads with dual videos pending selection."""
+        return list(self.leads.find({"status": LeadStatus.ASSET_PENDING_REVIEW}))
+    
+    def get_leads_for_upload(self) -> List[Dict]:
+        """Get leads with approved videos ready for YouTube upload."""
+        return list(self.leads.find({"status": LeadStatus.ASSET_APPROVED}))
+    
+    def get_uploaded_leads(self) -> List[Dict]:
+        """Get leads that have been uploaded to YouTube (ready for email draft)."""
+        return list(self.leads.find({"status": LeadStatus.UPLOADED}))
 
 
 # Singleton instance for convenience
