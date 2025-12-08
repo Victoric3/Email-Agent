@@ -1,209 +1,96 @@
-# Getting YouTube API Credentials
+# Getting YouTube API Credentials (Simple & Recommended)
 
-This guide explains how to set up YouTube API credentials for uploading videos to multiple channels.
+This guide is a concise, step-by-step walkthrough to get OAuth tokens for multiple YouTube channels. The recommended path is to create a Desktop OAuth client and use the helper script `get_youtube_token.py`. If you already have Web credentials, a second path is described below.
 
-## Overview
+Overview:
+- We upload demos as unlisted videos, rotating across 4 channels to stay under the ~6-uploads/day limit per channel.
+- Required: Google Cloud project, YouTube Data API enabled, OAuth client credentials, and one refresh token per channel.
 
-The pipeline uploads demo videos to YouTube as unlisted. To avoid rate limits (6 uploads/day per channel), we use 4 different YouTube channels in round-robin.
-
-**You need:**
-1. A Google Cloud Project with YouTube Data API v3 enabled
-2. OAuth 2.0 credentials (one set works for all channels)
-3. Refresh tokens for each of your 4 YouTube channels
+Quick Recommendation: Use a Desktop OAuth client and `get_youtube_token.py`.
 
 ---
 
-## Step 1: Create a Google Cloud Project
+## Quick Steps (Recommended - easiest)
+1. Create a Desktop OAuth client (Credentials → Create → OAuth client ID → Desktop app).
+2. Save the JSON as `credentials/client_secret.json`.
+3. Add your 4 channel Google accounts as “Test users” in the OAuth consent screen (if your app is not verified).
+4. Run the helper and collect refresh tokens:
+   ```bash
+   cd scripts/outreach
+   python get_youtube_token.py
+   ```
+   - Press `a` to add a channel and follow the browser OAuth flow (sign in to each channel account separately).
+   - Repeat for each channel (4 times).
+5. Add the exported `YOUTUBE_CHANNELS` JSON to `.env` (see `.env` example below).
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Click **Select a project** → **New Project**
-3. Name it something like `eulaiq-youtube-uploader`
-4. Click **Create**
-
----
-
-## Step 2: Enable YouTube Data API v3
-
-1. In your project, go to **APIs & Services** → **Library**
-2. Search for "YouTube Data API v3"
-3. Click on it and click **Enable**
-
----
-
-## Step 3: Configure OAuth Consent Screen
-
-1. Go to **APIs & Services** → **OAuth consent screen**
-2. Select **External** (unless you have Google Workspace)
-3. Click **Create**
-4. Fill in:
-   - App name: `EulaIQ Video Uploader`
-   - User support email: Your email
-   - Developer contact: Your email
-5. Click **Save and Continue**
-6. On **Scopes** page, click **Add or Remove Scopes**
-7. Find and select: `https://www.googleapis.com/auth/youtube.upload`
-8. Click **Update** → **Save and Continue**
-9. On **Test users** page, add the email addresses of your 4 YouTube channels
-10. Click **Save and Continue** → **Back to Dashboard**
+Why this is best: Desktop clients let the helper script complete the OAuth flow (no web server needed). The helper also exports a ready-to-use `YOUTUBE_CHANNELS` JSON block.
 
 ---
 
-## Step 4: Create OAuth 2.0 Credentials
+## Option B: Use Existing Web OAuth Credentials (if you already have them)
+If you already have a Web / Android client (like your `Web client 2`), you can reuse it, but make sure the redirect is configured and you request offline access to get a refresh token.
 
-1. Go to **APIs & Services** → **Credentials**
-2. Click **+ Create Credentials** → **OAuth client ID**
-3. Application type: **Desktop app**
-4. Name: `EulaIQ Uploader`
-5. Click **Create**
-6. **Download JSON** - save as `client_secret.json` in the `credentials/` folder
+1. In Google Cloud Console → Credentials → open your Web client.
+2. Add `http://localhost:8080` (or the redirect your helper uses) to the **Authorized redirect URIs**.
+3. Ensure the OAuth consent screen includes the `youtube.upload` scope:
+   - APIs & Services → OAuth consent screen → Edit App → Scopes → Add `https://www.googleapis.com/auth/youtube.upload`
+4. Add the 4 channel emails under **Test users**, if your app is in testing mode.
+5. Run the helper (it supports Web-client flows if redirect URI points to localhost):
+   ```bash
+   cd scripts/outreach
+   python get_youtube_token.py
+   ```
+   - If for any reason the helper can’t start the web flow with your Web client, use OAuth Playground:
+     - Go to https://developers.google.com/oauthplayground/
+     - ⚙️ → Check “Use your own OAuth credentials” → Paste Client ID & Secret
+     - Select `YouTube Data API v3` → `https://www.googleapis.com/auth/youtube.upload`
+     - Click **Authorize APIs** → Sign in with the channel account → Click **Exchange authorization code for tokens** → Copy the refresh token
 
----
-
-## Step 5: Get Refresh Tokens for Each Channel
-
-You need to run an authorization flow for each of your 4 YouTube channels. We provide a helper script.
-
-### Run the helper script:
-
-```bash
-cd scripts/outreach
-python get_youtube_token.py
-```
-
-This will:
-1. Open a browser window
-2. Ask you to sign in with your YouTube channel's Google account
-3. Grant permission to upload videos
-4. Save the refresh token
-
-**Repeat this 4 times** - once for each YouTube channel, signing into a different Google account each time.
-
-### Manual method (if helper doesn't work):
-
-1. Use the [OAuth 2.0 Playground](https://developers.google.com/oauthplayground/)
-2. Click the gear icon (⚙️) → Check "Use your own OAuth credentials"
-3. Enter your Client ID and Client Secret from Step 4
-4. In the left panel, find "YouTube Data API v3" → Select `youtube.upload`
-5. Click **Authorize APIs**
-6. Sign in with your YouTube channel's Google account
-7. Click **Exchange authorization code for tokens**
-8. Copy the **Refresh token**
+Notes:
+- Ensure the web client uses `access_type=offline` and `prompt=consent` so Google issues a refresh token.
+- If you don’t receive a refresh token (Google issues it only once per user-client pair), try `prompt=consent` or revoke previous grant and repeat the flow.
 
 ---
 
-## Step 6: Configure Environment Variables
-
-Add the YouTube channels to your `.env` file:
-
+## The `.env` format (copy this exactly)
+After you collect refresh tokens, add them to `.env` as one JSON value:
 ```env
-YOUTUBE_CHANNELS=[
-  {
-    "channel_id": "UC_CHANNEL_1_ID",
-    "name": "Channel 1 Name",
-    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    "client_secret": "YOUR_CLIENT_SECRET",
-    "refresh_token": "1//REFRESH_TOKEN_FOR_CHANNEL_1",
-    "access_token": ""
-  },
-  {
-    "channel_id": "UC_CHANNEL_2_ID",
-    "name": "Channel 2 Name",
-    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    "client_secret": "YOUR_CLIENT_SECRET",
-    "refresh_token": "1//REFRESH_TOKEN_FOR_CHANNEL_2",
-    "access_token": ""
-  },
-  {
-    "channel_id": "UC_CHANNEL_3_ID",
-    "name": "Channel 3 Name",
-    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    "client_secret": "YOUR_CLIENT_SECRET",
-    "refresh_token": "1//REFRESH_TOKEN_FOR_CHANNEL_3",
-    "access_token": ""
-  },
-  {
-    "channel_id": "UC_CHANNEL_4_ID",
-    "name": "Channel 4 Name",
-    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    "client_secret": "YOUR_CLIENT_SECRET",
-    "refresh_token": "1//REFRESH_TOKEN_FOR_CHANNEL_4",
-    "access_token": ""
-  }
-]
+YOUTUBE_CHANNELS=[{"channel_id":"UC_xxx1","name":"Channel 1","client_id":"YOUR_CLIENT_ID.apps.googleusercontent.com","client_secret":"YOUR_CLIENT_SECRET","refresh_token":"1//REFRESH_TOKEN_FOR_CHANNEL_1","access_token":""},{"channel_id":"UC_xxx2","name":"Channel 2","client_id":"YOUR_CLIENT_ID.apps.googleusercontent.com","client_secret":"YOUR_CLIENT_SECRET","refresh_token":"1//REFRESH_TOKEN_FOR_CHANNEL_2","access_token":""},...]
 ```
 
-**Notes:**
-- `channel_id`: Your YouTube channel ID (find in YouTube Studio → Settings → Channel → Advanced settings)
-- `client_id` and `client_secret`: Same for all channels (from Step 4)
-- `refresh_token`: Unique per channel (from Step 5)
-- `access_token`: Leave empty - it will be auto-generated
-
-**Important:** Put the entire JSON on one line in your `.env` file, or use proper JSON escaping.
+Tip: The helper will export the line into `credentials/youtube_channels_env.txt` for easy copy/paste.
 
 ---
 
-## Step 7: Find Your YouTube Channel IDs
-
-For each channel:
-
-1. Go to [YouTube Studio](https://studio.youtube.com/)
-2. Click **Settings** (gear icon) → **Channel** → **Advanced settings**
-3. Copy the **Channel ID** (starts with `UC`)
-
-Or visit your channel page and look at the URL:
-- `youtube.com/channel/UCxxxxxxxx` → Channel ID is `UCxxxxxxxx`
-
----
-
-## Step 8: Test the Setup
-
+## Test the configuration (quick)
+1. Setup `.env` with the `YOUTUBE_CHANNELS` block.
+2. Run:
 ```bash
 python 3d_upload_youtube.py --status
 ```
-
-This should show your 4 channels with upload capacity.
-
----
-
-## Troubleshooting
-
-### "Access blocked: This app's request is invalid"
-- Make sure you added test users in the OAuth consent screen (Step 3)
-- The test users must be the Google accounts that own the YouTube channels
-
-### "The user has exceeded the number of videos they may upload"
-- YouTube limits uploads to ~6 per day per channel
-- Wait 24 hours or use another channel
-
-### "Invalid credentials" or "Token has been expired or revoked"
-- Re-run the token generation for that channel (Step 5)
-- Make sure the refresh token is correctly copied
-
-### "Quota exceeded"
-- The YouTube Data API has a daily quota
-- Default is 10,000 units/day; uploads cost 1,600 units each
-- You can request quota increases in Google Cloud Console
+You should see each channel and its daily capacity (uploads done today / uploads allowed).
 
 ---
 
-## Security Notes
-
-⚠️ **Keep your credentials secure:**
-
-- Never commit `.env` or `client_secret.json` to git
-- Both are already in `.gitignore`
-- Refresh tokens give full access to upload - treat them like passwords
-- If compromised, revoke access in Google Account → Security → Third-party apps
+## Troubleshooting (concise)
+- Missing `youtube.upload` scope: Edit OAuth consent screen -> Scopes -> Add `https://www.googleapis.com/auth/youtube.upload`.
+- No refresh token: Use `prompt=consent` or try OAuth Playground or revoke previous grant.
+- OAuth Playground: Gear icon → Use your own credentials; select `youtube.upload` and exchange the code.
+- "Access blocked": If unverified, add Google accounts as Test Users. If in Production, verify app or add app domain.
 
 ---
 
-## Quick Reference
+## Security
+- Keep `client_secret.json` and `.env` private. Do not commit them.
+- If a refresh token is leaked, revoke the OAuth grant at Google Account → Security → Third-party apps.
 
+---
+
+## Quick Reference Table
 | What | Where |
 |------|-------|
 | Google Cloud Console | https://console.cloud.google.com/ |
-| API Library | Console → APIs & Services → Library |
-| OAuth Credentials | Console → APIs & Services → Credentials |
 | OAuth Playground | https://developers.google.com/oauthplayground/ |
 | YouTube Studio | https://studio.youtube.com/ |
 | Channel ID | YouTube Studio → Settings → Channel → Advanced |
+
