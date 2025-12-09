@@ -337,7 +337,7 @@ Created with EulaIQ - AI-powered educational animation
             description
         )
         
-        if yt_video_id:
+        if yt_video_id and yt_url:
             # Update database
             db.set_youtube_uploaded(
                 channel_id=channel_id,

@@ -116,7 +116,7 @@ def download_audio(video_url, video_id):
     }
     
     try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:  # type: ignore[arg-type]
             ydl.download([video_url])
         return output_path
     except Exception as e:
@@ -277,7 +277,7 @@ def generate_dual_videos(audio_path, title, creator_name):
     account_a = ACCOUNTS[0]
     account_b = ACCOUNTS[1] if len(ACCOUNTS) > 1 else ACCOUNTS[0]
     
-    results = [None, None]
+    results: list[dict | None] = [None, None]
     
     print(f"    Generating 2 video options in parallel...")
     
@@ -379,14 +379,15 @@ def process_leads(limit=None, test_mode=False):
         # 4. Store both videos
         db.set_dual_videos_generated(
             channel_id=channel_id,
-            video_a=video_a,
-            video_b=video_b,
+            video_a=video_a,  # type: ignore[arg-type]
+            video_b=video_b,  # type: ignore[arg-type]
             audio_path=str(trimmed_path)
         )
         
         print(f"  ✅ Dual videos ready for review:")
-        print(f"     A: {video_a['branded_player_url']}")
-        print(f"     B: {video_b['branded_player_url']}")
+        if video_a and video_b:
+            print(f"     A: {video_a['branded_player_url']}")
+            print(f"     B: {video_b['branded_player_url']}")
         print()
     
     # Print summary

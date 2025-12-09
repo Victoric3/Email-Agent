@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-Step 1: Harvest Leads from YouTube
+Step 1: Harvest Leads from YouTube (Parallelized)
 
 Searches YouTube for educational content creators, gets channel stats,
 applies basic filters, and saves to MongoDB for LLM refinement.
 
-This script is optimized for SPEED - complex analysis is done in step 2.
+Key Features:
+- Parallel channel stat fetching (10 at a time)
+- 2-minute timeout per channel
+- Fast keyword-based pre-filtering
 """
 import os
 import sys
@@ -15,8 +18,8 @@ import time
 import re
 import threading
 import itertools
-import subprocess
 import multiprocessing
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import scrapetube
 import yt_dlp
 from pathlib import Path
@@ -50,13 +53,19 @@ class Spinner:
         sys.stdout.write(f"\r{' ' * (len(self.message) + 2)}\r")
         sys.stdout.flush()
 
+
 # Add parent to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from db_client import get_db
 
-# Configuration
+# ============================================================
+# CONFIGURATION
+# ============================================================
 MAX_VIDEOS_PER_KEYWORD = 30
-DELAY_BETWEEN_CHANNELS = 0.3  # Reduced delay for faster harvesting
+PARALLEL_CHANNELS = 10  # Process 10 channels at a time
+CHANNEL_TIMEOUT = 120  # 2 minutes timeout per channel
+DELAY_BETWEEN_BATCHES = 1  # Small delay between batches
+
 DATA_DIR = Path(__file__).parent.parent.parent / "data"
 KEYWORDS_FILE = Path(__file__).parent.parent.parent / "keywords.txt"
 USED_KEYWORDS_FILE = Path(__file__).parent.parent.parent / "used_keywords.txt"
@@ -67,8 +76,11 @@ DISQUALIFY_KEYWORDS = [
     "mukbang", "asmr", "podcast", "news", "politics",
     "cooking", "recipe", "travel", "fashion", "makeup", "beauty",
     "fitness", "workout", "sports", "movie review",
-    "music video", "song", "cover", "remix", "trailer", "prank"
+    "music video", "song", "cover", "remix", "trailer", "prank",
+    "shorts", "tiktok", "reels", "meme", "funny"
 ]
+
+# ============================================================
 
 
 def get_subscriber_tier(subscriber_count):
@@ -102,78 +114,80 @@ def extract_email(text):
     return match.group(0).lower() if match else None
 
 
-def _fetch_channel_info(channel_id, result_queue):
-    """Worker function for multiprocessing - fetches channel info."""
+def _fetch_channel_info_worker(channel_id):
+    """
+    Worker function to fetch channel info.
+    Returns dict with channel stats or error.
+    """
     try:
         ydl_opts = {
             'quiet': True,
             'extract_flat': True,
             'skip_download': True,
             'no_warnings': True,
+            'socket_timeout': 30,
         }
         url = f'https://www.youtube.com/channel/{channel_id}'
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl: # type: ignore
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:  # type: ignore[arg-type]
             info = ydl.extract_info(url, download=False)
-            result_queue.put({
+            return {
+                'channel_id': channel_id,
                 'subscriber_count': info.get('channel_follower_count'),
                 'channel_description': info.get('description', '') or '',
                 'stats_available': info.get('channel_follower_count') is not None,
-            })
+                'error': None
+            }
     except Exception as e:
-        result_queue.put({'error': str(e)})
+        return {
+            'channel_id': channel_id,
+            'subscriber_count': None,
+            'channel_description': '',
+            'stats_available': False,
+            'error': str(e)
+        }
 
 
-def get_channel_stats(channel_id, max_retries=2, timeout=30):
+def fetch_channel_stats_parallel(channel_ids, timeout=CHANNEL_TIMEOUT):
     """
-    Get channel subscriber count and description via yt-dlp.
-    
-    Uses multiprocessing with timeout - process can actually be killed on Windows.
+    Fetch stats for multiple channels in parallel.
+    Returns dict mapping channel_id -> stats.
     """
-    for attempt in range(max_retries + 1):
-        result_queue = multiprocessing.Queue()
-        process = multiprocessing.Process(
-            target=_fetch_channel_info, 
-            args=(channel_id, result_queue)
-        )
-        process.start()
-        process.join(timeout=timeout)
-        
-        if process.is_alive():
-            # Timeout - kill the process
-            process.terminate()
-            process.join(timeout=2)
-            if process.is_alive():
-                process.kill()
-            print(f"\n  ⏱️  Timeout ({timeout}s) - skipping channel")
-            return {'subscriber_count': None, 'channel_description': '', 'stats_available': False}
-        
-        try:
-            result = result_queue.get_nowait()
-            
-            if 'error' in result:
-                err = result['error']
-                if "HTTP Error 429" in err:
-                    wait_time = 5 * (attempt + 1)
-                    print(f"\n  ⚠️  Rate limit (429) - waiting {wait_time}s...")
-                    time.sleep(wait_time)
-                    continue
-                elif "Sign in" in err:
-                    print(f"\n  ⚠️  Auth required - skipping stats")
-                    return {'subscriber_count': None, 'channel_description': '', 'stats_available': False}
-                elif attempt < max_retries:
-                    time.sleep(1 * (attempt + 1))
-                    continue
-                else:
-                    return {'subscriber_count': None, 'channel_description': '', 'stats_available': False}
-            
-            return result
-            
-        except Exception:
-            if attempt < max_retries:
-                time.sleep(1)
-                continue
+    results = {}
     
-    return {'subscriber_count': None, 'channel_description': '', 'stats_available': False}
+    with ThreadPoolExecutor(max_workers=PARALLEL_CHANNELS) as executor:
+        # Submit all tasks
+        future_to_channel = {
+            executor.submit(_fetch_channel_info_worker, cid): cid 
+            for cid in channel_ids
+        }
+        
+        # Collect results with timeout
+        for future in as_completed(future_to_channel, timeout=timeout):
+            channel_id = future_to_channel[future]
+            try:
+                result = future.result(timeout=10)
+                results[channel_id] = result
+            except Exception as e:
+                results[channel_id] = {
+                    'channel_id': channel_id,
+                    'subscriber_count': None,
+                    'channel_description': '',
+                    'stats_available': False,
+                    'error': f"Timeout or error: {e}"
+                }
+    
+    # Fill in any missing channels that timed out
+    for cid in channel_ids:
+        if cid not in results:
+            results[cid] = {
+                'channel_id': cid,
+                'subscriber_count': None,
+                'channel_description': '',
+                'stats_available': False,
+                'error': 'Timeout'
+            }
+    
+    return results
 
 
 def load_keywords():
@@ -183,7 +197,7 @@ def load_keywords():
         return []
     
     with open(KEYWORDS_FILE, "r", encoding="utf-8") as f:
-        all_keywords = [line.strip() for line in f if line.strip()]
+        all_keywords = [line.strip() for line in f if line.strip() and not line.startswith('#')]
     
     used_keywords = set()
     if USED_KEYWORDS_FILE.exists():
@@ -233,11 +247,11 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
     }
     
     print(f"\n{'='*60}")
-    print(f"LEAD HARVESTER")
+    print(f"LEAD HARVESTER (Parallelized)")
     print(f"{'='*60}")
     print(f"Keywords: {len(keywords)}")
     print(f"Already seen: {len(seen_channels)} channels")
-    print(f"Channel stats: {'DISABLED (fast mode)' if skip_stats else 'ENABLED'}")
+    print(f"Channel stats: {'DISABLED (fast mode)' if skip_stats else f'ENABLED ({PARALLEL_CHANNELS} parallel, {CHANNEL_TIMEOUT}s timeout)'}")
     print(f"{'='*60}\n")
 
     for i, keyword in enumerate(keywords):
@@ -247,8 +261,9 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
             with Spinner(f"  Searching YouTube for '{keyword}'..."):
                 videos = list(scrapetube.get_search(keyword, limit=MAX_VIDEOS_PER_KEYWORD, sort_by="upload_date"))
             print(f"  Found {len(videos)} videos")
-            keyword_leads = 0
             
+            # First pass: extract basic info and filter
+            candidates = []
             for video in videos:
                 stats["total_videos"] += 1
                 
@@ -276,35 +291,69 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
                     stats["skipped_disqualified"] += 1
                     continue
                 
-                # Get channel stats (if enabled)
-                subscriber_count = None
-                channel_description = ""
-                stats_available = False
-                if not skip_stats:
-                    with Spinner(f"  Fetching stats for {channel_name[:25]}..."):
-                        channel_stats = get_channel_stats(channel_id)
-                    if channel_stats:
-                        subscriber_count = channel_stats.get("subscriber_count")
-                        channel_description = channel_stats.get("channel_description", "")
-                        stats_available = channel_stats.get("stats_available", False)
-                    time.sleep(DELAY_BETWEEN_CHANNELS)
-                
-                # Check subscriber tier
-                sub_tier, _ = get_subscriber_tier(subscriber_count)
-                
-                # Only skip if we KNOW they're too small
-                # If stats are unknown, let them through for LLM to decide
-                if sub_tier == "too_small":
-                    stats["skipped_too_small"] += 1
-                    continue
-                
-                stats["by_tier"][sub_tier] = stats["by_tier"].get(sub_tier, 0) + 1
-                
                 # Extract channel URL
                 try:
                     channel_handle = video["ownerText"]["runs"][0]["navigationEndpoint"]["browseEndpoint"].get("canonicalBaseUrl", "")
                 except:
                     channel_handle = ""
+                
+                candidates.append({
+                    "channel_id": channel_id,
+                    "channel_name": channel_name,
+                    "channel_handle": channel_handle,
+                    "video": video,
+                    "title": title,
+                    "description": description
+                })
+                
+                # Mark as seen to avoid duplicates within same keyword
+                seen_channels.add(channel_id)
+            
+            if not candidates:
+                print(f"  → 0 new leads (all filtered)\n")
+                mark_keyword_used(keyword)
+                continue
+            
+            print(f"  Candidates after filter: {len(candidates)}")
+            
+            # Second pass: fetch channel stats in parallel (if enabled)
+            channel_stats_map = {}
+            if not skip_stats:
+                channel_ids = [c["channel_id"] for c in candidates]
+                print(f"  Fetching stats for {len(channel_ids)} channels ({PARALLEL_CHANNELS} parallel)...")
+                
+                # Process in batches
+                for batch_start in range(0, len(channel_ids), PARALLEL_CHANNELS):
+                    batch_ids = channel_ids[batch_start:batch_start + PARALLEL_CHANNELS]
+                    batch_results = fetch_channel_stats_parallel(batch_ids)
+                    channel_stats_map.update(batch_results)
+                    
+                    # Small delay between batches to avoid rate limits
+                    if batch_start + PARALLEL_CHANNELS < len(channel_ids):
+                        time.sleep(DELAY_BETWEEN_BATCHES)
+            
+            # Third pass: save leads
+            keyword_leads = 0
+            for candidate in candidates:
+                channel_id = candidate["channel_id"]
+                channel_name = candidate["channel_name"]
+                video = candidate["video"]
+                
+                # Get stats (if fetched)
+                ch_stats = channel_stats_map.get(channel_id, {})
+                subscriber_count = ch_stats.get("subscriber_count")
+                channel_description = ch_stats.get("channel_description", "")
+                stats_available = ch_stats.get("stats_available", False)
+                
+                # Check subscriber tier
+                sub_tier, _ = get_subscriber_tier(subscriber_count)
+                
+                # Only skip if we KNOW they're too small
+                if sub_tier == "too_small":
+                    stats["skipped_too_small"] += 1
+                    continue
+                
+                stats["by_tier"][sub_tier] = stats["by_tier"].get(sub_tier, 0) + 1
                 
                 # Try to extract email from channel description
                 email = extract_email(channel_description)
@@ -313,14 +362,14 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
                 lead = {
                     "channel_id": channel_id,
                     "channel_name": channel_name,
-                    "channel_url": f"https://youtube.com{channel_handle}" if channel_handle else f"https://youtube.com/channel/{channel_id}",
+                    "channel_url": f"https://youtube.com{candidate['channel_handle']}" if candidate['channel_handle'] else f"https://youtube.com/channel/{channel_id}",
                     "email": email,
                     
                     # Source video info
                     "source_video": {
                         "video_id": video.get("videoId"),
-                        "title": title,
-                        "description": description,
+                        "title": candidate["title"],
+                        "description": candidate["description"],
                         "view_count": video.get("viewCountText", {}).get("simpleText", ""),
                         "published_time": video.get("publishedTimeText", {}).get("simpleText", ""),
                     },
@@ -329,7 +378,7 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
                     "subscriber_count": subscriber_count,
                     "subscriber_tier": sub_tier,
                     "channel_description": channel_description,
-                    "stats_available": stats_available,  # Flag for LLM to know if stats were fetchable
+                    "stats_available": stats_available,
                     
                     # Keyword that found this lead
                     "keyword_source": keyword,
@@ -346,7 +395,6 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
                     upsert=True
                 )
                 
-                seen_channels.add(channel_id)
                 stats["new_leads"] += 1
                 keyword_leads += 1
                 
@@ -381,9 +429,16 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
 if __name__ == "__main__":
     import argparse
     
-    parser = argparse.ArgumentParser(description="Harvest YouTube leads")
+    parser = argparse.ArgumentParser(description="Harvest YouTube leads (parallelized)")
     parser.add_argument("--limit", "-l", type=int, default=None, help="Limit keywords to process")
     parser.add_argument("--skip-stats", "-s", action="store_true", help="Skip channel stats (faster)")
+    parser.add_argument("--parallel", "-p", type=int, default=PARALLEL_CHANNELS, help=f"Parallel channels (default: {PARALLEL_CHANNELS})")
+    parser.add_argument("--timeout", "-t", type=int, default=CHANNEL_TIMEOUT, help=f"Timeout per batch (default: {CHANNEL_TIMEOUT}s)")
     
     args = parser.parse_args()
+    
+    # Override config
+    PARALLEL_CHANNELS = args.parallel
+    CHANNEL_TIMEOUT = args.timeout
+    
     harvest_leads(limit_keywords=args.limit, skip_stats=args.skip_stats)

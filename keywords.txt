@@ -1,50 +1,146 @@
-Physics visual explanation
-Calculus animation
-Linear Algebra visual
-Chemistry molecular visualization
-Organic chemistry mechanism
-Economics visual
-Game theory explainer
-Manim tutorial
-Science animation
-Math art
-Topology explainer
-Quantum physics visual
-Relativity animation
-Fluid dynamics explainer
-Engineering mechanics visual
-Circuit analysis tutorial
-Biochemistry animation
-Complex analysis visual
-Number theory explainer
-Statistics visual explanation
-Data science concepts
-Machine learning visual
-Neural network animation
-Algorithm visualization
-Sorting algorithm visual
-Cryptography explainer
-Astrophysics visual
-Cosmology animation
-Genetics visual explanation
-Cell biology animation
-Pharmacology mechanism
-Control systems engineering
-Thermodynamics visual
-Electromagnetism animation
-Optics visual explanation
-Signal processing tutorial
-Discrete math visual
-Graph theory explainer
-Category theory visual
-Abstract algebra animation
-Differential equations visual
-Tensor calculus explainer
-Riemann hypothesis visual
-Chaos theory animation
-Fractal geometry explainer
-Game development math
-Computer graphics math
-Physics engine tutorial
-Simulation coding
-Scientific computing python
+# ============================================
+# MATH EDUCATION CHANNELS - PRIMARY TARGETS
+# ============================================
+
+# Core Math Education (High School / University Prep)
+how to solve quadratic equations step by step
+algebra tutorial for beginners
+precalculus explained
+trigonometry unit circle explained
+math problem solving techniques
+high school math tutorial
+SAT math prep tutorial
+ACT math practice
+GED math tutorial
+GCSE maths revision
+A-level maths explained
+IB math tutorial
+
+# Calculus & Analysis
+calculus explained visually
+differential calculus tutorial
+integral calculus step by step
+limits and continuity explained
+multivariable calculus tutorial
+real analysis explained
+vector calculus visualization
+
+# Linear Algebra & Abstract Math
+linear algebra explained
+matrix operations tutorial
+eigenvalues and eigenvectors explained
+vector spaces tutorial
+abstract algebra introduction
+group theory explained
+ring theory tutorial
+
+# Geometry & Topology
+geometry proofs explained
+euclidean geometry tutorial
+analytic geometry explained
+differential geometry visualization
+topology explained simply
+metric spaces tutorial
+
+# Statistics & Probability
+probability theory explained
+statistics tutorial for beginners
+hypothesis testing step by step
+regression analysis tutorial
+Bayesian statistics explained
+combinatorics and counting
+
+# Discrete Math & Logic
+discrete mathematics tutorial
+mathematical logic explained
+set theory introduction
+proof techniques tutorial
+number theory explained
+graph theory visualization
+
+# ============================================
+# PHYSICS EDUCATION CHANNELS
+# ============================================
+
+# Classical Mechanics
+physics mechanics explained
+Newton's laws tutorial
+kinematics step by step
+projectile motion explained
+rotational dynamics tutorial
+oscillations and waves explained
+
+# Electricity & Magnetism
+electromagnetism tutorial
+electric circuits explained
+Maxwell's equations visualized
+electromagnetic waves tutorial
+
+# Modern Physics
+quantum mechanics explained simply
+special relativity tutorial
+general relativity visualization
+particle physics introduction
+nuclear physics explained
+thermodynamics tutorial
+
+# ============================================
+# CHEMISTRY EDUCATION CHANNELS
+# ============================================
+
+organic chemistry reaction mechanisms
+inorganic chemistry tutorial
+general chemistry explained
+biochemistry tutorial
+chemical bonding visualization
+stoichiometry step by step
+acid base equilibrium explained
+
+# ============================================
+# SCIENCE VISUALIZATION & ANIMATION
+# ============================================
+
+# Scientific Animation Creators
+math animation manim
+3D math visualization
+physics simulation
+educational science animation
+STEM visualization
+mathematical proof animation
+conceptual physics visualization
+
+# ============================================
+# ENGINEERING MATH
+# ============================================
+
+engineering mathematics tutorial
+differential equations for engineers
+Laplace transform explained
+Fourier transform visualization
+control systems math
+signal processing mathematics
+numerical methods tutorial
+
+# ============================================
+# COMPETITIVE MATH & OLYMPIAD
+# ============================================
+
+math olympiad problem solving
+AMC math competition
+Putnam competition problems
+mathematical olympiad tutorial
+competition mathematics strategies
+challenging math problems explained
+
+# ============================================
+# EDUCATIONAL YOUTUBE SPECIFIC
+# ============================================
+
+math explained with animations
+visual math learning
+intuitive math explanation
+math concepts visualization
+whiteboard math tutorial
+math lecture university
+professor explains math
+math teacher explains

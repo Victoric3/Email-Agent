@@ -12,8 +12,11 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
-# Scopes needed for uploading
-SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
+# Scopes needed for uploading and fetching channel info
+SCOPES = [
+    'https://www.googleapis.com/auth/youtube.upload',
+    'https://www.googleapis.com/auth/youtube.readonly'
+]
 
 # Paths
 CREDENTIALS_DIR = Path(__file__).parent.parent.parent / "credentials"
@@ -139,11 +142,18 @@ def main():
             token_data = authorize_channel()
             
             if token_data:
-                # Check if channel already exists
-                existing = [t for t in tokens if t['channel_id'] == token_data['channel_id']]
-                if existing:
-                    print(f"\n⚠️ Channel {token_data['name']} already exists. Updating...")
-                    tokens = [t for t in tokens if t['channel_id'] != token_data['channel_id']]
+                # Check if channel already exists (only if we have a valid ID)
+                if token_data['channel_id'] != 'UNKNOWN':
+                    existing = [t for t in tokens if t['channel_id'] == token_data['channel_id']]
+                    if existing:
+                        print(f"\n⚠️ Channel {token_data['name']} already exists. Updating...")
+                        tokens = [t for t in tokens if t['channel_id'] != token_data['channel_id']]
+                
+                # If ID is UNKNOWN, we just append it (user can fix later or retry)
+                # But better to warn them
+                if token_data['channel_id'] == 'UNKNOWN':
+                    print("\n⚠️ Warning: Could not identify channel ID. Token saved as UNKNOWN.")
+                    print("   You might need to manually edit the .env file later.")
                 
                 tokens.append(token_data)
                 save_tokens(tokens)

@@ -46,19 +46,27 @@ def export_for_review(limit=None):
     # Build export data
     export_items = []
     for lead in leads:
+        # Handle nested source_video data from harvester
+        source_video = lead.get("source_video", {})
+        video_title = lead.get("video_title") or source_video.get("title", "")
+        video_id = lead.get("video_id") or source_video.get("video_id", "")
+        video_url = lead.get("video_url")
+        if not video_url and video_id:
+            video_url = f"https://www.youtube.com/watch?v={video_id}"
+        
         export_items.append({
             "channel_id": lead["channel_id"],
             "channel_name": lead["channel_name"],
             "creator_name": lead.get("creator_name", lead["channel_name"]),
-            "video_title": lead.get("video_title", ""),
-            "video_url": lead.get("video_url", ""),
-            "video_id": lead.get("video_id", ""),
+            "video_title": video_title,
+            "video_url": video_url or "",
+            "video_id": video_id,
             "channel_url": f"https://youtube.com/channel/{lead['channel_id']}",
-            "icp_score": lead.get("icp_score", 0),
+            "icp_score": lead.get("icp_score") or lead.get("final_score", 0),
             "icp_reason": lead.get("icp_reason", ""),
             "subscriber_count": lead.get("subscriber_count", "unknown"),
             # Fields for you to fill in:
-            "email": lead.get("email", ""),  # ADD EMAIL HERE
+            "email": lead.get("email") or "",  # ADD EMAIL HERE
             "decision": "",  # "approve" or "disqualify"
             "disqualify_reason": "",  # Why rejected (optional)
             "notes": ""  # Any notes
@@ -212,12 +220,20 @@ def interactive_review():
     disqualified = 0
     
     for i, lead in enumerate(leads, 1):
+        # Handle nested source_video data from harvester
+        source_video = lead.get("source_video", {})
+        video_title = lead.get("video_title") or source_video.get("title", "N/A")
+        video_id = lead.get("video_id") or source_video.get("video_id")
+        video_url = lead.get("video_url")
+        if not video_url and video_id:
+            video_url = f"https://www.youtube.com/watch?v={video_id}"
+        
         print("="*60)
         print(f"[{i}/{len(leads)}] {lead.get('creator_name', lead['channel_name'])}")
         print(f"  Channel: https://youtube.com/channel/{lead['channel_id']}")
-        print(f"  Video: {lead.get('video_title', 'N/A')}")
-        print(f"  URL: {lead.get('video_url', 'N/A')}")
-        print(f"  Score: {lead.get('icp_score', '-')}/22")
+        print(f"  Video: {video_title}")
+        print(f"  URL: {video_url or 'N/A'}")
+        print(f"  Score: {lead.get('icp_score', lead.get('final_score', '-'))}/15")
         print(f"  Reason: {lead.get('icp_reason', 'N/A')}")
         print(f"  Current Email: {lead.get('email', 'NOT SET')}")
         print()
@@ -239,7 +255,10 @@ def interactive_review():
                 if not email:
                     print("  ⚠️ Email required for approval")
                     continue
+                notes = input("  Notes (optional): ").strip()
                 db.approve_for_video(lead["channel_id"], email)
+                if notes:
+                    db.add_note(lead["channel_id"], notes)
                 approved += 1
                 print(f"  ✅ Approved with email: {email}")
                 break
