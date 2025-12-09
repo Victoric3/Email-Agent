@@ -428,7 +428,7 @@ async def process_single_lead(client, lead, db):
         return result
 
 
-async def refine_leads(limit=None, test_email=None):
+async def refine_leads(limit=None, test_email=None, batch_size=None):
     """
     Process harvested leads with transcript analysis and LLM qualification.
     """
@@ -444,6 +444,9 @@ async def refine_leads(limit=None, test_email=None):
     if limit:
         harvested_leads = harvested_leads[:limit]
     
+    # Use provided batch size or default
+    batch = batch_size or BATCH_SIZE
+    
     print(f"\n{'='*60}")
     print(f"LEAD REFINEMENT & QUALIFICATION")
     print(f"{'='*60}")
@@ -452,7 +455,7 @@ async def refine_leads(limit=None, test_email=None):
     print(f"English-only: {ENGLISH_ONLY}")
     print(f"Calculation focus: {CALCULATION_FOCUS}")
     print(f"Max video count: {MAX_VIDEO_COUNT}")
-    print(f"Batch size: {BATCH_SIZE}")
+    print(f"Batch size: {batch}")
     if test_email:
         print(f"⚠️  TEST MODE: All emails will be set to {test_email}")
     print(f"{'='*60}\n")
@@ -470,12 +473,12 @@ async def refine_leads(limit=None, test_email=None):
     }
     
     # Process in batches
-    for batch_start in range(0, len(harvested_leads), BATCH_SIZE):
-        batch = harvested_leads[batch_start:batch_start + BATCH_SIZE]
-        print(f"Processing batch {batch_start // BATCH_SIZE + 1} ({len(batch)} leads)...")
+    for batch_start in range(0, len(harvested_leads), batch):
+        batch_leads = harvested_leads[batch_start:batch_start + batch]
+        print(f"Processing batch {batch_start // batch + 1} ({len(batch_leads)} leads)...")
         
         # Process batch concurrently
-        tasks = [process_single_lead(client, lead, db) for lead in batch]
+        tasks = [process_single_lead(client, lead, db) for lead in batch_leads]
         results = await asyncio.gather(*tasks)
         
         # Print results
@@ -519,6 +522,7 @@ if __name__ == "__main__":
     parser.add_argument("--english-only", action="store_true", default=ENGLISH_ONLY, help="Disqualify non-English")
     parser.add_argument("--no-english-only", action="store_false", dest="english_only", help="Allow non-English")
     parser.add_argument("--calculation-focus", action="store_true", default=CALCULATION_FOCUS, help="Prioritize calculation content")
+    parser.add_argument("--batch-size", "-b", type=int, default=BATCH_SIZE, help=f"Parallel batch size (default: {BATCH_SIZE})")
     
     args = parser.parse_args()
     
@@ -526,4 +530,4 @@ if __name__ == "__main__":
     ENGLISH_ONLY = args.english_only
     CALCULATION_FOCUS = args.calculation_focus
     
-    asyncio.run(refine_leads(limit=args.limit, test_email=args.test_email))
+    asyncio.run(refine_leads(limit=args.limit, test_email=args.test_email, batch_size=args.batch_size))

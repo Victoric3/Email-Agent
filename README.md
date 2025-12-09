@@ -1,6 +1,18 @@
 # EulaIQ Outreach Pipeline
 
-A fully automated lead generation and email outreach system for YouTube educational creators.
+A fully automated lead generation and email outreach system for YouTube educational creators. Intelligently identifies math/science educators who could benefit from professional video animations.
+
+---
+
+## 🎯 Key Features
+
+- **Parallel Lead Harvesting**: 10 concurrent channel fetches with 2-minute timeouts
+- **Transcript-Based Qualification**: AI analyzes video content, not just metadata
+- **Smart Filtering**: Auto-disqualifies content farms (>2500 videos) and non-English channels
+- **10-Point Scoring System**: Clear, interpretable lead quality metrics
+- **Dual Video Generation**: Creates 2 variations per lead for comparison
+- **YouTube Upload Automation**: 20 videos/day across 4 channels
+- **Email Campaign Management**: Scheduled delivery via ZeptoMail
 
 ---
 
@@ -51,7 +63,17 @@ cp ../../.env.example ../../.env
 python 1_harvest_leads.py --limit 5
 ```
 
-Searches YouTube for educational videos, extracts channel info, gets subscriber counts.
+**Features:**
+- Searches YouTube for educational videos based on keywords
+- **Parallel processing**: Fetches 10 channels simultaneously with 2-minute timeout
+- Extracts channel info and subscriber counts
+- Fetches video count per channel
+- **Auto-disqualifies** channels with >2500 videos (content farms)
+
+**Configuration:**
+- `PARALLEL_WORKERS = 10` - Concurrent channel fetches
+- `CHANNEL_FETCH_TIMEOUT = 120` - 2-minute timeout per channel
+- `MAX_VIDEO_COUNT = 2500` - Content farm threshold
 
 **Output:** Leads saved to MongoDB with status `harvested`
 
@@ -63,11 +85,28 @@ Searches YouTube for educational videos, extracts channel info, gets subscriber 
 python 2_refine_leads.py --limit 20
 ```
 
-Uses Claude LLM to analyze each lead for:
-- Manim compatibility
-- Content quality
-- English language
-- Subscriber tier
+**Features:**
+- Uses Claude LLM to analyze each lead
+- **Parallel async processing**: 10 leads at a time
+- **Transcript analysis**: Fetches and analyzes video transcript for content fit
+- **10-point scoring system** (pass threshold: 6/10)
+- **Auto-disqualifies** non-English channels (configurable)
+- **Auto-disqualifies** channels with >2500 videos
+
+**Scoring Breakdown (10 points max):**
+- Base: 2 points
+- Subscriber tier: 0-2 points (sweet_spot=2, big=1, small=1)
+- Content fit: 0-2 points (from transcript analysis)
+- Visual need: 0-2 points (needs diagrams/equations)
+- Production gap: 0-1 point (room for improvement)
+- Language: 0-1 point (English=1, European languages=0, other=disqualify)
+- Email available: 0-1 point
+
+**Configuration:**
+- `ENGLISH_ONLY = True` - Auto-disqualify non-English channels
+- `CALCULATION_FOCUS = False` - Not targeting calc-only channels
+- `MIN_FINAL_SCORE = 6` - Pass threshold out of 10
+- `MAX_VIDEO_COUNT = 2500` - Content farm threshold
 
 **Output:** Status changes to `qualified` or `disqualified`
 
@@ -259,6 +298,16 @@ python manage_leads.py set-email <channel_id> email@example.com
 python manage_leads.py reply <channel_id> "They said yes!"
 ```
 
+### Utility Scripts
+
+```bash
+# Delete all harvested/qualified leads (fresh start)
+python delete_leads.py
+
+# Generate OAuth tokens for YouTube channels
+python get_youtube_token.py
+```
+
 ---
 
 ## 📊 Lead Statuses (New Flow)
@@ -287,21 +336,21 @@ python manage_leads.py reply <channel_id> "They said yes!"
 ```bash
 cd "c:\Users\pharm victor\Desktop\company files\Emails\scripts\outreach"
 
-# Morning: Harvest & Refine
-python 1_harvest_leads.py --limit 5
-python 2_refine_leads.py --limit 30
+# Morning: Harvest & Refine (parallel processing - ~30 min)
+python 1_harvest_leads.py --limit 5          # 10 channels at a time
+python 2_refine_leads.py --limit 30          # Transcript analysis + LLM scoring
 
 # Morning: Review leads, add emails (15-20 min)
 python 3a_review_leads.py --interactive
 
 # Late Morning: Generate videos (runs for ~2 hours)
-python 3b_generate_videos.py --limit 10
+python 3b_generate_videos.py --limit 10      # Dual video generation
 
 # Afternoon: Review generated videos (10-15 min)
 python 3c_accept_videos.py --interactive
 
 # Afternoon: Upload to YouTube
-python 3d_upload_youtube.py
+python 3d_upload_youtube.py                   # 20/day capacity
 
 # Afternoon: Draft & review emails
 python 4_draft_emails.py
@@ -314,6 +363,13 @@ python 5_dispatch_emails.py --email 1 --limit 10 --date tomorrow --interval 60
 # Daily: Check for replies
 python 6_check_followups.py
 ```
+
+**Expected throughput:**
+- Harvest: ~50 channels/hour (parallel processing)
+- Refine: ~20 leads/hour (with transcript analysis)
+- Videos: 10 leads/2 hours (dual generation)
+- Uploads: 20 videos/day (YouTube limits)
+- Emails: 50/day per sender (ZeptoMail limits)
 
 ---
 
@@ -340,7 +396,9 @@ Emails/
 ├── .env                    # Your secrets (git-ignored)
 ├── .env.example           # Template
 ├── requirements.txt
-├── credentials/           # OAuth files (git-ignored)
+├── keywords.txt           # 120+ targeted search terms
+├── used_keywords.txt      # Tracking used keywords
+├── credentials/           # OAuth tokens (git-ignored)
 ├── assets/
 │   ├── audio/            # Downloaded audio
 │   ├── audio_trimmed/    # 5-min trimmed audio
@@ -349,32 +407,41 @@ Emails/
 ├── video_review/         # Video selection JSONs
 ├── scripts/
 │   └── outreach/
-│       ├── 1_harvest_leads.py
-│       ├── 2_refine_leads.py
-│       ├── 3a_review_leads.py
-│       ├── 3b_generate_videos.py
-│       ├── 3c_accept_videos.py
-│       ├── 3d_upload_youtube.py
-│       ├── 4_draft_emails.py
-│       ├── 5_dispatch_emails.py
-│       ├── 6_check_followups.py
-│       ├── manage_leads.py
-│       └── get_youtube_token.py
+│       ├── 1_harvest_leads.py       # Parallel YouTube harvesting
+│       ├── 2_refine_leads.py        # LLM + transcript qualification
+│       ├── 3a_review_leads.py       # Manual email addition
+│       ├── 3b_generate_videos.py    # Dual video generation
+│       ├── 3c_accept_videos.py      # Video selection
+│       ├── 3d_upload_youtube.py     # YouTube automation
+│       ├── 4_draft_emails.py        # Email generation
+│       ├── 5_dispatch_emails.py     # Email sending
+│       ├── 6_check_followups.py     # Followup monitoring
+│       ├── manage_leads.py          # Lead management CLI
+│       ├── get_youtube_token.py     # OAuth token generator
+│       └── delete_leads.py          # Utility: clear DB
 └── docs/
-    ├── getYoutubeCredentials.md
-    └── pipeline_guide.md
+    ├── getYoutubeCredentials.md     # YouTube API setup
+    └── pipeline_guide.md            # Detailed workflow
 ```
 
 ---
 
-## ⚠️ Daily Limits
+## ⚠️ Daily Limits & Performance
 
-| Service | Limit |
-|---------|-------|
-| YouTube uploads | 20/day (5 per channel × 4 channels) |
-| EulaIQ videos | ~90/day (30 per account × 3 accounts) |
-| ZeptoMail emails | 50/day per sender |
-| Bedrock LLM calls | Based on your AWS quota |
+| Service | Limit | Notes |
+|---------|-------|-------|
+| YouTube uploads | 20/day | 5 per channel × 4 channels |
+| EulaIQ videos | ~90/day | 30 per account × 3 accounts |
+| ZeptoMail emails | 50/day | Per sender account |
+| Bedrock LLM calls | Variable | Based on AWS quota |
+| Harvest rate | ~50/hour | 10 parallel workers |
+| Refinement rate | ~20/hour | Includes transcript fetch + LLM |
+
+**Performance Tips:**
+- Run harvesting overnight for large batches
+- Use `--limit` flags to control processing size
+- Monitor `PARALLEL_WORKERS` and `CHANNEL_FETCH_TIMEOUT` in scripts
+- Check MongoDB for bottlenecks if refinement slows down
 
 ---
 

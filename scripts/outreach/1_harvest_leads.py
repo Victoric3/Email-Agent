@@ -147,14 +147,15 @@ def _fetch_channel_info_worker(channel_id):
         }
 
 
-def fetch_channel_stats_parallel(channel_ids, timeout=CHANNEL_TIMEOUT):
+def fetch_channel_stats_parallel(channel_ids, timeout=CHANNEL_TIMEOUT, max_workers=None):
     """
     Fetch stats for multiple channels in parallel.
     Returns dict mapping channel_id -> stats.
     """
     results = {}
+    workers = max_workers or PARALLEL_CHANNELS
     
-    with ThreadPoolExecutor(max_workers=PARALLEL_CHANNELS) as executor:
+    with ThreadPoolExecutor(max_workers=workers) as executor:
         # Submit all tasks
         future_to_channel = {
             executor.submit(_fetch_channel_info_worker, cid): cid 
@@ -215,13 +216,15 @@ def mark_keyword_used(keyword):
         f.write(f"{keyword}\n")
 
 
-def harvest_leads(limit_keywords=None, skip_stats=False):
+def harvest_leads(limit_keywords=None, skip_stats=False, parallel_workers=None, channel_timeout=None):
     """
     Harvest leads from YouTube and save to MongoDB.
     
     Args:
         limit_keywords: Limit number of keywords to process
         skip_stats: Skip fetching channel stats (much faster but less data)
+        parallel_workers: Number of parallel channel fetches
+        channel_timeout: Timeout in seconds for channel batch
     """
     keywords = load_keywords()
     
@@ -246,12 +249,18 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
         "by_tier": {}
     }
     
+    # Use provided values or defaults
+    workers = parallel_workers or PARALLEL_CHANNELS
+    timeout = channel_timeout or CHANNEL_TIMEOUT
+    
     print(f"\n{'='*60}")
     print(f"LEAD HARVESTER (Parallelized)")
+    print(f"Parallel workers: {workers}")
+    print(f"Timeout per batch: {timeout}s")
     print(f"{'='*60}")
     print(f"Keywords: {len(keywords)}")
     print(f"Already seen: {len(seen_channels)} channels")
-    print(f"Channel stats: {'DISABLED (fast mode)' if skip_stats else f'ENABLED ({PARALLEL_CHANNELS} parallel, {CHANNEL_TIMEOUT}s timeout)'}")
+    print(f"Channel stats: {'DISABLED (fast mode)' if skip_stats else f'ENABLED ({workers} parallel, {timeout}s timeout)'}")
     print(f"{'='*60}\n")
 
     for i, keyword in enumerate(keywords):
@@ -320,16 +329,16 @@ def harvest_leads(limit_keywords=None, skip_stats=False):
             channel_stats_map = {}
             if not skip_stats:
                 channel_ids = [c["channel_id"] for c in candidates]
-                print(f"  Fetching stats for {len(channel_ids)} channels ({PARALLEL_CHANNELS} parallel)...")
+                print(f"  Fetching stats for {len(channel_ids)} channels ({workers} parallel)...")
                 
                 # Process in batches
-                for batch_start in range(0, len(channel_ids), PARALLEL_CHANNELS):
-                    batch_ids = channel_ids[batch_start:batch_start + PARALLEL_CHANNELS]
-                    batch_results = fetch_channel_stats_parallel(batch_ids)
+                for batch_start in range(0, len(channel_ids), workers):
+                    batch_ids = channel_ids[batch_start:batch_start + workers]
+                    batch_results = fetch_channel_stats_parallel(batch_ids, timeout=timeout, max_workers=workers)
                     channel_stats_map.update(batch_results)
                     
                     # Small delay between batches to avoid rate limits
-                    if batch_start + PARALLEL_CHANNELS < len(channel_ids):
+                    if batch_start + workers < len(channel_ids):
                         time.sleep(DELAY_BETWEEN_BATCHES)
             
             # Third pass: save leads
@@ -437,8 +446,9 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    # Override config
-    PARALLEL_CHANNELS = args.parallel
-    CHANNEL_TIMEOUT = args.timeout
-    
-    harvest_leads(limit_keywords=args.limit, skip_stats=args.skip_stats)
+    harvest_leads(
+        limit_keywords=args.limit,
+        skip_stats=args.skip_stats,
+        parallel_workers=args.parallel,
+        channel_timeout=args.timeout
+    )
