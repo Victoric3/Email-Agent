@@ -65,15 +65,27 @@ python 1_harvest_leads.py --limit 5
 
 **Features:**
 - Searches YouTube for educational videos based on keywords
-- **Parallel processing**: Fetches 10 channels simultaneously with 2-minute timeout
+- **Parallel processing**: Fetches 10 channels simultaneously with 2-minute timeout (configurable)
 - Extracts channel info and subscriber counts
 - Fetches video count per channel
 - **Auto-disqualifies** channels with >2500 videos (content farms)
 
+**CLI Flags:**
+- `--limit, -l`: Number of keywords to process from `keywords.txt` (example: `--limit 5`)
+- `--skip-stats, -s`: Skip channel stat fetching (faster, less metadata)
+- `--parallel, -p`: Number of concurrent channel fetch workers (default: 10)
+- `--timeout, -t`: Timeout in seconds per batch (default: 120)
+
 **Configuration:**
-- `PARALLEL_WORKERS = 10` - Concurrent channel fetches
-- `CHANNEL_FETCH_TIMEOUT = 120` - 2-minute timeout per channel
+- `PARALLEL_WORKERS = 10` - Concurrent channel fetches (default)
+- `CHANNEL_FETCH_TIMEOUT = 120` - 2-minute timeout per channel batch (default)
 - `MAX_VIDEO_COUNT = 2500` - Content farm threshold
+
+**Example:**
+```bash
+# Harvest 5 keywords, use 15 parallel workers and 3-minute timeout per batch
+python 1_harvest_leads.py --limit 5 --parallel 15 --timeout 180
+```
 
 **Output:** Leads saved to MongoDB with status `harvested`
 
@@ -87,11 +99,19 @@ python 2_refine_leads.py --limit 20
 
 **Features:**
 - Uses Claude LLM to analyze each lead
-- **Parallel async processing**: 10 leads at a time
+- **Parallel async processing**: 10 leads at a time (configurable via `--batch-size`)
 - **Transcript analysis**: Fetches and analyzes video transcript for content fit
 - **10-point scoring system** (pass threshold: 6/10)
 - **Auto-disqualifies** non-English channels (configurable)
 - **Auto-disqualifies** channels with >2500 videos
+
+**CLI Flags:**
+- `--limit, -l`: Limit number of harvested leads to process
+- `--test-email`: Override all discovered emails with a test address (useful for testing)
+- `--english-only`: Enforce English-only filtering (default: enabled)
+- `--no-english-only`: Allow non-English channels
+- `--calculation-focus`: Prefer calculation-heavy content (math proofs, equations)
+- `--batch-size, -b`: Number of leads processed in parallel (default: 5)
 
 **Scoring Breakdown (10 points max):**
 - Base: 2 points
@@ -103,10 +123,16 @@ python 2_refine_leads.py --limit 20
 - Email available: 0-1 point
 
 **Configuration:**
-- `ENGLISH_ONLY = True` - Auto-disqualify non-English channels
-- `CALCULATION_FOCUS = False` - Not targeting calc-only channels
+- `ENGLISH_ONLY = True` - Auto-disqualify non-English channels (default)
+- `CALCULATION_FOCUS = False` - Not targeting calc-only channels (default)
 - `MIN_FINAL_SCORE = 6` - Pass threshold out of 10
 - `MAX_VIDEO_COUNT = 2500` - Content farm threshold
+
+**Example:**
+```bash
+# Refine 30 leads, process 10 at a time and prioritize calculation content
+python 2_refine_leads.py --limit 30 --batch-size 10 --calculation-focus
+```
 
 **Output:** Status changes to `qualified` or `disqualified`
 
