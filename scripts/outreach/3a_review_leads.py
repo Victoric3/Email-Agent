@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-Step 3a: Manual Lead Review.
+Step 3a: Manual Lead Review with Video/Audio Customization.
 
 Export qualified leads for manual review. You will:
 1. Research creator emails
 2. View their channel to decide if they're a good fit
 3. Approve or disqualify each lead
-4. Import back with emails and decisions
+4. Optionally: Change video URL, provide local audio path, or skip to process later
+5. Import back with emails and decisions
 
 This combines email collection with manual qualification in one step.
 """
@@ -14,9 +15,11 @@ import json
 import os
 import sys
 import argparse
+import shutil
 from pathlib import Path
 from datetime import datetime
 from tabulate import tabulate
+import yt_dlp
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from db_client import get_db, LeadStatus
@@ -24,6 +27,10 @@ from db_client import get_db, LeadStatus
 # Output directory for review files
 REVIEW_DIR = Path(__file__).parent.parent.parent / "review_queue"
 REVIEW_DIR.mkdir(parents=True, exist_ok=True)
+
+# Local audio directory
+LOCAL_AUDIO_DIR = Path(__file__).parent.parent.parent / "assets" / "audio_local"
+LOCAL_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def export_for_review(limit=None):
@@ -148,7 +155,8 @@ def import_reviews(filepath):
             
             db.approve_for_video(channel_id, email)
             if item.get("notes"):
-                db.add_note(channel_id, item["notes"])
+                # Update notes directly as string to match interactive mode
+                db.update_lead_by_channel(channel_id, {"notes": item["notes"]})
             approved += 1
             print(f"✅ Approved: {item['creator_name']} ({email})")
             
@@ -201,25 +209,67 @@ def show_pending_review():
     print(f"\nTotal: {len(leads)} leads pending review")
 
 
-def interactive_review():
+def fetch_video_metadata(video_url):
+    """Fetch video title and ID from YouTube URL using yt-dlp."""
+    try:
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'skip_download': True,
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(video_url, download=False)
+            return {
+                'video_id': info.get('id'),
+                'video_title': info.get('title'),
+                'video_url': video_url
+            }
+    except Exception as e:
+        print(f"    ⚠️ Could not fetch video metadata: {e}")
+        return None
+
+
+def interactive_review(status=LeadStatus.QUALIFIED):
     """
     Interactive mode: Review leads one by one in terminal.
-    Quick mode for when you don't want to edit JSON.
+    Supports video/audio customization before approval.
     """
     db = get_db()
-    leads = db.get_leads_by_status(LeadStatus.QUALIFIED)
+    leads = list(db.get_leads_by_status(status))
     
     if not leads:
-        print("No leads pending review.")
+        print(f"No leads with status '{status}' pending review.")
         return
     
-    print(f"\n📋 Interactive Review Mode - {len(leads)} leads\n")
-    print("Commands: [a]pprove, [d]isqualify, [s]kip, [q]uit\n")
+    print(f"\n📋 Interactive Review Mode ({status}) - {len(leads)} leads\n")
+    
+    # Define available commands based on status
+    print("Commands:")
+    if status == LeadStatus.QUALIFIED:
+        print("  [a]pprove  - Approve with email")
+        print("  [d]isqualify - Reject lead")
+    else:
+        print("  [n]ext     - Save and go to next")
+    
+    print("  [s]kip    - Skip to end (process later)")
+    print("  [v]ideo   - Change Source YouTube video URL")
+    print("  [l]ocal   - Use local audio file")
+    
+    if status in [LeadStatus.APPROVED, LeadStatus.UPLOADED]:
+        print("  [t]emplate - Change video template (video_to_generate)")
+        print("  [f]inal    - Set final YouTube unlisted URL (sets status to UPLOADED)")
+        
+    print("  [q]uit    - Exit\n")
     
     approved = 0
     disqualified = 0
+    updated = 0
+    current_index = 0
     
-    for i, lead in enumerate(leads, 1):
+    while current_index < len(leads):
+        lead = leads[current_index]
+        i = current_index + 1
+        
         # Handle nested source_video data from harvester
         source_video = lead.get("source_video", {})
         video_title = lead.get("video_title") or source_video.get("title", "N/A")
@@ -227,54 +277,149 @@ def interactive_review():
         video_url = lead.get("video_url")
         if not video_url and video_id:
             video_url = f"https://www.youtube.com/watch?v={video_id}"
+        local_audio_path = lead.get("local_audio_path")
         
         print("="*60)
         print(f"[{i}/{len(leads)}] {lead.get('creator_name', lead['channel_name'])}")
         print(f"  Channel: https://youtube.com/channel/{lead['channel_id']}")
-        print(f"  Video: {video_title}")
-        print(f"  URL: {video_url or 'N/A'}")
-        print(f"  Score: {lead.get('icp_score', lead.get('final_score', '-'))}/15")
-        print(f"  Reason: {lead.get('icp_reason', 'N/A')}")
+        print(f"  Source Video: {video_title}")
+        print(f"  Source URL: {video_url or 'N/A'}")
+        if local_audio_path:
+            print(f"  🎵 Local Audio: {local_audio_path}")
+            
+        if status in [LeadStatus.APPROVED, LeadStatus.UPLOADED]:
+            print(f"  Template: {lead.get('video_to_generate', 'NOT SET')}")
+            print(f"  Final URL: {lead.get('final_video_url', 'NOT SET')}")
+            
+        print(f"  Score: {lead.get('icp_score', lead.get('final_score', '-'))}/10")
         print(f"  Current Email: {lead.get('email', 'NOT SET')}")
+        print(f"  Notes: {lead.get('notes', '-')}")
         print()
         
         while True:
-            action = input("Action [a/d/s/q]: ").lower().strip()
+            action = input("Action: ").lower().strip()
             
             if action == 'q':
                 print("\nExiting review mode.")
-                print(f"  Approved: {approved}, Disqualified: {disqualified}")
                 return
             
             if action == 's':
                 print("  ⏭️ Skipped")
+                current_index += 1
                 break
             
-            if action == 'a':
-                email = input("  Email: ").strip()
-                if not email:
-                    print("  ⚠️ Email required for approval")
+            if action == 'v':
+                new_url = input("  New Source YouTube URL: ").strip()
+                if new_url:
+                    print("  Fetching video metadata...")
+                    metadata = fetch_video_metadata(new_url)
+                    if metadata:
+                        db.update_lead_by_channel(lead["channel_id"], {
+                            "video_url": metadata['video_url'],
+                            "video_id": metadata['video_id'],
+                            "video_title": metadata['video_title'],
+                            "source_video.video_id": metadata['video_id'],
+                            "source_video.title": metadata['video_title'],
+                            "local_audio_path": None
+                        })
+                        # Update local vars for display
+                        video_title = metadata['video_title']
+                        video_url = metadata['video_url']
+                        print(f"  ✅ Source video updated: {video_title}")
+                    else:
+                        print("  ⚠️ Could not update video")
+                continue
+            
+            if action == 'l':
+                audio_path = input("  Local audio path (or drag file): ").strip().strip('"').strip("'")
+                if audio_path and os.path.exists(audio_path):
+                    filename = os.path.basename(audio_path)
+                    title_from_file = os.path.splitext(filename)[0]
+                    dest_path = LOCAL_AUDIO_DIR / f"{lead['channel_id']}_{filename}"
+                    shutil.copy2(audio_path, dest_path)
+                    
+                    db.update_lead_by_channel(lead["channel_id"], {
+                        "local_audio_path": str(dest_path),
+                        "video_title": title_from_file,
+                        "source_video.title": title_from_file,
+                        "video_url": None,
+                        "video_id": None
+                    })
+                    local_audio_path = str(dest_path)
+                    video_title = title_from_file
+                    print(f"  ✅ Local audio set: {filename}")
+                else:
+                    print("  ⚠️ File not found")
+                continue
+
+            if status in [LeadStatus.APPROVED, LeadStatus.UPLOADED]:
+                if action == 't':
+                    new_template = input(f"  New Template [{lead.get('video_to_generate', '')}]: ").strip()
+                    if new_template:
+                        db.update_lead_by_channel(lead["channel_id"], {"video_to_generate": new_template})
+                        lead["video_to_generate"] = new_template
+                        print(f"  ✅ Template updated to: {new_template}")
                     continue
-                notes = input("  Notes (optional): ").strip()
-                db.approve_for_video(lead["channel_id"], email)
-                if notes:
-                    db.add_note(lead["channel_id"], notes)
-                approved += 1
-                print(f"  ✅ Approved with email: {email}")
-                break
+                
+                if action == 'f':
+                    new_final = input(f"  Final Video URL [{lead.get('final_video_url', '')}]: ").strip()
+                    if new_final:
+                        db.update_lead_by_channel(lead["channel_id"], {
+                            "final_video_url": new_final,
+                            "status": LeadStatus.UPLOADED
+                        })
+                        lead["final_video_url"] = new_final
+                        print(f"  ✅ Final URL set. Status -> UPLOADED")
+                        updated += 1
+                    continue
+                
+                if action == 'n':
+                    print("  ✅ Saved & Next")
+                    current_index += 1
+                    break
+
+            if status == LeadStatus.QUALIFIED:
+                if action == 'a':
+                    current_email = lead.get("email", "")
+                    prompt_email = f"  Email [{current_email}]: " if current_email else "  Email: "
+                    new_email = input(prompt_email).strip()
+                    final_email = new_email if new_email else current_email
+                    
+                    if not final_email:
+                        print("  ⚠️ Email required for approval")
+                        continue
+                    
+                    # Notes handling
+                    current_notes = lead.get("notes", "")
+                    if isinstance(current_notes, list):
+                        current_notes = " ".join([str(n) for n in current_notes])
+                    
+                    prompt_notes = f"  Notes [{current_notes}]: " if current_notes else "  Notes (optional): "
+                    new_notes = input(prompt_notes).strip()
+                    final_notes = new_notes if new_notes else current_notes
+                    
+                    db.approve_for_video(lead["channel_id"], final_email)
+                    if final_notes != current_notes:
+                         db.update_lead_by_channel(lead["channel_id"], {"notes": final_notes})
+
+                    approved += 1
+                    print(f"  ✅ Approved with email: {final_email}")
+                    current_index += 1
+                    break
+                
+                if action == 'd':
+                    reason = input("  Reason: ").strip() or "Manual rejection"
+                    db.disqualify_lead(lead["channel_id"], reason)
+                    disqualified += 1
+                    print(f"  ❌ Disqualified")
+                    current_index += 1
+                    break
             
-            if action == 'd':
-                reason = input("  Reason (optional): ").strip() or "Manual review rejection"
-                db.disqualify_lead(lead["channel_id"], reason)
-                disqualified += 1
-                print(f"  ❌ Disqualified")
-                break
-            
-            print("  Invalid action. Use: a=approve, d=disqualify, s=skip, q=quit")
+            print("  Invalid action.")
     
     print("\n" + "="*50)
     print("Review Complete!")
-    print(f"  ✅ Approved: {approved}")
+    print(f"  ✅ Approved/Updated: {approved + updated}")
     print(f"  ❌ Disqualified: {disqualified}")
 
 
@@ -283,6 +428,8 @@ if __name__ == "__main__":
     parser.add_argument("--export", action="store_true", help="Export qualified leads for review")
     parser.add_argument("--import", dest="import_file", metavar="FILE", help="Import reviewed leads from JSON")
     parser.add_argument("--interactive", "-i", action="store_true", help="Interactive review mode")
+    parser.add_argument("--status", type=str, default=LeadStatus.QUALIFIED, 
+                        help=f"Status to review (default: {LeadStatus.QUALIFIED})")
     parser.add_argument("--list", action="store_true", help="List leads pending review")
     parser.add_argument("--limit", type=int, help="Limit number of leads to export")
     
@@ -293,7 +440,7 @@ if __name__ == "__main__":
     elif args.import_file:
         import_reviews(args.import_file)
     elif args.interactive:
-        interactive_review()
+        interactive_review(status=args.status)
     elif args.list:
         show_pending_review()
     else:
@@ -304,3 +451,4 @@ if __name__ == "__main__":
         print("  3. python 3a_review_leads.py --import <file>")
         print("\n  Or use interactive mode:")
         print("  python 3a_review_leads.py --interactive")
+        print("  python 3a_review_leads.py --interactive --status approved  # Review already approved leads")

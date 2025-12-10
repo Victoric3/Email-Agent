@@ -4,6 +4,7 @@ Step 5: Dispatch Emails via ZeptoMail with Scheduling.
 
 Features:
 - Select sender account (--email 1 for .com, --email 2 for .me)
+- Round-robin mode (--round-robin): Alternates between all sender accounts
 - Schedule emails (--date now, --date tomorrow, --date 2025-12-10)
 - Set sending interval (--interval 60 for 60 minutes between emails)
 - Limit number to send (--limit 10)
@@ -11,7 +12,7 @@ Features:
 
 Examples:
   python 5_dispatch_emails.py --email 1 --limit 5 --date now --interval 30
-  python 5_dispatch_emails.py --email 2 --limit 10 --date tomorrow --interval 60
+  python 5_dispatch_emails.py --round-robin --limit 10 --date now --interval 30
   python 5_dispatch_emails.py --email 1 --limit 3 --date 2025-12-10 --interval 45 --test-email test@example.com
 """
 import smtplib
@@ -103,18 +104,26 @@ def parse_date(date_str):
             return None
 
 
-def create_schedule(leads, sender_id, start_date, interval_minutes, test_email=None):
+def create_schedule(leads, sender_id, start_date, interval_minutes, test_email=None, round_robin=False):
     """
     Create a sending schedule for the given leads.
     Returns list of scheduled items with send times.
+    
+    Args:
+        sender_id: Which sender to use (1 or 2), or starting sender for round-robin
+        round_robin: If True, alternate between all available senders
     """
-    sender = SENDERS.get(sender_id)
-    if not sender:
-        print(f"❌ Invalid sender ID: {sender_id}. Use 1 or 2.")
-        return None
+    if not round_robin:
+        sender = SENDERS.get(sender_id)
+        if not sender:
+            print(f"❌ Invalid sender ID: {sender_id}. Use 1 or 2.")
+            return None
     
     schedule = []
     current_time = start_date
+    sender_ids = list(SENDERS.keys())  # [1, 2, ...]
+    
+    valid_index = 0  # Track actual scheduled items for round-robin
     
     for i, lead in enumerate(leads):
         email = test_email if test_email else lead.get("email")
@@ -130,20 +139,29 @@ def create_schedule(leads, sender_id, start_date, interval_minutes, test_email=N
             print(f"  [SKIP] {lead.get('creator_name', 'Unknown')}: No draft email")
             continue
         
+        # Select sender: round-robin or fixed
+        if round_robin:
+            current_sender_id = sender_ids[valid_index % len(sender_ids)]
+        else:
+            current_sender_id = sender_id
+        
+        current_sender = SENDERS[current_sender_id]
+        
         schedule.append({
-            "index": i + 1,
+            "index": valid_index + 1,
             "channel_id": lead["channel_id"],
             "creator_name": lead.get("creator_name", lead.get("channel_name", "Unknown")),
             "to_email": email,
             "original_email": lead.get("email"),
             "subject": subject,
             "body": body,
-            "sender_id": sender_id,
-            "sender_email": sender["email"],
+            "sender_id": current_sender_id,
+            "sender_email": current_sender["email"],
             "scheduled_time": current_time.isoformat(),
             "status": "pending"
         })
         
+        valid_index += 1
         current_time = current_time + datetime.timedelta(minutes=interval_minutes)
     
     return schedule
@@ -269,18 +287,24 @@ def execute_schedule(schedule, dry_run=False, test_mode=False):
         print("Run `python 6_check_followups.py` daily to see pending followups.")
 
 
-def dispatch_scheduled(email_id, limit, date_str, interval, dry_run=False, test_email=None):
+def dispatch_scheduled(email_id, limit, date_str, interval, dry_run=False, test_email=None, round_robin=False):
     """Main dispatch function with scheduling."""
     db = get_db()
     
-    if email_id not in [1, 2]:
+    if not round_robin and email_id not in [1, 2]:
         print(f"❌ Invalid --email value: {email_id}")
         print("   Use --email 1 for victor@eulaiq.com")
         print("   Use --email 2 for victor@eulaiq.me")
+        print("   Or use --round-robin to alternate between all senders")
         return
     
-    sender = SENDERS[email_id]
-    print(f"📧 Sender: {sender['email']}")
+    if round_robin:
+        print(f"🔄 ROUND-ROBIN MODE: Alternating between {len(SENDERS)} sender accounts")
+        for sid, sender in SENDERS.items():
+            print(f"   Sender {sid}: {sender['email']}")
+    else:
+        sender = SENDERS[email_id]
+        print(f"📧 Sender: {sender['email']}")
     
     start_date = parse_date(date_str)
     if not start_date:
@@ -307,7 +331,7 @@ def dispatch_scheduled(email_id, limit, date_str, interval, dry_run=False, test_
         print(f"🧪 TEST MODE: All emails will be sent to {test_email}")
     
     print("\nCreating schedule...")
-    schedule = create_schedule(leads, email_id, start_date, interval, test_email)
+    schedule = create_schedule(leads, email_id, start_date, interval, test_email, round_robin=round_robin)
     
     if not schedule:
         print("❌ No emails could be scheduled (missing emails or drafts)")
@@ -428,6 +452,9 @@ Examples:
   # Schedule 10 emails for tomorrow, 1 hour apart, via eulaiq.me
   python 5_dispatch_emails.py --email 2 --limit 10 --date tomorrow --interval 60
   
+  # ROUND-ROBIN: Alternate between all sender accounts
+  python 5_dispatch_emails.py --round-robin --limit 10 --date now --interval 30
+  
   # Test with your email (no lead status updates)
   python 5_dispatch_emails.py --email 1 --limit 3 --date now --interval 5 --test-email chukwujiobivictoric@gmail.com
   
@@ -443,6 +470,8 @@ Examples:
     )
     parser.add_argument("--email", type=int, choices=[1, 2], default=1,
                         help="Sender: 1=victor@eulaiq.com, 2=victor@eulaiq.me")
+    parser.add_argument("--round-robin", "-rr", action="store_true",
+                        help="Alternate between all sender accounts (ignores --email)")
     parser.add_argument("--limit", type=int, help="Max emails to send")
     parser.add_argument("--date", type=str, default="now",
                         help="Start: 'now', 'tomorrow', or 'YYYY-MM-DD HH:MM'")
@@ -465,5 +494,6 @@ Examples:
     else:
         dispatch_scheduled(
             email_id=args.email, limit=args.limit, date_str=args.date,
-            interval=args.interval, dry_run=args.dry_run, test_email=args.test_email
+            interval=args.interval, dry_run=args.dry_run, test_email=args.test_email,
+            round_robin=args.round_robin
         )

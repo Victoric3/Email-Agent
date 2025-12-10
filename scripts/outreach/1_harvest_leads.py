@@ -147,46 +147,85 @@ def _fetch_channel_info_worker(channel_id):
         }
 
 
-def fetch_channel_stats_parallel(channel_ids, timeout=CHANNEL_TIMEOUT, max_workers=None):
+def fetch_channel_stats_parallel(channels, timeout=CHANNEL_TIMEOUT, max_workers=None):
     """
-    Fetch stats for multiple channels in parallel.
-    Returns dict mapping channel_id -> stats.
+    Fetch stats for multiple channels in parallel with retries and verbose logging.
+    Args:
+        channels: List of dicts {'id': str, 'name': str}
+        timeout: Timeout in seconds
+        max_workers: Number of parallel workers
+    Returns:
+        dict mapping channel_id -> stats
     """
     results = {}
     workers = max_workers or PARALLEL_CHANNELS
+    max_retries = 1
     
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        # Submit all tasks
-        future_to_channel = {
-            executor.submit(_fetch_channel_info_worker, cid): cid 
-            for cid in channel_ids
-        }
-        
-        # Collect results with timeout
-        for future in as_completed(future_to_channel, timeout=timeout):
-            channel_id = future_to_channel[future]
+    # Map ID to name for logging
+    id_to_name = {c['id']: c['name'] for c in channels}
+    channel_ids = list(id_to_name.keys())
+    
+    for attempt in range(max_retries + 1):
+        # Identify which channels still need fetching
+        remaining_ids = [cid for cid in channel_ids if cid not in results]
+        if not remaining_ids:
+            break
+            
+        if attempt > 0:
+            print(f"  ⚠️ Retrying {len(remaining_ids)} failed channels (Attempt {attempt+1}/{max_retries+1})...")
+            
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            future_to_channel = {
+                executor.submit(_fetch_channel_info_worker, cid): cid 
+                for cid in remaining_ids
+            }
+            
             try:
-                result = future.result(timeout=10)
-                results[channel_id] = result
-            except Exception as e:
-                results[channel_id] = {
-                    'channel_id': channel_id,
-                    'subscriber_count': None,
-                    'channel_description': '',
-                    'stats_available': False,
-                    'error': f"Timeout or error: {e}"
-                }
+                for future in as_completed(future_to_channel, timeout=timeout):
+                    channel_id = future_to_channel[future]
+                    channel_name = id_to_name.get(channel_id, channel_id)
+                    
+                    try:
+                        result = future.result(timeout=10)
+                        
+                        # Check if it was a soft error (returned in dict)
+                        if result.get('error'):
+                            raise Exception(result['error'])
+                            
+                        results[channel_id] = result
+                        
+                        # Verbose success log
+                        sub_count = result.get('subscriber_count')
+                        sub_str = f"{sub_count:,}" if sub_count is not None else "?"
+                        print(f"    ✓ {channel_name[:30]:<30} | {sub_str:>10} subs")
+                        
+                    except Exception as e:
+                        # Only record failure on last attempt
+                        if attempt == max_retries:
+                            results[channel_id] = {
+                                'channel_id': channel_id,
+                                'subscriber_count': None,
+                                'channel_description': '',
+                                'stats_available': False,
+                                'error': str(e)
+                            }
+                            print(f"    ✗ {channel_name[:30]:<30} | Error: {str(e)[:40]}")
+            
+            except TimeoutError:
+                print(f"  ⚠️ Batch timeout after {timeout}s - {len(remaining_ids) - len(results)} channels pending")
     
-    # Fill in any missing channels that timed out
+    # Fill in any missing channels that completely timed out/failed
     for cid in channel_ids:
         if cid not in results:
+            channel_name = id_to_name.get(cid, cid)
             results[cid] = {
                 'channel_id': cid,
                 'subscriber_count': None,
                 'channel_description': '',
                 'stats_available': False,
-                'error': 'Timeout'
+                'error': 'Timeout/Failed'
             }
+            print(f"    ✗ {channel_name[:30]:<30} | Failed (Timeout)")
     
     return results
 
@@ -285,6 +324,7 @@ def harvest_leads(limit_keywords=None, skip_stats=False, parallel_workers=None, 
                 # Skip if already seen
                 if channel_id in seen_channels:
                     stats["skipped_seen"] += 1
+                    print(f"    - {channel_name[:30]:<30} | Already seen")
                     continue
                 
                 # Extract basic info
@@ -298,6 +338,7 @@ def harvest_leads(limit_keywords=None, skip_stats=False, parallel_workers=None, 
                 is_disqualified, reason = quick_disqualify(title, description)
                 if is_disqualified:
                     stats["skipped_disqualified"] += 1
+                    print(f"    - {channel_name[:30]:<30} | Disqualified ({reason})")
                     continue
                 
                 # Extract channel URL
@@ -328,17 +369,18 @@ def harvest_leads(limit_keywords=None, skip_stats=False, parallel_workers=None, 
             # Second pass: fetch channel stats in parallel (if enabled)
             channel_stats_map = {}
             if not skip_stats:
-                channel_ids = [c["channel_id"] for c in candidates]
-                print(f"  Fetching stats for {len(channel_ids)} channels ({workers} parallel)...")
+                # Prepare list of dicts for the new function signature
+                channels_to_fetch = [{'id': c["channel_id"], 'name': c["channel_name"]} for c in candidates]
+                print(f"  Fetching stats for {len(channels_to_fetch)} channels ({workers} parallel)...")
                 
                 # Process in batches
-                for batch_start in range(0, len(channel_ids), workers):
-                    batch_ids = channel_ids[batch_start:batch_start + workers]
-                    batch_results = fetch_channel_stats_parallel(batch_ids, timeout=timeout, max_workers=workers)
+                for batch_start in range(0, len(channels_to_fetch), workers):
+                    batch_channels = channels_to_fetch[batch_start:batch_start + workers]
+                    batch_results = fetch_channel_stats_parallel(batch_channels, timeout=timeout, max_workers=workers)
                     channel_stats_map.update(batch_results)
                     
                     # Small delay between batches to avoid rate limits
-                    if batch_start + workers < len(channel_ids):
+                    if batch_start + workers < len(channels_to_fetch):
                         time.sleep(DELAY_BETWEEN_BATCHES)
             
             # Third pass: save leads
@@ -360,12 +402,15 @@ def harvest_leads(limit_keywords=None, skip_stats=False, parallel_workers=None, 
                 # Only skip if we KNOW they're too small
                 if sub_tier == "too_small":
                     stats["skipped_too_small"] += 1
+                    print(f"    - {channel_name[:30]:<30} | Too small ({subscriber_count} subs)")
                     continue
                 
                 stats["by_tier"][sub_tier] = stats["by_tier"].get(sub_tier, 0) + 1
                 
                 # Try to extract email from channel description
                 email = extract_email(channel_description)
+                
+                print(f"    + {channel_name[:30]:<30} | {sub_tier.upper():<10} | Email: {'YES' if email else 'NO'}")
                 
                 # Build lead document
                 lead = {

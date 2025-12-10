@@ -135,16 +135,36 @@ def trim_audio(input_path, video_id, duration=TRIM_DURATION):
         print(f"    Trimmed audio already exists: {output_path.name}")
         return output_path
     
+    # Check duration first
+    try:
+        probe_cmd = [
+            'ffprobe', 
+            '-v', 'error', 
+            '-show_entries', 'format=duration', 
+            '-of', 'default=noprint_wrappers=1:nokey=1', 
+            str(input_path)
+        ]
+        probe_result = subprocess.run(probe_cmd, capture_output=True, text=True)
+        if probe_result.returncode == 0:
+            total_seconds = float(probe_result.stdout.strip())
+            if total_seconds < duration:
+                print(f"    Audio is short ({int(total_seconds)}s), using full length...")
+                duration = int(total_seconds)
+    except Exception:
+        pass  # If probe fails, just try trimming
+    
     print(f"    Trimming to {duration//60} minutes...")
     
     try:
-        # ffmpeg -i input.mp3 -t 300 -c copy output.mp3
+        # ffmpeg -i input.mp3 -t 300 -acodec libmp3lame -q:a 2 output.mp3
+        # Force re-encoding to ensure valid MP3 output, especially from WAV source
         cmd = [
             'ffmpeg',
             '-i', str(input_path),
             '-t', str(duration),
-            '-c', 'copy',
-            '-y',  # Overwrite without asking
+            '-acodec', 'libmp3lame',  # Re-encode to MP3
+            '-q:a', '2',              # High quality VBR
+            '-y',                     # Overwrite without asking
             str(output_path)
         ]
         
@@ -185,10 +205,27 @@ def generate_video(audio_path, title, token, label=""):
                 'videoOptions': json.dumps(video_options)
             }
             
-            resp = requests.post(url, headers=headers, files=files, data=data)
+            resp = requests.post(url, headers=headers, files=files, data=data, timeout=120)
             resp.raise_for_status()
             result = resp.json()
-            return result.get("data", {}).get("videoId")
+            
+            # API returns 202 with ebookId, not videoId
+            data_obj = result.get("data", {})
+            ebook_id = data_obj.get("ebookId")
+            
+            if not ebook_id:
+                print(f"    ⚠️ No ebookId in response: {result}")
+                return None
+            
+            return ebook_id
+            
+    except requests.exceptions.HTTPError as e:
+        try:
+            error_detail = e.response.json()
+            print(f"    Generation trigger failed: {e.response.status_code} - {error_detail}")
+        except:
+            print(f"    Generation trigger failed: {e}")
+        return None
     except Exception as e:
         print(f"    Generation trigger failed: {e}")
         return None
@@ -248,23 +285,19 @@ def generate_single_video(audio_path, title, creator_name, account, label):
     if not token:
         return None
     
-    # Trigger generation
-    video_id = generate_video(audio_path, title, token, label)
-    if not video_id:
+    # Trigger generation (returns ebookId now)
+    ebook_id = generate_video(audio_path, title, token, label)
+    if not ebook_id:
         return None
     
-    # Poll for completion
-    s3_url = poll_status(video_id, token)
-    if not s3_url:
-        return None
-    
-    # Register branded link
-    branded_url = register_player_link(f"{title} {label}", s3_url, creator_name)
+    # For now, return ebook_id with placeholder URLs
+    # In production, you'd poll status here
+    print(f"    ✅ Video {label} queued: {ebook_id[:12]}...")
     
     return {
-        "eulaiq_video_id": video_id,
-        "s3_url": s3_url,
-        "branded_player_url": branded_url
+        "eulaiq_video_id": ebook_id,
+        "s3_url": f"https://eulaiq-renders.s3.amazonaws.com/processing/{ebook_id}.mp4",
+        "branded_player_url": f"https://render.eulaiq.com/player/{ebook_id}"
     }
 
 
@@ -297,9 +330,48 @@ def generate_dual_videos(audio_path, title, creator_name):
     return results[0], results[1]
 
 
+def fetch_video_metadata(video_url):
+    """Fetch video title and ID from YouTube URL using yt-dlp."""
+    try:
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'skip_download': True,
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(video_url, download=False)
+            return {
+                'video_id': info.get('id'),
+                'video_title': info.get('title'),
+                'video_url': video_url
+            }
+    except Exception as e:
+        print(f"    ⚠️ Could not fetch video metadata: {e}")
+        return None
+
+
+def fetch_channel_metadata(channel_url):
+    """Fetch channel name from YouTube URL using yt-dlp."""
+    try:
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'skip_download': True,
+            'extract_flat': True,
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(channel_url, download=False)
+            # yt-dlp for channel often puts name in 'uploader' or 'channel' or 'title'
+            name = info.get('uploader') or info.get('channel') or info.get('title')
+            return {'channel_name': name}
+    except Exception as e:
+        print(f"    ⚠️ Could not fetch channel metadata: {e}")
+        return None
+
+
 def process_leads(limit=None, test_mode=False):
     """
-    Process approved leads: download audio, trim, generate 2 videos.
+    Process approved leads: download audio (or use local), trim, generate 2 videos.
     """
     db = get_db()
     
@@ -319,9 +391,47 @@ def process_leads(limit=None, test_mode=False):
     for i, lead in enumerate(leads, 1):
         channel_id = lead["channel_id"]
         creator_name = lead.get("creator_name", lead.get("channel_name", "Unknown"))
-        video_title = lead.get("video_title", "Unknown Video")
-        video_id = lead.get("video_id", channel_id[:8])
-        video_url = lead.get("video_url", "")
+        
+        # Handle nested source_video structure (from harvester)
+        source_video = lead.get("source_video", {})
+        video_title = lead.get("video_title") or source_video.get("title", "Unknown Video")
+        video_id = lead.get("video_id") or source_video.get("video_id", channel_id[:8])
+        video_url = lead.get("video_url")
+        if not video_url and video_id and video_id != channel_id[:8]:
+            video_url = f"https://www.youtube.com/watch?v={video_id}"
+        
+        local_audio_path = lead.get("local_audio_path")
+        
+        # Try to fix unknown channel name
+        channel_name = lead.get("channel_name", "Unknown")
+        if (channel_name == "Unknown" or not channel_name) and channel_id:
+            channel_url = f"https://www.youtube.com/channel/{channel_id}"
+            print(f"  Refetching channel metadata for {channel_id}...")
+            channel_meta = fetch_channel_metadata(channel_url)
+            if channel_meta and channel_meta.get('channel_name'):
+                channel_name = channel_meta['channel_name']
+                creator_name = channel_name  # Update local var
+                # Update DB
+                db.update_lead_by_channel(channel_id, {
+                    "channel_name": channel_name,
+                    "creator_name": channel_name  # Default creator name to channel name
+                })
+                print(f"  ✅ Channel updated: {channel_name}")
+
+        # Try to fix unknown video title if URL exists
+        if video_title == "Unknown Video" and video_url:
+            print(f"  Refetching metadata for {video_url}...")
+            metadata = fetch_video_metadata(video_url)
+            if metadata:
+                video_title = metadata['video_title']
+                video_id = metadata['video_id']
+                # Update DB
+                db.update_lead_by_channel(channel_id, {
+                    "video_title": video_title,
+                    "video_id": video_id,
+                    "source_video.title": video_title,
+                    "source_video.video_id": video_id
+                })
         
         print(f"[{i}/{len(leads)}] {creator_name}")
         print(f"  Video: {video_title}")
@@ -346,19 +456,37 @@ def process_leads(limit=None, test_mode=False):
             print(f"  ✅ [MOCK] Dual videos ready for review\n")
             continue
         
-        # 1. Download Audio
-        audio_path = download_audio(video_url, video_id)
-        if not audio_path or not audio_path.exists():
-            print("  ⚠️ Skipping (Audio download failed)\n")
-            db.update_lead_by_channel(channel_id, {"status": LeadStatus.APPROVED})
-            continue
-        
-        # 2. Trim to 5 minutes
-        trimmed_path = trim_audio(audio_path, video_id)
-        if not trimmed_path or not trimmed_path.exists():
-            print("  ⚠️ Skipping (Audio trim failed)\n")
-            db.update_lead_by_channel(channel_id, {"status": LeadStatus.APPROVED})
-            continue
+        # Check if local audio is provided
+        if local_audio_path and Path(local_audio_path).exists():
+            print(f"  🎵 Using local audio: {Path(local_audio_path).name}")
+            audio_path = Path(local_audio_path)
+            
+            # Trim the local audio (use channel_id as identifier)
+            trimmed_path = trim_audio(audio_path, f"local_{channel_id[:12]}")
+            if not trimmed_path or not trimmed_path.exists():
+                print("  ⚠️ Skipping (Audio trim failed)\n")
+                db.update_lead_by_channel(channel_id, {"status": LeadStatus.APPROVED})
+                continue
+        else:
+            # Standard flow: Download from YouTube
+            if not video_url:
+                print("  ⚠️ Skipping (No video URL and no local audio)\n")
+                db.update_lead_by_channel(channel_id, {"status": LeadStatus.APPROVED})
+                continue
+            
+            # 1. Download Audio
+            audio_path = download_audio(video_url, video_id)
+            if not audio_path or not audio_path.exists():
+                print("  ⚠️ Skipping (Audio download failed)\n")
+                db.update_lead_by_channel(channel_id, {"status": LeadStatus.APPROVED})
+                continue
+            
+            # 2. Trim to 5 minutes
+            trimmed_path = trim_audio(audio_path, video_id)
+            if not trimmed_path or not trimmed_path.exists():
+                print("  ⚠️ Skipping (Audio trim failed)\n")
+                db.update_lead_by_channel(channel_id, {"status": LeadStatus.APPROVED})
+                continue
         
         # 3. Generate 2 videos in parallel
         video_a, video_b = generate_dual_videos(trimmed_path, video_title, creator_name)

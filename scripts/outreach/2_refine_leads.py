@@ -38,6 +38,13 @@ BATCH_SIZE = 5  # Process leads in parallel batches
 # ============================================================
 
 
+class QuietLogger:
+    """Helper to suppress yt-dlp logs."""
+    def debug(self, msg): pass
+    def warning(self, msg): pass
+    def error(self, msg): pass
+
+
 def extract_email_from_text(text):
     """Extract email from description using regex."""
     if not text:
@@ -73,6 +80,7 @@ def get_video_transcript(video_id, max_chars=TRANSCRIPT_MAX_CHARS):
             'writeautomaticsub': True,
             'subtitleslangs': ['en', 'en-US', 'en-GB'],
             'subtitlesformat': 'vtt',
+            'logger': QuietLogger(),
         }
         
         url = f'https://www.youtube.com/watch?v={video_id}'
@@ -127,6 +135,7 @@ def get_channel_video_count(channel_id):
             'no_warnings': True,
             'extract_flat': True,
             'playlistend': 1,  # Just get channel info, not all videos
+            'logger': QuietLogger(),
         }
         
         url = f'https://www.youtube.com/channel/{channel_id}/videos'
