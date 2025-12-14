@@ -20,6 +20,8 @@ import datetime
 import time
 import json
 import os
+import re
+import requests
 from pathlib import Path
 from email.message import EmailMessage
 from dateutil import parser as date_parser
@@ -30,6 +32,7 @@ from db_client import get_db, LeadStatus
 
 # Configuration
 MAX_EMAILS_PER_DAY = 50
+SCHEDULER_API_URL = "https://render.eulaiq.com/schedule-email"
 
 # ZeptoMail Config
 SMTP_SERVER = "smtp.zeptomail.com"
@@ -84,6 +87,14 @@ def parse_date(date_str):
     date_str = date_str.lower().strip()
     now = datetime.datetime.now()
     
+    # Check for relative time like "1m", "+5m", "10min", "30 minutes"
+    match = re.match(r"^\+?(\d+)\s*(m|min|mins|minutes?)$", date_str)
+    if match:
+        minutes = int(match.group(1))
+        result = now + datetime.timedelta(minutes=minutes)
+        print(f"   📅 Parsed '{date_str}' as {minutes} minutes from now: {result.strftime('%Y-%m-%d %H:%M:%S')}")
+        return result
+    
     if date_str == "now":
         return now
     elif date_str == "tomorrow":
@@ -100,7 +111,7 @@ def parse_date(date_str):
             return parsed
         except Exception as e:
             print(f"❌ Invalid date format: {date_str}")
-            print("   Use: now, tomorrow, or YYYY-MM-DD format")
+            print("   Use: now, tomorrow, 1m, 5min, or YYYY-MM-DD format")
             return None
 
 
@@ -214,9 +225,62 @@ def display_schedule(schedule):
     print("=" * 70)
 
 
-def execute_schedule(schedule, dry_run=False, test_mode=False):
+def send_to_scheduler(item, sender_account):
     """
-    Execute the schedule, waiting for each scheduled time.
+    Send email details to the external scheduler API.
+    The server expects UTC time, so we convert scheduled_time to UTC.
+    """
+    # Convert local time to UTC for the API
+    local_time = datetime.datetime.fromisoformat(item["scheduled_time"])
+    # Get UTC offset and convert
+    utc_time = local_time - datetime.timedelta(hours=1)  # WAT (West Africa Time) is UTC+1
+    # For more robust timezone handling, we could use: utc_time = local_time.astimezone(datetime.timezone.utc)
+    
+    payload = {
+        "sender": {
+            "email": sender_account["email"],
+            "username": sender_account["username"],
+            "password": sender_account["password"],
+            "smtp_host": SMTP_SERVER,
+            "smtp_port": PORT
+        },
+        "recipient": {
+            "email": item["to_email"],
+            "name": item["creator_name"]
+        },
+        "email": {
+            "subject": item["subject"],
+            "body": item["body"]
+        },
+        "schedule": {
+            "send_at": utc_time.isoformat()
+        }
+    }
+    
+    print(f"   📤 Local time: {local_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"   📤 UTC time (sent to API): {utc_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    try:
+        response = requests.post(SCHEDULER_API_URL, json=payload, timeout=10)
+        if response.status_code in [200, 201]:
+            resp_data = response.json()
+            print(f"   📥 API Response: {resp_data.get('message', 'OK')}")
+            if resp_data.get('id'):
+                print(f"   📥 Task ID: {resp_data['id']}")
+            return True
+        else:
+            print(f"  ❌ API Error {response.status_code}: {response.text}")
+            return False
+    except Exception as e:
+        print(f"  ❌ API Connection Failed: {e}")
+        return False
+
+
+def execute_schedule(schedule, dry_run=False, test_mode=False, use_api=True):
+    """
+    Execute the schedule.
+    If use_api=True, sends requests to the scheduler API immediately.
+    If use_api=False, waits locally and sends via SMTP.
     """
     db = get_db()
     
@@ -228,6 +292,10 @@ def execute_schedule(schedule, dry_run=False, test_mode=False):
         print("   (DRY RUN - no emails will actually be sent)")
     if test_mode:
         print("   (TEST MODE - sending to test email, lead status will NOT be updated)")
+    if use_api:
+        print(f"   (API MODE - Offloading scheduling to {SCHEDULER_API_URL})")
+    else:
+        print("   (LOCAL MODE - Waiting locally to send)")
     print()
     
     for item in schedule:
@@ -237,49 +305,84 @@ def execute_schedule(schedule, dry_run=False, test_mode=False):
         scheduled_time = datetime.datetime.fromisoformat(item["scheduled_time"])
         now = datetime.datetime.now()
         
-        # Wait until scheduled time
-        if scheduled_time > now:
-            wait_seconds = (scheduled_time - now).total_seconds()
-            print(f"⏳ Waiting {int(wait_seconds)}s until {scheduled_time.strftime('%H:%M:%S')} for {item['creator_name']}...")
-            time.sleep(wait_seconds)
-        
         sender = SENDERS[item["sender_id"]]
-        print(f"\n📧 [{item['index']}/{len(schedule)}] Sending to {item['creator_name']} ({item['to_email']})...")
-        print(f"   Via: {sender['email']}")
-        print(f"   Subject: {item['subject'][:50]}...")
         
-        if dry_run:
-            print("   [DRY RUN - skipped]")
-            item["status"] = "dry_run"
-            sent_count += 1
-            continue
-        
-        if send_email(sender, item["to_email"], item["subject"], item["body"]):
-            print("   ✅ Sent!")
-            item["status"] = "sent"
-            item["sent_at"] = datetime.datetime.now().isoformat()
+        if use_api:
+            # API Mode: Send immediately to scheduler
+            print(f"\n📤 [{item['index']}/{len(schedule)}] Scheduling for {item['creator_name']}...")
+            print(f"   To: {item['to_email']}")
+            print(f"   Time: {scheduled_time.strftime('%Y-%m-%d %H:%M:%S')}")
             
-            if not test_mode:
-                db.mark_sent(
-                    channel_id=item["channel_id"],
-                    subject=item["subject"],
-                    body=item["body"],
-                    sent_via=sender["email"]
-                )
+            if dry_run:
+                print("   [DRY RUN - skipped]")
+                item["status"] = "dry_run"
+                sent_count += 1
+                continue
+                
+            if send_to_scheduler(item, sender):
+                print("   ✅ Scheduled successfully via API!")
+                item["status"] = "scheduled_external"
+                item["sent_at"] = datetime.datetime.now().isoformat() # Handoff time
+                
+                if not test_mode:
+                    # Mark as sent in DB since we handed it off
+                    db.mark_sent(
+                        channel_id=item["channel_id"],
+                        subject=item["subject"],
+                        body=item["body"],
+                        sent_via=f"{sender['email']} (via scheduler)"
+                    )
+                else:
+                    print("   [TEST MODE] Lead status NOT updated")
+                
+                sent_count += 1
             else:
-                print("   [TEST MODE] Lead status NOT updated")
-            
-            sent_count += 1
+                item["status"] = "failed"
+                failed_count += 1
+                
         else:
-            item["status"] = "failed"
-            failed_count += 1
+            # Local Mode: Wait and send
+            if scheduled_time > now:
+                wait_seconds = (scheduled_time - now).total_seconds()
+                print(f"⏳ Waiting {int(wait_seconds)}s until {scheduled_time.strftime('%H:%M:%S')} for {item['creator_name']}...")
+                time.sleep(wait_seconds)
+            
+            print(f"\n📧 [{item['index']}/{len(schedule)}] Sending to {item['creator_name']} ({item['to_email']})...")
+            print(f"   Via: {sender['email']}")
+            print(f"   Subject: {item['subject'][:50]}...")
+            
+            if dry_run:
+                print("   [DRY RUN - skipped]")
+                item["status"] = "dry_run"
+                sent_count += 1
+                continue
+            
+            if send_email(sender, item["to_email"], item["subject"], item["body"]):
+                print("   ✅ Sent!")
+                item["status"] = "sent"
+                item["sent_at"] = datetime.datetime.now().isoformat()
+                
+                if not test_mode:
+                    db.mark_sent(
+                        channel_id=item["channel_id"],
+                        subject=item["subject"],
+                        body=item["body"],
+                        sent_via=sender["email"]
+                    )
+                else:
+                    print("   [TEST MODE] Lead status NOT updated")
+                
+                sent_count += 1
+            else:
+                item["status"] = "failed"
+                failed_count += 1
         
         save_schedule(schedule)
     
     print("\n" + "=" * 50)
     print("📬 DISPATCH COMPLETE")
     print("=" * 50)
-    print(f"  Sent: {sent_count}")
+    print(f"  Processed: {sent_count}")
     print(f"  Failed: {failed_count}")
     
     if sent_count > 0 and not dry_run and not test_mode:
@@ -287,7 +390,7 @@ def execute_schedule(schedule, dry_run=False, test_mode=False):
         print("Run `python 6_check_followups.py` daily to see pending followups.")
 
 
-def dispatch_scheduled(email_id, limit, date_str, interval, dry_run=False, test_email=None, round_robin=False):
+def dispatch_scheduled(email_id, limit, date_str, interval, dry_run=False, test_email=None, round_robin=False, use_api=True):
     """Main dispatch function with scheduling."""
     db = get_db()
     
@@ -349,7 +452,7 @@ def dispatch_scheduled(email_id, limit, date_str, interval, dry_run=False, test_
             return
     
     save_schedule(schedule)
-    execute_schedule(schedule, dry_run=dry_run, test_mode=bool(test_email))
+    execute_schedule(schedule, dry_run=dry_run, test_mode=bool(test_email), use_api=use_api)
 
 
 def dispatch_single(channel_id: str, email_id: int = 1, dry_run=False, test_email=None):
@@ -414,7 +517,7 @@ def show_schedule():
     print(f"\nStatus: {pending} pending, {sent} sent, {failed} failed")
 
 
-def resume_schedule(dry_run=False):
+def resume_schedule(dry_run=False, use_api=True):
     """Resume a previously saved schedule."""
     data = load_schedule()
     if not data:
@@ -436,7 +539,7 @@ def resume_schedule(dry_run=False):
             return
     
     test_mode = any(i.get("original_email") and i["original_email"] != i["to_email"] for i in data["items"])
-    execute_schedule(data["items"], dry_run=dry_run, test_mode=test_mode)
+    execute_schedule(data["items"], dry_run=dry_run, test_mode=test_mode, use_api=use_api)
 
 
 if __name__ == "__main__":
@@ -446,8 +549,11 @@ if __name__ == "__main__":
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Send 5 emails now, 30 min apart, via eulaiq.com
+  # Send 5 emails now, 30 min apart, via eulaiq.com (using API scheduler)
   python 5_dispatch_emails.py --email 1 --limit 5 --date now --interval 30
+  
+  # Force LOCAL sending (waiting on this machine)
+  python 5_dispatch_emails.py --email 1 --limit 5 --date now --interval 30 --local
   
   # Schedule 10 emails for tomorrow, 1 hour apart, via eulaiq.me
   python 5_dispatch_emails.py --email 2 --limit 10 --date tomorrow --interval 60
@@ -482,18 +588,26 @@ Examples:
     parser.add_argument("--single", type=str, help="Send to single channel_id")
     parser.add_argument("--show-schedule", action="store_true", help="Show saved schedule")
     parser.add_argument("--resume", action="store_true", help="Resume interrupted schedule")
+    parser.add_argument("--local", action="store_true", help="Use local waiting instead of API scheduler")
     
     args = parser.parse_args()
+    
+    # Default to API unless --local is specified
+    use_api = not args.local
     
     if args.show_schedule:
         show_schedule()
     elif args.resume:
-        resume_schedule(dry_run=args.dry_run)
+        resume_schedule(dry_run=args.dry_run, use_api=use_api)
     elif args.single:
         dispatch_single(args.single, email_id=args.email, dry_run=args.dry_run, test_email=args.test_email)
     else:
         dispatch_scheduled(
             email_id=args.email, limit=args.limit, date_str=args.date,
             interval=args.interval, dry_run=args.dry_run, test_email=args.test_email,
-            round_robin=args.round_robin
+            round_robin=args.round_robin, use_api=use_api
         )
+        # Note: dispatch_scheduled calls execute_schedule, but we need to pass use_api down.
+        # I need to update dispatch_scheduled signature or just patch it here.
+        # Wait, dispatch_scheduled calls execute_schedule internally. I need to update dispatch_scheduled to accept use_api.
+

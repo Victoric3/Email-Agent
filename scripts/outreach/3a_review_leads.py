@@ -252,6 +252,7 @@ def interactive_review(status=LeadStatus.QUALIFIED):
         print("  [n]ext     - Save and go to next")
     
     print("  [s]kip    - Skip to end (process later)")
+    print("  [p]revious - Go to previous lead")
     print("  [v]ideo   - Change Source YouTube video URL")
     print("  [l]ocal   - Use local audio file")
     
@@ -272,9 +273,12 @@ def interactive_review(status=LeadStatus.QUALIFIED):
         
         # Handle nested source_video data from harvester
         source_video = lead.get("source_video", {})
-        video_title = lead.get("video_title") or source_video.get("title", "N/A")
+        video_title = lead.get("video_title") or source_video.get("title", "Unknown")
         video_id = lead.get("video_id") or source_video.get("video_id")
         video_url = lead.get("video_url")
+        local_audio_path = lead.get("local_audio_path")
+        # Prefer final/public URLs for display
+        final_link = lead.get("final_video_url") or lead.get("youtube_url") or lead.get("branded_player_url") or ""
         if not video_url and video_id:
             video_url = f"https://www.youtube.com/watch?v={video_id}"
         local_audio_path = lead.get("local_audio_path")
@@ -282,8 +286,21 @@ def interactive_review(status=LeadStatus.QUALIFIED):
         print("="*60)
         print(f"[{i}/{len(leads)}] {lead.get('creator_name', lead['channel_name'])}")
         print(f"  Channel: https://youtube.com/channel/{lead['channel_id']}")
-        print(f"  Source Video: {video_title}")
-        print(f"  Source URL: {video_url or 'N/A'}")
+        def trunc(s, n=80):
+            s = str(s)
+            return (s[:n] + "...") if len(s) > n else s
+
+        # Display main/selected video info
+        print(f"  Video: {video_title}")
+        if final_link:
+            print(f"  Video URL: {trunc(final_link)}")
+        else:
+            print("  Video URL: NOT SET")
+
+        # Show the original source video if it differs from final
+        source_display = video_url or source_video.get("video_url") or source_video.get("url")
+        if source_display and source_display != final_link:
+            print(f"  Source URL: {trunc(source_display)}")
         if local_audio_path:
             print(f"  🎵 Local Audio: {local_audio_path}")
             
@@ -293,7 +310,17 @@ def interactive_review(status=LeadStatus.QUALIFIED):
             
         print(f"  Score: {lead.get('icp_score', lead.get('final_score', '-'))}/10")
         print(f"  Current Email: {lead.get('email', 'NOT SET')}")
-        print(f"  Notes: {lead.get('notes', '-')}")
+        # Normalize notes display
+        notes = lead.get('notes', '')
+        if not notes:
+            print("  Notes: -")
+        else:
+            if isinstance(notes, list):
+                notes_str = "\n    - ".join([str(n).strip() for n in notes if n])
+                print(f"  Notes:\n    - {notes_str}")
+            else:
+                ns = str(notes).replace('\n', ' ').strip()
+                print(f"  Notes: {ns[:200]}" + ("..." if len(ns) > 200 else ""))
         print()
         
         while True:
@@ -307,6 +334,15 @@ def interactive_review(status=LeadStatus.QUALIFIED):
                 print("  ⏭️ Skipped")
                 current_index += 1
                 break
+            
+            if action == 'p':
+                if current_index > 0:
+                    print("  ⏮️ Previous")
+                    current_index -= 1
+                    break
+                else:
+                    print("  ⚠️ Already at the first lead")
+                    continue
             
             if action == 'v':
                 new_url = input("  New Source YouTube URL: ").strip()

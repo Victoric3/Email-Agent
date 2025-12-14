@@ -15,6 +15,7 @@ Features:
 """
 import json
 import asyncio
+import yt_dlp
 from datetime import datetime, timedelta
 from pathlib import Path
 import sys
@@ -29,6 +30,25 @@ TEMPLATE_FILE = CONTEXT_DIR / "template.txt"
 
 # Default interval between scheduled emails (minutes)
 DEFAULT_SEND_INTERVAL = 60
+
+
+def fetch_channel_metadata(channel_url):
+    """Fetch channel name from URL using yt-dlp."""
+    try:
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'skip_download': True,
+            'extract_flat': True
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(channel_url, download=False)
+            return {
+                'channel_name': info.get('uploader') or info.get('title'),
+            }
+    except Exception as e:
+        print(f"    ⚠️ Could not fetch channel metadata: {e}")
+        return None
 
 
 def load_template():
@@ -49,8 +69,32 @@ async def generate_email_with_llm(client, lead, template_reference):
     source_video = lead.get("source_video", {})
     video_title = lead.get("video_title") or source_video.get("title", "your video")
     creator_name = lead.get("creator_name", lead.get("channel_name", "there"))
+    
+    # Check for local audio
+    local_audio_path = lead.get("local_audio_path")
+    is_local_audio = bool(local_audio_path)
+    
+    # Fetch metadata if needed (unknown creator)
+    if not creator_name or creator_name.lower() in ["there", "unknown", "channel", "none"]:
+        channel_url = f"https://www.youtube.com/channel/{lead['channel_id']}"
+        print(f"    Fetching metadata for {channel_url}...")
+        metadata = fetch_channel_metadata(channel_url)
+        if metadata and metadata.get('channel_name'):
+            creator_name = metadata['channel_name']
+            # Update DB with the discovered metadata so future steps have accurate names
+            try:
+                db = get_db()
+                db.update_lead_by_channel(lead['channel_id'], {
+                    'creator_name': metadata.get('channel_name'),
+                    'channel_name': metadata.get('channel_name')
+                })
+                print(f"    ✅ Channel metadata saved to DB for {lead['channel_id']}")
+            except Exception as e:
+                print(f"    ⚠️ Could not update channel metadata in DB: {e}")
+
     notes = lead.get("notes", "")
-    branded_url = lead.get("branded_player_url", "[VIDEO_LINK]")
+    # Prefer final/public video links if present (uploaded YouTube URL or final URL), then branded player
+    branded_url = lead.get("final_video_url") or lead.get("youtube_url") or lead.get("branded_player_url") or "[VIDEO_LINK]"
     
     # Get channel info
     channel_name = lead.get("channel_name", "")
@@ -58,7 +102,13 @@ async def generate_email_with_llm(client, lead, template_reference):
     subject_area = lead.get("subject_area", "educational content")
     
     # Build the prompt
-    prompt = f"""You are writing a cold outreach email to a YouTube creator about a video animation service.
+    prompt = f"""You are writing a cold outreach email to a YouTube creator.
+The goal is to sound like a helpful engineer or potential partner, NOT a salesperson.
+The vibe should be: "I made this for you to see if it's useful," similar to how an editor might send a draft to a creator.
+
+SENDER INFO:
+- Name: Victor
+- Title: Founder & CEO, EulaIQ
 
 CREATOR INFO:
 - Name: {creator_name}
@@ -70,19 +120,23 @@ CREATOR INFO:
 PERSONALIZED VIDEO LINK:
 {branded_url}
 
+SPECIAL CONTEXT:
+{ "This video was generated using a LOCAL AUDIO file (AI-generated lecture based on their content). You MUST explain this clearly: we created a conceptual demonstration using an AI voice/lecture derived from their work to demonstrate the strengths of our animation engine and show them what's possible." if is_local_audio else "" }
+
 SPECIAL NOTES/INSTRUCTIONS:
-{notes if notes else "No special notes - write a standard outreach email."}
+{notes if notes else "No special notes."}
 
-REFERENCE TEMPLATE (for tone/structure, but personalize based on notes):
-{template_reference[:1500] if template_reference else "Write a professional, friendly cold email introducing an animation service for educational content."}
-
-TASK: Write a personalized cold email. The email should:
-1. Have a catchy subject line referencing their video
-2. Be friendly and personal (use their name)
-3. Mention the specific video we animated for them
-4. Include the video link naturally
-5. Be concise (under 200 words for body)
-6. If there are special notes, incorporate them thoughtfully
+MANDATORY INSTRUCTIONS:
+1. SUBJECT LINE: Must be exactly "{video_title} - Animation Draft" (or very similar, e.g. "Animation Draft: {video_title}"). Do not use "catchy" marketing subjects.
+2. OPENING: Brief, genuine compliment on their content.
+3. THE "PITCH": Don't pitch. Just say you ran their audio from "{video_title}" through your animation engine (EulaIQ) to see what it would look like.
+4. THE LINK: Present the link clearly.
+5. CREDIBILITY: Mention EulaIQ is part of the NVIDIA Inception program naturally (e.g. "We're building this engine as part of the NVIDIA Inception program...").
+6. VALUE PROP: Focus on "automating the tedious parts" or "going from script to video in minutes".
+7. CALL TO ACTION: Ask if they want a login to try it or a quick demo.
+8. LENGTH: Keep it short. Under 150 words.
+9. SIGNATURE: Sign off as "Victor\\nFounder & CEO, EulaIQ". Do NOT use placeholders like "[Your Name]".
+10. FORMATTING: Use double newlines (\\n\\n) between paragraphs to ensure readability.
 
 Respond with JSON only:
 {{
@@ -109,7 +163,7 @@ Important: The body should be ready to send - proper greeting, content, signatur
         return None, None
 
 
-async def reprompt_email(client, current_subject, current_body, modification_request):
+async def reprompt_email(client, current_subject, current_body, modification_request, creator_name=None):
     """
     Reprompt LLM to modify the email based on user feedback.
     """
@@ -124,7 +178,13 @@ Body:
 USER'S MODIFICATION REQUEST:
 {modification_request}
 
+{f"IMPORTANT: The creator's name is '{creator_name}'. Ensure the greeting uses this name." if creator_name else ""}
+
 TASK: Rewrite the email incorporating the user's feedback. Keep the same general structure unless they asked to change it.
+Ensure the subject line remains focused (e.g. "{current_subject}") and the tone is helpful/internal, not salesy.
+Ensure the email mentions that EulaIQ is part of the NVIDIA Inception program.
+Ensure the signature is "Victor\\nFounder & CEO, EulaIQ".
+Ensure proper line breaks (\\n\\n) between paragraphs.
 
 Respond with JSON only:
 {{
@@ -148,19 +208,27 @@ Respond with JSON only:
         return current_subject, current_body
 
 
-def interactive_draft_and_schedule():
+def interactive_draft_and_schedule(target_channel_id=None):
     """
     Interactive mode: Generate and review emails one by one.
     Approve with scheduled time, modify, reprompt, or skip.
     """
     db = get_db()
     
-    # Get leads with generated assets
-    leads = list(db.get_leads_by_status(LeadStatus.ASSET_GENERATED))
+    if target_channel_id:
+        lead = db.get_lead_by_channel(target_channel_id)
+        if not lead:
+            print(f"Lead not found: {target_channel_id}")
+            return
+        leads = [lead]
+        print(f"Editing draft for: {lead.get('creator_name')} (Status: {lead['status']})")
+    else:
+        # Get leads that were uploaded (final videos available) so we can draft emails
+        leads = list(db.get_leads_by_status(LeadStatus.UPLOADED))
     
     if not leads:
-        print("No leads with generated assets pending email drafts.")
-        print("Run 3b_generate_videos.py and 3c_accept_videos.py first.")
+        print("No uploaded leads pending email drafts.")
+        print("Run 3b_generate_videos.py, 3c_accept_videos.py, and 3d_upload_youtube.py (or use --status uploaded) first.")
         return
     
     print(f"\n📧 Interactive Email Drafting - {len(leads)} leads\n")
@@ -168,6 +236,8 @@ def interactive_draft_and_schedule():
     print("  [a]pprove  - Approve and set schedule time")
     print("  [e]dit     - Edit email directly")
     print("  [r]eprompt - Ask LLM to modify")
+    print("  [n]ame     - Update creator name")
+    print("  [m]ail     - Update recipient email")
     print("  [s]kip     - Skip for now")
     print("  [q]uit     - Exit\n")
     
@@ -196,19 +266,56 @@ def interactive_draft_and_schedule():
         print("="*60)
         print(f"[{i}/{len(leads)}] {creator_name}")
         print(f"  Email: {email_addr}")
-        print(f"  Video: {video_title}")
-        print(f"  Video URL: {branded_url[:60]}..." if branded_url else "  Video URL: NOT SET")
-        print(f"  Notes: {notes[:100]}..." if notes else "  Notes: -")
+        # Determine and show video title
+        vt = video_title or "Unknown"
+        source_video = lead.get("source_video", {})
+        local_audio_path = lead.get("local_audio_path")
+        # Prefer final/public URLs for display
+        final_link = lead.get("final_video_url") or lead.get("youtube_url") or lead.get("branded_player_url") or ""
+        print(f"  Video: {vt}")
+        # Show final video URL if present (branded/youtube/final) and source video URL if different
+        def trunc(s, n=80):
+            s = str(s)
+            return (s[:n] + "...") if len(s) > n else s
+
+        if final_link:
+            print(f"  Video URL: {trunc(final_link)}")
+        else:
+            print("  Video URL: NOT SET")
+        source_display = lead.get("video_url") or source_video.get("video_url") or source_video.get("url")
+        if source_display and source_display != branded_url:
+            print(f"  Source URL: {trunc(source_display)}")
+
+        if local_audio_path:
+            print(f"  🎵 Local Audio: {local_audio_path}")
+
+        # Normalize notes display
+        if not notes:
+            print("  Notes: -")
+        else:
+            if isinstance(notes, list):
+                notes_str = "\n    - ".join([str(n).strip() for n in notes if n])
+                print(f"  Notes:\n    - {notes_str}")
+            else:
+                ns = str(notes).replace('\n', ' ').strip()
+                print(f"  Notes: {ns[:200]}" + ("..." if len(ns) > 200 else ""))
         print()
         
-        # Generate email using LLM
-        print("  🤖 Generating personalized email...")
-        subject, body = asyncio.run(generate_email_with_llm(client, lead, template))
+        # Check for existing draft
+        existing_draft = lead.get("draft_email", {})
+        if existing_draft.get("subject") and existing_draft.get("body"):
+            print("  📝 Found existing draft. Loading...")
+            subject = existing_draft["subject"]
+            body = existing_draft["body"]
+        else:
+            # Generate email using LLM
+            print("  🤖 Generating personalized email...")
+            subject, body = asyncio.run(generate_email_with_llm(client, lead, template))
         
         if not subject or not body:
             print("  ⚠️ Email generation failed, using fallback template")
             subject = f"{video_title} - Animation Draft"
-            body = f"Hi {creator_name},\n\nI created an animation for your video.\n\nCheck it out: {branded_url}\n\nBest,\nVictor"
+            body = f"Hi {creator_name},\n\nI created an animation for your video.\n\nCheck it out: {final_link or '[LINK]'}\n\nBest,\nVictor"
         
         # Review loop
         while True:
@@ -218,7 +325,7 @@ def interactive_draft_and_schedule():
             print(body)
             print("-"*40)
             
-            action = input("\nAction [a/e/r/s/q]: ").lower().strip()
+            action = input("\nAction [a/e/r/n/m/s/q]: ").lower().strip()
             
             if action == 'q':
                 print(f"\n✅ Approved: {approved}, ⏭️ Skipped: {skipped}")
@@ -229,6 +336,16 @@ def interactive_draft_and_schedule():
                 skipped += 1
                 break
             
+            if action == 'm':
+                # Update email address
+                new_email = input(f"  New Email [{email_addr}]: ").strip()
+                if new_email:
+                    db.update_email(channel_id, new_email)
+                    lead["email"] = new_email
+                    email_addr = new_email
+                    print(f"  ✅ Email updated to: {new_email}")
+                continue
+
             if action == 'e':
                 # Direct edit
                 print("\n  📝 Enter new subject (or press Enter to keep current):")
@@ -255,10 +372,21 @@ def interactive_draft_and_schedule():
                 modification = input("  Request: ").strip()
                 if modification:
                     print("  🤖 Regenerating...")
-                    subject, body = asyncio.run(reprompt_email(client, subject, body, modification))
+                    subject, body = asyncio.run(reprompt_email(client, subject, body, modification, creator_name=creator_name))
                     print("  ✅ Email regenerated")
                 continue
             
+            if action == 'n':
+                # Update creator name
+                new_name = input(f"  New Creator Name [{creator_name}]: ").strip()
+                if new_name:
+                    db.update_lead_by_channel(channel_id, {"creator_name": new_name})
+                    lead["creator_name"] = new_name
+                    creator_name = new_name
+                    print(f"  ✅ Creator name updated to: {new_name}")
+                    print("  💡 Tip: Use [r]eprompt to regenerate the email with the new name.")
+                continue
+
             if action == 'a':
                 # Approve and schedule
                 print("\n  📅 Schedule email:")
@@ -324,10 +452,11 @@ def draft_emails_batch(limit=None):
     template = load_template()
     client = AWSBedrockClient()
     
-    leads = list(db.get_leads_by_status(LeadStatus.ASSET_GENERATED))
+    leads = list(db.get_leads_by_status(LeadStatus.UPLOADED))
     
     if not leads:
-        print("No leads with generated assets pending email drafts.")
+        print("No uploaded leads pending email drafts.")
+        print("Run 3b_generate_videos.py, 3c_accept_videos.py, and 3d_upload_youtube.py (or ensure the final video URL is set) first.")
         return
     
     if limit:
@@ -349,7 +478,8 @@ def draft_emails_batch(limit=None):
             # Fallback to simple template
             source_video = lead.get("source_video", {})
             video_title = lead.get("video_title") or source_video.get("title", "your video")
-            branded_url = lead.get("branded_player_url", "[LINK]")
+            # Prefer final or public URLs for email link
+            branded_url = lead.get("final_video_url") or lead.get("youtube_url") or lead.get("branded_player_url") or "[LINK]"
             subject = f"{video_title} - Animation Draft"
             body = f"Hi {creator},\n\nI created an animation for your video.\n\nCheck it out: {branded_url}\n\nBest,\nVictor"
         
@@ -370,13 +500,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Draft emails with LLM personalization")
     parser.add_argument("--interactive", "-i", action="store_true", 
                         help="Interactive mode: review each email before approval")
+    parser.add_argument("--channel", type=str, help="Target specific channel ID (edit existing draft)")
     parser.add_argument("--batch", action="store_true",
                         help="Batch mode: generate all drafts without review")
     parser.add_argument("--limit", type=int, help="Limit number of drafts (batch mode)")
     
     args = parser.parse_args()
     
-    if args.interactive:
+    if args.channel:
+        interactive_draft_and_schedule(target_channel_id=args.channel)
+    elif args.interactive:
         interactive_draft_and_schedule()
     elif args.batch:
         draft_emails_batch(limit=args.limit)
