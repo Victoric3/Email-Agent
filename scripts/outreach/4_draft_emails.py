@@ -61,7 +61,7 @@ def load_template():
         return None
 
 
-async def generate_email_with_llm(client, lead, template_reference):
+async def generate_email_with_llm(client, lead, template_reference, permission_mode=False):
     """
     Generate personalized email using LLM.
     Uses lead data, notes field, and template as guidance.
@@ -101,8 +101,43 @@ async def generate_email_with_llm(client, lead, template_reference):
     overall_assessment = lead.get("overall_assessment", "")
     subject_area = lead.get("subject_area", "educational content")
     
-    # Build the prompt
-    prompt = f"""You are writing a cold outreach email to a YouTube creator.
+    if permission_mode:
+        # PERMISSION MODE PROMPT
+        prompt = f"""You are writing a cold outreach email to a YouTube creator.
+The goal is to ask for PERMISSION to create a demo video for them. We have NOT created it yet.
+
+SENDER INFO:
+- Name: Victor
+- Title: Founder & CEO, EulaIQ
+
+CREATOR INFO:
+- Name: {creator_name}
+- Channel: {channel_name}
+- Video we want to animate: "{video_title}"
+- Subject area: {subject_area}
+
+SPECIAL NOTES (Use for compliment):
+{notes if notes else "No special notes."}
+
+MANDATORY INSTRUCTIONS:
+1. SUBJECT LINE: "{video_title} - Animation Demo?"
+2. OPENING: Compliment their content specifically (use the notes if available).
+3. INTRO: Briefly explain EulaIQ (AI animation engine for math/science) and mention we are part of the NVIDIA Inception program.
+4. THE ASK: Explicitly ask for permission to use the audio from their video "{video_title}" to create a custom animation demo for them.
+5. CALL TO ACTION: Ask them to reply "yes" if they are interested in seeing the demo.
+6. LENGTH: Keep it short. Under 150 words.
+7. SIGNATURE: Sign off as "Victor\\nFounder & CEO, EulaIQ".
+8. FORMATTING: Use double newlines (\\n\\n) between paragraphs.
+
+Respond with JSON only:
+{{
+    "subject": "Email subject line",
+    "body": "Full email body with proper formatting and line breaks"
+}}"""
+
+    else:
+        # STANDARD MODE PROMPT (Video already created)
+        prompt = f"""You are writing a cold outreach email to a YouTube creator.
 The goal is to sound like a helpful engineer or potential partner, NOT a salesperson.
 The vibe should be: "I made this for you to see if it's useful," similar to how an editor might send a draft to a creator.
 
@@ -208,7 +243,7 @@ Respond with JSON only:
         return current_subject, current_body
 
 
-def interactive_draft_and_schedule(target_channel_id=None):
+def interactive_draft_and_schedule(target_channel_id=None, permission_mode=False):
     """
     Interactive mode: Generate and review emails one by one.
     Approve with scheduled time, modify, reprompt, or skip.
@@ -223,15 +258,25 @@ def interactive_draft_and_schedule(target_channel_id=None):
         leads = [lead]
         print(f"Editing draft for: {lead.get('creator_name')} (Status: {lead['status']})")
     else:
-        # Get leads that were uploaded (final videos available) so we can draft emails
-        leads = list(db.get_leads_by_status(LeadStatus.UPLOADED))
+        if permission_mode:
+            # In permission mode, we want leads that are APPROVED (reviewed & have email) but not yet processed/uploaded
+            # We look for leads in APPROVED status
+            leads = list(db.get_leads_by_status(LeadStatus.APPROVED))
+            print(f"Found {len(leads)} APPROVED leads for permission request.")
+        else:
+            # Get leads that were uploaded (final videos available) so we can draft emails
+            leads = list(db.get_leads_by_status(LeadStatus.UPLOADED))
     
     if not leads:
-        print("No uploaded leads pending email drafts.")
-        print("Run 3b_generate_videos.py, 3c_accept_videos.py, and 3d_upload_youtube.py (or use --status uploaded) first.")
+        if permission_mode:
+            print("No APPROVED leads found for permission request.")
+            print("Run 3a_review_leads.py to approve leads and add emails first.")
+        else:
+            print("No uploaded leads pending email drafts.")
+            print("Run 3b_generate_videos.py, 3c_accept_videos.py, and 3d_upload_youtube.py (or use --status uploaded) first.")
         return
     
-    print(f"\n📧 Interactive Email Drafting - {len(leads)} leads\n")
+    print(f"\n📧 Interactive Email Drafting ({'PERMISSION MODE' if permission_mode else 'STANDARD MODE'}) - {len(leads)} leads\n")
     print("Commands:")
     print("  [a]pprove  - Approve and set schedule time")
     print("  [e]dit     - Edit email directly")
@@ -273,21 +318,23 @@ def interactive_draft_and_schedule(target_channel_id=None):
         # Prefer final/public URLs for display
         final_link = lead.get("final_video_url") or lead.get("youtube_url") or lead.get("branded_player_url") or ""
         print(f"  Video: {vt}")
-        # Show final video URL if present (branded/youtube/final) and source video URL if different
-        def trunc(s, n=80):
-            s = str(s)
-            return (s[:n] + "...") if len(s) > n else s
+        
+        if not permission_mode:
+            # Show final video URL if present (branded/youtube/final) and source video URL if different
+            def trunc(s, n=80):
+                s = str(s)
+                return (s[:n] + "...") if len(s) > n else s
 
-        if final_link:
-            print(f"  Video URL: {trunc(final_link)}")
-        else:
-            print("  Video URL: NOT SET")
-        source_display = lead.get("video_url") or source_video.get("video_url") or source_video.get("url")
-        if source_display and source_display != branded_url:
-            print(f"  Source URL: {trunc(source_display)}")
+            if final_link:
+                print(f"  Video URL: {trunc(final_link)}")
+            else:
+                print("  Video URL: NOT SET")
+            source_display = lead.get("video_url") or source_video.get("video_url") or source_video.get("url")
+            if source_display and source_display != branded_url:
+                print(f"  Source URL: {trunc(source_display)}")
 
-        if local_audio_path:
-            print(f"  🎵 Local Audio: {local_audio_path}")
+            if local_audio_path:
+                print(f"  🎵 Local Audio: {local_audio_path}")
 
         # Normalize notes display
         if not notes:
@@ -310,7 +357,7 @@ def interactive_draft_and_schedule(target_channel_id=None):
         else:
             # Generate email using LLM
             print("  🤖 Generating personalized email...")
-            subject, body = asyncio.run(generate_email_with_llm(client, lead, template))
+            subject, body = asyncio.run(generate_email_with_llm(client, lead, template, permission_mode=permission_mode))
         
         if not subject or not body:
             print("  ⚠️ Email generation failed, using fallback template")
@@ -504,17 +551,23 @@ if __name__ == "__main__":
     parser.add_argument("--batch", action="store_true",
                         help="Batch mode: generate all drafts without review")
     parser.add_argument("--limit", type=int, help="Limit number of drafts (batch mode)")
+    parser.add_argument("--permission", action="store_true",
+                        help="Permission mode: Draft emails asking for permission (no video link)")
     
     args = parser.parse_args()
     
     if args.channel:
-        interactive_draft_and_schedule(target_channel_id=args.channel)
+        interactive_draft_and_schedule(target_channel_id=args.channel, permission_mode=args.permission)
     elif args.interactive:
-        interactive_draft_and_schedule()
+        interactive_draft_and_schedule(permission_mode=args.permission)
+    elif args.permission:
+        # If only --permission is passed, assume interactive mode
+        interactive_draft_and_schedule(permission_mode=True)
     elif args.batch:
         draft_emails_batch(limit=args.limit)
     else:
         parser.print_help()
         print("\n📌 Quick Start:")
         print("  Interactive: python 4_draft_emails.py --interactive")
+        print("  Permission:  python 4_draft_emails.py --permission")
         print("  Batch:       python 4_draft_emails.py --batch")

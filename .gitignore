@@ -56,3 +56,7 @@ assets/**
 *~
 *.bak
 *.swp
+
+audios/
+videos/
+.vercel

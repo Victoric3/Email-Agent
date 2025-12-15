@@ -1,146 +1,193 @@
 # ============================================
-# MATH EDUCATION CHANNELS - PRIMARY TARGETS
+# FRESH KEYWORDS - December 2025
+# Unique concepts NOT in used_keywords.txt
+# Focus: Deep conceptual content, 3B1B-style
 # ============================================
 
-# Core Math Education (High School / University Prep)
-how to solve quadratic equations step by step
-algebra tutorial for beginners
-precalculus explained
-trigonometry unit circle explained
-math problem solving techniques
-high school math tutorial
-SAT math prep tutorial
-ACT math practice
-GED math tutorial
-GCSE maths revision
-A-level maths explained
-IB math tutorial
-
-# Calculus & Analysis
-calculus explained visually
-differential calculus tutorial
-integral calculus step by step
-limits and continuity explained
-multivariable calculus tutorial
-real analysis explained
-vector calculus visualization
-
-# Linear Algebra & Abstract Math
-linear algebra explained
-matrix operations tutorial
-eigenvalues and eigenvectors explained
-vector spaces tutorial
-abstract algebra introduction
-group theory explained
-ring theory tutorial
-
-# Geometry & Topology
-geometry proofs explained
-euclidean geometry tutorial
-analytic geometry explained
-differential geometry visualization
-topology explained simply
-metric spaces tutorial
-
-# Statistics & Probability
-probability theory explained
-statistics tutorial for beginners
-hypothesis testing step by step
-regression analysis tutorial
-Bayesian statistics explained
-combinatorics and counting
-
-# Discrete Math & Logic
-discrete mathematics tutorial
-mathematical logic explained
-set theory introduction
-proof techniques tutorial
-number theory explained
-graph theory visualization
-
 # ============================================
-# PHYSICS EDUCATION CHANNELS
+# ADVANCED MATH CONCEPTS (Unexplored)
 # ============================================
 
-# Classical Mechanics
-physics mechanics explained
-Newton's laws tutorial
-kinematics step by step
-projectile motion explained
-rotational dynamics tutorial
-oscillations and waves explained
+# Complex Analysis & Special Functions
+complex analysis intuition
+Riemann zeta function explained
+analytic continuation visualization
+contour integration tutorial
+residue theorem explained
+holomorphic functions intuition
+conformal mapping visualization
 
-# Electricity & Magnetism
-electromagnetism tutorial
-electric circuits explained
-Maxwell's equations visualized
-electromagnetic waves tutorial
+# Differential Equations (Deep Dives)
+partial differential equations intuition
+heat equation visualization
+wave equation simulation
+Navier-Stokes explained simply
+chaos theory mathematics
+dynamical systems visualization
+phase space explained
 
-# Modern Physics
-quantum mechanics explained simply
-special relativity tutorial
-general relativity visualization
-particle physics introduction
-nuclear physics explained
-thermodynamics tutorial
+# Number Theory & Cryptography
+prime number patterns
+modular arithmetic intuition
+RSA cryptography math explained
+elliptic curves cryptography
+Fermat's last theorem explained
+Goldbach conjecture visualization
+perfect numbers and mersenne primes
 
-# ============================================
-# CHEMISTRY EDUCATION CHANNELS
-# ============================================
+# Topology & Abstract Spaces
+Mobius strip mathematics
+Klein bottle explained
+homology intuition
+homotopy explained visually
+fundamental group topology
+manifold visualization
+fiber bundles intuition
 
-organic chemistry reaction mechanisms
-inorganic chemistry tutorial
-general chemistry explained
-biochemistry tutorial
-chemical bonding visualization
-stoichiometry step by step
-acid base equilibrium explained
-
-# ============================================
-# SCIENCE VISUALIZATION & ANIMATION
-# ============================================
-
-# Scientific Animation Creators
-math animation manim
-3D math visualization
-physics simulation
-educational science animation
-STEM visualization
-mathematical proof animation
-conceptual physics visualization
+# Category Theory & Foundations
+category theory for programmers
+functors and natural transformations
+Godel incompleteness explained
+axiom of choice intuition
+transfinite numbers explained
+ordinal numbers visualization
+Zermelo Fraenkel set theory
 
 # ============================================
-# ENGINEERING MATH
+# PHYSICS - DEEP CONCEPTUAL TOPICS
 # ============================================
 
-engineering mathematics tutorial
-differential equations for engineers
-Laplace transform explained
-Fourier transform visualization
-control systems math
-signal processing mathematics
-numerical methods tutorial
+# Quantum Mechanics (Advanced)
+Schrodinger equation visualization
+wave function collapse explained
+quantum entanglement intuition
+Heisenberg uncertainty derivation
+spin and spinors explained
+Dirac equation visualization
+path integral formulation
+
+# Relativity (Deep Dives)
+spacetime diagrams explained
+geodesics in general relativity
+black hole mathematics
+gravitational waves visualization
+Penrose diagrams tutorial
+Schwarzschild metric explained
+twin paradox resolved
+
+# Statistical Mechanics & Thermodynamics
+entropy intuition deep dive
+Boltzmann distribution explained
+partition function visualization
+phase transitions physics
+Ising model simulation
+free energy explained
+Maxwell demon paradox
+
+# Electrodynamics (Advanced)
+vector potential intuition
+gauge invariance explained
+electromagnetic tensor visualization
+retarded potentials tutorial
+Lienard Wiechert fields
+radiation reaction explained
+
+# Condensed Matter & Solid State
+Bloch theorem visualization
+band theory intuition
+Fermi surface explained
+superconductivity physics
+BCS theory intuition
+topological insulators explained
 
 # ============================================
-# COMPETITIVE MATH & OLYMPIAD
+# CHEMISTRY - CONCEPTUAL & MOLECULAR
 # ============================================
 
-math olympiad problem solving
-AMC math competition
-Putnam competition problems
-mathematical olympiad tutorial
-competition mathematics strategies
-challenging math problems explained
+# Quantum Chemistry
+molecular orbital theory visualization
+LCAO method explained
+Hartree Fock intuition
+density functional theory basics
+electron correlation explained
+configuration interaction tutorial
+
+# Physical Chemistry Deep Dives
+transition state theory visualization
+Marcus theory electron transfer
+molecular dynamics simulation
+potential energy surface chemistry
+reaction coordinate explained
+Hammond postulate visualization
+
+# Spectroscopy & Structure
+NMR spectroscopy explained
+mass spectrometry intuition
+IR spectroscopy molecular vibrations
+Raman spectroscopy tutorial
+X-ray crystallography basics
+electron diffraction explained
+
+# Thermodynamics & Kinetics
+Gibbs free energy intuition
+chemical equilibrium visualization
+Le Chatelier principle deep dive
+Arrhenius equation explained
+collision theory visualization
+enzyme kinetics Michaelis Menten
+
+# Organic Chemistry Mechanisms (Specific)
+SN1 vs SN2 visualization
+E1 E2 elimination mechanism
+Diels Alder reaction explained
+arrow pushing organic chemistry
+carbocation rearrangement tutorial
+pericyclic reactions visualization
 
 # ============================================
-# EDUCATIONAL YOUTUBE SPECIFIC
+# MATHEMATICAL PHYSICS BRIDGES
 # ============================================
 
-math explained with animations
-visual math learning
-intuitive math explanation
-math concepts visualization
-whiteboard math tutorial
-math lecture university
-professor explains math
-math teacher explains
+Lie groups physics applications
+symmetry and conservation laws
+Noether theorem explained
+tensor calculus for physics
+spinor mathematics
+Clifford algebra intuition
+quaternions rotation explained
+
+# ============================================
+# VISUALIZATION-HEAVY TOPICS
+# ============================================
+
+Fourier series animation
+spherical harmonics visualization
+Bessel functions intuition
+Legendre polynomials explained
+Green's function tutorial
+Laplacian operator intuition
+gradient divergence curl visualization
+
+# ============================================
+# COMPETITIVE & OLYMPIAD (Fresh Topics)
+# ============================================
+
+IMO geometry problems
+functional equations tutorial
+inequality proofs olympiad
+combinatorial game theory
+pigeonhole principle applications
+invariants problem solving
+extremal principle mathematics
+
+# ============================================
+# NICHE EDUCATIONAL CREATORS
+# ============================================
+
+manim community tutorial
+mathematical animations python
+physics engine simulation
+procedural math visualization
+interactive math demonstrations
+explorable explanations math
+computational thinking education

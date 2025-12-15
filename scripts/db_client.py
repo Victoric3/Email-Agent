@@ -39,6 +39,7 @@ class LeadStatus:
     APPROVED = "approved"             # Manually approved, ready for video gen
     DISQUALIFIED = "disqualified"     # Manually rejected
     ASSET_GENERATING = "asset_generating"
+    ASSET_GENERATED = "asset_generated"
     ASSET_PENDING_REVIEW = "asset_pending_review"  # 2 videos ready, awaiting selection
     ASSET_APPROVED = "asset_approved"  # Video selected, ready for YouTube upload
     UPLOADED = "uploaded"             # Uploaded to YouTube, ready for email draft
@@ -367,13 +368,24 @@ class OutreachDB:
         now = datetime.utcnow()
         timestamped_note = f"[{now.isoformat()}] {note}\n"
         
-        self.leads.update_one(
-            {"channel_id": channel_id},
-            {
-                "$set": {"updated_at": now},
-                "$push": {"notes": timestamped_note}  # Use concat if string, or change to array
-            }
-        )
+        # Check if notes is a string or array
+        lead = self.leads.find_one({"channel_id": channel_id}, {"notes": 1})
+        if lead and isinstance(lead.get("notes"), str):
+            # It's a string, append to it
+            new_notes = lead["notes"] + "\n" + timestamped_note
+            self.leads.update_one(
+                {"channel_id": channel_id},
+                {"$set": {"notes": new_notes, "updated_at": now}}
+            )
+        else:
+            # It's likely an array or doesn't exist, use $push
+            self.leads.update_one(
+                {"channel_id": channel_id},
+                {
+                    "$set": {"updated_at": now},
+                    "$push": {"notes": timestamped_note}
+                }
+            )
         # Alternative: if notes is a string, use $concat or fetch-modify-save
     
     def update_email(self, channel_id: str, new_email: str):

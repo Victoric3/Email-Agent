@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "crons": [
+    {
+      "path": "/api/worker",
+      "schedule": "0 8 * * *"
+    }
+  ],
+  "functions": {
+    "api/worker.py": {
+      "maxDuration": 300
+    }
+  }
+}

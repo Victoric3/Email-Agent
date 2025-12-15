@@ -1,0 +1,26 @@
+# Ignore everything except api/ and requirements
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.local
+
+# Ignore non-essential directories
+Context/
+data/
+followup/
+replied/
+review_queue/
+assets/
+
+# Ignore local scripts (not needed in serverless)
+scripts/outreach/
+scripts/__pycache__/
+
+# Ignore docs
+*.md
+!README.md
+
+# Ignore test files
+test_*.py
+*_test.py

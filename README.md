@@ -50,6 +50,7 @@ cp ../../.env.example ../../.env
 **Required tools:**
 - Python 3.10+
 - ffmpeg (for audio trimming)
+ - yt-dlp (for metadata & YouTube info extraction)
 - MongoDB Atlas account
 - EulaIQ accounts (for video generation)
 - YouTube channels with API credentials
@@ -167,9 +168,55 @@ python 3a_review_leads.py --import review_queue_2025-12-08_143022.json
 python 3a_review_leads.py --interactive
 ```
 
-Review leads one-by-one in terminal. Press `a` to approve (and enter email), `d` to disqualify.
+Review leads one-by-one in terminal with extended commands:
+
+| Command | Action |
+|---------|--------|
+| `a` | **Approve** - Enter email address and optional notes |
+| `d` | **Disqualify** - Enter reason for rejection |
+| `s` | **Skip** - Move lead to end of queue for later |
+| `v` | **Change Video** - Enter new YouTube URL for source video |
+| `l` | **Local Audio** - Provide path to custom audio file |
+| `n` | **Update Name** - Manually set or correct the creator's name (used in email greeting) |
+| `q` | **Quit** - Exit review mode |
+
+**Notes Field:** When approving, you can add notes that will be used by the LLM to personalize the email draft.
+
+**Creator Name Fallback:** If `creator_name` was not discovered during harvest/refine (or is generic like `Unknown`), the interactive review and drafting scripts will attempt to fetch channel metadata using the channel URL to fill in the name automatically. Use the `n` command during interactive review to correct or override the fetched name before finalizing the draft.
+
+**Change Video:** If the selected source video isn't ideal, provide a different YouTube URL from the same creator.
+
+**Local Audio:** If you recorded custom audio for this lead, provide the file path. The audio filename will be used as the video title.
+> Note: If we couldn't find a suitable audio track on the creator's channel, a local audio may be an AI-generated lecture created by our team to demonstrate the concept for the animation. The draft emails will explain this clearly to the creator so they understand the provenance of the voiceover.
 
 **Output:** Approved leads move to status `approved`
+
+### Modifying Approved Leads
+
+If you need to change the video, add local audio, or set the final video URL for a lead you've **already approved** (but haven't generated videos for yet), use the `--status` flag. You can now review both `approved` and `uploaded` leads interactively:
+
+```bash
+# Re-review approved leads (change source, add local audio, or set template)
+python 3a_review_leads.py --interactive --status approved
+
+# Re-review uploaded leads (change final URL or template if you uploaded manually)
+python 3a_review_leads.py --interactive --status uploaded
+```
+
+In interactive mode these additional commands are available when reviewing `approved` or `uploaded` leads:
+
+| Command | Action |
+|---------|--------|
+| `t` | Change or set the `video_to_generate` template (useful if you want to alter the animation style before generating) |
+| `f` | Set the final unlisted YouTube URL for the lead (enter the video URL). When you set this, the lead's `status` is updated to `uploaded` automatically. |
+| `v` | Change the source video URL used to generate the video (remixes the audio from a different source) |
+| `l` | Assign a local audio file path (for manual audio) |
+| `n` | Update the recorded creator name in the lead (handy if the name is missing or generic). |
+
+Notes:
+- `f` is intended for the case where you uploaded the final video manually (or used another workflow) and need to record the final YouTube link in the lead document.
+- `t` allows you to change which template or video style the generator should use for that particular lead.
+- These commands are available when `--status` is `approved` or `uploaded` so you can make final changes before drafting/sending.
 
 ---
 
@@ -180,10 +227,21 @@ python 3b_generate_videos.py --limit 10
 ```
 
 For each approved lead:
-1. Downloads audio from YouTube
-2. **Trims to first 5 minutes** using ffmpeg
-3. Generates **2 video variations** simultaneously using different EulaIQ accounts
-4. Stores both URLs for comparison
+1. **Checks for local audio path** - If you provided custom audio in 3a, uses that file
+2. Otherwise, downloads audio from YouTube
+3. **Trims to first 5 minutes** using ffmpeg
+4. Generates **2 video variations** simultaneously using different EulaIQ accounts
+5. Stores both URLs for comparison
+
+**Local Audio Support:** If you provided a `local_audio_path` during review (step 3a), the script uses that audio file directly instead of downloading from YouTube. The video title will be taken from the audio filename.
+> Note: In many cases where the original channel audio doesn't fit our animation pipeline, we create an AI-generated lecture/voiceover to demonstrate the animated concept. This local audio is meant to be a conceptual demo, and the email templates will explain that it is a demo generated from the creator's content (not a misrepresentation of the creator's real voice).
+
+**Export Audios for Manual Generation:** If you prefer to download and prepare audios for manual editing or external generation, use the `export_audios.py` script. It will download/trim audio for all `approved` leads into a dated folder under `audios/`.
+
+```bash
+python export_audios.py
+# Exports trimmed mp3s to: audios/YYYY-MM-DD/
+```
 
 **Output:** Status changes to `asset_pending_review`
 
@@ -248,14 +306,41 @@ Videos are uploaded as **unlisted** to your YouTube channels:
 
 ## Step 4: Draft Emails
 
+This step drafts personalized emails for leads that are in the `uploaded` status (final video available). If you have videos still in `asset_generated` or `asset_pending_review`, run `3c_accept_videos.py` and/or `3d_upload_youtube.py` to finalize the video first.
+
 ```bash
-python 4_draft_emails.py
+# Interactive mode - review each email before approval
+python 4_draft_emails.py --interactive
+
+# Batch mode - generate all drafts without review
+python 4_draft_emails.py --batch --limit 20
 ```
 
-Generates personalized emails using:
-- Creator name
-- Video title
-- **YouTube URL** (not EulaIQ player URL)
+### Interactive Mode (Recommended)
+
+For each lead, the script:
+1. **Generates personalized email** using LLM (Claude via AWS Bedrock)
+2. **Uses notes field** from lead review for personalization
+3. Displays the draft for your review
+
+**Creator Name Fallback**: If a lead does not have a valid `creator_name` (for example, the harvester found a generic or missing title), `4_draft_emails.py` will attempt to fetch the channel metadata using the creator's channel URL and populate the `creator_name` automatically. You can still manually update the name during interactive review using the `n` command — this updates the lead document in the DB.
+
+**Local Audio in Drafts (AI-generated demos)**: If the lead uses a `local_audio_path` (or we exported/imported an audio file), the system treats it as a demonstration track. In many cases this audio is an AI-generated lecture or conceptual voiceover created to show how an animation would look, rather than a direct copy of the creator's own audio. The email drafts will explicitly explain this (so creators understand that the demo is conceptual and meant to show possibilities, not to misrepresent the original creator's voice).
+
+**Commands:**
+| Command | Action |
+|---------|--------|
+| `a` | **Approve** - Set schedule time and save draft |
+| `e` | **Edit** - Directly modify subject and body |
+| `r` | **Reprompt** - Ask LLM to modify (e.g., "make it shorter", "add humor") |
+| `s` | **Skip** - Skip for now |
+| `n` | **Update Name** - Edit the creator name (updates DB). Use `[r]` to regenerate a draft with the new name. |
+| `q` | **Quit** - Exit review mode |
+
+**Scheduling:** When approving, enter:
+- Minutes offset from now (e.g., `60` for 1 hour)
+- Specific datetime (e.g., `2025-12-10 14:30`)
+- Press Enter for default slot
 
 **Output:** Status changes to `drafted`
 
@@ -282,8 +367,11 @@ python manage_leads.py approve-all
 ## Step 6: Schedule & Send Emails
 
 ```bash
-# Send 10 emails starting now, 30 min apart
+# Send 10 emails using sender 1, 30 min apart
 python 5_dispatch_emails.py --email 1 --limit 10 --date now --interval 30
+
+# ROUND-ROBIN: Alternate between all sender accounts
+python 5_dispatch_emails.py --round-robin --limit 10 --date now --interval 30
 
 # Schedule for tomorrow
 python 5_dispatch_emails.py --email 2 --limit 10 --date tomorrow --interval 60
@@ -291,6 +379,8 @@ python 5_dispatch_emails.py --email 2 --limit 10 --date tomorrow --interval 60
 # Preview schedule (dry run)
 python 5_dispatch_emails.py --email 1 --limit 5 --dry-run
 ```
+
+**Round-Robin Mode:** Use `--round-robin` or `-rr` to automatically alternate emails between all configured sender accounts. This distributes the sending load across accounts evenly.
 
 **Output:** Status changes to `sent`
 
@@ -367,10 +457,17 @@ python 1_harvest_leads.py --limit 5          # 10 channels at a time
 python 2_refine_leads.py --limit 30          # Transcript analysis + LLM scoring
 
 # Morning: Review leads, add emails (15-20 min)
+# Use skip/video/local commands as needed
 python 3a_review_leads.py --interactive
+# To re-review approved or uploaded leads and set templates/final URLs:
+python 3a_review_leads.py --interactive --status approved
+python 3a_review_leads.py --interactive --status uploaded
 
 # Late Morning: Generate videos (runs for ~2 hours)
+# Automatically handles local audio if provided
 python 3b_generate_videos.py --limit 10      # Dual video generation
+# Optionally prepare audios for manual generation or offline review
+python export_audios.py  # Exports trimmed audio files to audios/YYYY-MM-DD/
 
 # Afternoon: Review generated videos (10-15 min)
 python 3c_accept_videos.py --interactive
@@ -378,13 +475,11 @@ python 3c_accept_videos.py --interactive
 # Afternoon: Upload to YouTube
 python 3d_upload_youtube.py                   # 20/day capacity
 
-# Afternoon: Draft & review emails
-python 4_draft_emails.py
-python manage_leads.py drafts
-python manage_leads.py approve-all
+# Afternoon: Draft emails with LLM + review
+python 4_draft_emails.py --interactive       # Approve/edit/reprompt each email
 
-# Evening: Schedule emails
-python 5_dispatch_emails.py --email 1 --limit 10 --date tomorrow --interval 60
+# Evening: Schedule emails (round-robin between senders)
+python 5_dispatch_emails.py --round-robin --limit 10 --date tomorrow --interval 60
 
 # Daily: Check for replies
 python 6_check_followups.py

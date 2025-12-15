@@ -1,0 +1,14 @@
+# Vercel Python Requirements
+# Minimal dependencies for the worker function
+
+# Core
+aiohttp>=3.8.0
+python-dotenv>=1.0.0
+
+# MongoDB
+pymongo>=4.6.0
+dnspython>=2.4.0
+
+# YouTube Scraping
+scrapetube>=2.5.0
+yt-dlp>=2023.12.0
