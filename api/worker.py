@@ -216,6 +216,10 @@ async def run_worker():
     3. Harvest leads (limited batch)
     4. Qualify harvested leads
     """
+    print("\n" + "="*60)
+    print("🚀 WORKER STARTED")
+    print("="*60)
+    
     result = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "status": "started",
@@ -225,10 +229,14 @@ async def run_worker():
     }
     
     try:
+        print("Connecting to MongoDB...")
         db = get_db()
+        print("✓ Connected to MongoDB\n")
         
         # Step 1: Check keywords
+        print("Checking available keywords...")
         keywords_available = count_available_keywords(db)
+        print(f"✓ Found {keywords_available} available keywords\n")
         
         if keywords_available == 0:
             print("No keywords available, generating new ones...")
@@ -241,19 +249,31 @@ async def run_worker():
         
         # Step 2: Harvest leads (limit to 3 keywords per run)
         if keywords_available > 0:
+            print("Starting harvest batch (3 keywords)...")
             harvest_result = await harvest_batch(db, limit_keywords=3)
             result["harvest"] = harvest_result
+            print(f"✓ Harvest complete: {harvest_result}\n")
+        else:
+            print("⚠️ No keywords available for harvesting\n")
         
         # Step 3: Qualify harvested leads
+        print("Checking for harvested leads to qualify...")
         harvested_count = db[LEADS_COLLECTION].count_documents({"status": "harvested"})
+        print(f"Found {harvested_count} harvested leads\n")
         
         if harvested_count > 0:
+            print("Starting qualification batch (10 leads max)...")
             qualify_result = await qualify_batch(db, limit=10)
             result["qualify"] = qualify_result
+            print(f"✓ Qualification complete: {qualify_result}\n")
         else:
             result["qualify"] = {"skipped": True, "reason": "No harvested leads"}
+            print("⚠️ No harvested leads to qualify\n")
         
         result["status"] = "completed"
+        print("="*60)
+        print("✅ WORKER COMPLETED")
+        print("="*60)
         
     except Exception as e:
         import traceback
@@ -268,9 +288,10 @@ async def run_worker():
 # Harvest Logic
 # ============================================================
 async def harvest_batch(db, limit_keywords=3):
-    """Harvest leads from YouTube."""
+    """Harvest leads from YouTube with parallel channel fetching."""
     import scrapetube
     import yt_dlp
+    from concurrent.futures import ThreadPoolExecutor, as_completed
     
     keywords = get_available_keywords(db, limit=limit_keywords)
     
@@ -312,7 +333,8 @@ async def harvest_batch(db, limit_keywords=3):
         else:
             return "big"
     
-    def fetch_channel_info(channel_id):
+    def fetch_channel_info_worker(channel_id):
+        """Worker function to fetch channel info in parallel."""
         try:
             ydl_opts = {
                 'quiet': True,
@@ -325,15 +347,52 @@ async def harvest_batch(db, limit_keywords=3):
             with yt_dlp.YoutubeDL(ydl_opts) as ydl: # type: ignore
                 info = ydl.extract_info(url, download=False)
                 return {
+                    'channel_id': channel_id,
                     'subscriber_count': info.get('channel_follower_count'),
-                    'channel_description': info.get('description', '') or ''
+                    'channel_description': info.get('description', '') or '',
+                    'error': None
                 }
-        except:
-            return {'subscriber_count': None, 'channel_description': ''}
+        except Exception as e:
+            return {
+                'channel_id': channel_id,
+                'subscriber_count': None,
+                'channel_description': '',
+                'error': str(e)
+            }
+    
+    def fetch_channels_parallel(channel_data_list, max_workers=10, timeout=120):
+        """Fetch multiple channels in parallel."""
+        results = {}
+        
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_to_channel = {
+                executor.submit(fetch_channel_info_worker, ch['id']): ch
+                for ch in channel_data_list
+            }
+            
+            try:
+                for future in as_completed(future_to_channel, timeout=timeout):
+                    channel_data = future_to_channel[future]
+                    try:
+                        result = future.result(timeout=10)
+                        if not result.get('error'):
+                            results[result['channel_id']] = result
+                    except Exception as e:
+                        print(f"    ✗ {channel_data['name'][:30]:<30} | Error: {str(e)[:30]}")
+            except:
+                pass
+        
+        return results
     
     for keyword in keywords:
+        print(f"  Searching keyword: '{keyword}'...")
         try:
             videos = list(scrapetube.get_search(keyword, limit=MAX_VIDEOS_PER_KEYWORD, sort_by="upload_date"))
+            print(f"    Found {len(videos)} videos")
+            
+            # First pass: collect unique channels
+            channels_to_fetch = []
+            video_by_channel = {}
             
             for video in videos:
                 stats["total_videos"] += 1
@@ -357,8 +416,27 @@ async def harvest_batch(db, limit_keywords=3):
                     stats["skipped"] += 1
                     continue
                 
-                # Fetch channel stats
-                ch_stats = fetch_channel_info(channel_id)
+                # Store for parallel fetching
+                if channel_id not in video_by_channel:
+                    channels_to_fetch.append({'id': channel_id, 'name': channel_name})
+                    video_by_channel[channel_id] = {
+                        'video': video,
+                        'title': title,
+                        'channel_name': channel_name,
+                        'description': description
+                    }
+            
+            # Parallel fetch channel stats
+            if channels_to_fetch:
+                print(f"    Fetching stats for {len(channels_to_fetch)} channels (parallel)...")
+                channel_stats = fetch_channels_parallel(channels_to_fetch, max_workers=10, timeout=120)
+                print(f"    ✓ Fetched {len(channel_stats)} channel stats")
+            else:
+                channel_stats = {}
+            
+            # Second pass: save leads with fetched stats
+            for channel_id, data in video_by_channel.items():
+                ch_stats = channel_stats.get(channel_id, {'subscriber_count': None, 'channel_description': ''})
                 sub_tier = get_subscriber_tier(ch_stats.get("subscriber_count"))
                 
                 if sub_tier == "too_small":
@@ -366,6 +444,11 @@ async def harvest_batch(db, limit_keywords=3):
                     continue
                 
                 seen_channels.add(channel_id)
+                
+                video = data['video']
+                title = data['title']
+                channel_name = data['channel_name']
+                description = data['description']
                 
                 try:
                     channel_handle = video["ownerText"]["runs"][0]["navigationEndpoint"]["browseEndpoint"].get("canonicalBaseUrl", "")
@@ -401,13 +484,15 @@ async def harvest_batch(db, limit_keywords=3):
                 )
                 
                 stats["new_leads"] += 1
+                print(f"    + {channel_name[:40]:40} | {sub_tier} | Email: {'YES' if email else 'NO'}")
             
             # Mark keyword as used
+            print(f"    \u2713 Keyword '{keyword}' marked as used")
             mark_keyword_used(db, keyword)
             stats["keywords_processed"] += 1
             
         except Exception as e:
-            print(f"Error processing keyword '{keyword}': {e}")
+            print(f"    \u2716 Error processing keyword '{keyword}': {e}")
     
     return stats
 
